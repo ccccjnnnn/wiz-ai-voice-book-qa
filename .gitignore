@@ -32,3 +32,4 @@ uploads/
 # Secrets
 *.pem
 *.key
+backend/.env
