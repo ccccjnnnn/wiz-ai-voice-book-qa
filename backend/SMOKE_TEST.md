@@ -1,8 +1,8 @@
 # Day-1 Qwen smoke test
 
 Scope: standalone provider contract test only. No FastAPI, PDF, retrieval, voice,
-fallback providers, or application integration. The frozen architecture currently
-lives in the project conversation; `docs/PROJECT_CONTEXT.md` is the repository context.
+fallback providers, or application integration. The frozen design is documented in
+`docs/ARCHITECTURE.md`; `docs/PROJECT_CONTEXT.md` records the project context.
 
 ## Run
 
@@ -10,7 +10,7 @@ From the repository root:
 
 ```sh
 uv venv backend/.venv
-uv pip install --python backend/.venv/bin/python -r backend/requirements-smoke.txt
+uv pip install --python backend/.venv/bin/python -r backend/requirements.txt
 backend/.venv/bin/python backend/qwen_smoke.py --offline
 backend/.venv/bin/python backend/qwen_smoke.py
 ```

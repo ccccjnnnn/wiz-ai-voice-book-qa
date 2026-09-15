@@ -28,6 +28,7 @@ build/
 # Temporary / uploaded files
 tmp/
 uploads/
+backend/data/
 
 # Secrets
 *.pem
