@@ -1,0 +1,8 @@
+:root { font-family: system-ui, sans-serif; color: #172b36; background: #f4f6f7; }
+body { margin: 0; } main { max-width: 820px; margin: 28px auto; padding: 28px; background: white; border: 1px solid #dce2e5; border-radius: 12px; }
+h1 { margin-top: 0; } p { line-height: 1.5; } .buttons { display: flex; flex-wrap: wrap; gap: 10px; margin: 14px 0; }
+button { padding: 10px 14px; border: 1px solid #899ca5; border-radius: 6px; background: #edf3f5; color: #172b36; cursor: pointer; font: inherit; }
+button:disabled { opacity: .45; cursor: default; } button:focus-visible, textarea:focus-visible { outline: 3px solid #167a9c; outline-offset: 2px; }
+label { display: block; font-weight: 600; margin: 20px 0 8px; } textarea { width: 100%; box-sizing: border-box; padding: 12px; font: inherit; line-height: 1.5; border: 1px solid #899ca5; border-radius: 6px; }
+[role=alert] { padding: 12px; background: #fff0e7; color: #87391c; } pre { white-space: pre-wrap; overflow-wrap: anywhere; background: #f4f6f7; padding: 16px; } audio { width: 100%; }
+small { color: #53636a; } @media(max-width: 600px) { main { margin: 0; padding: 18px; border-radius: 0; } }
