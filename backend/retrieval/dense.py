@@ -1,5 +1,5 @@
 import math
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 from ingestion.models import Chunk
 
@@ -8,6 +8,7 @@ from ingestion.models import Chunk
 class DenseHit:
     chunk: Chunk
     score: float
+    method_metadata: dict = field(default_factory=dict)
 
 
 class DenseIndex:

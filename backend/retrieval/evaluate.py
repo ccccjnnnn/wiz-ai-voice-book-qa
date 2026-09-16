@@ -7,7 +7,7 @@ import sys
 import time
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Iterable
+from typing import Callable, Iterable
 
 from config import ConfigurationError, load_voyage_api_key
 from ingestion.models import Chunk, DocumentStatus, Page
@@ -33,7 +33,7 @@ DEFAULT_K_VALUES = (1, 3, 5, 10)
 # The provider accepted a tiny request but rate-limited a 43K-token book request.
 # Smaller paced batches stay bounded and can be checkpointed without changing text.
 DOCUMENT_BATCH_SIZE = 16
-INTER_BATCH_DELAY_SECONDS = 30.0
+INTER_BATCH_DELAY_SECONDS = 55.0
 
 
 def load_dataset(path: Path) -> EvaluationDataset:
@@ -261,13 +261,22 @@ def score_results(
     index: DenseIndex,
     query_vectors: list[list[float]],
     k_values: tuple[int, ...] = DEFAULT_K_VALUES,
+    search_latencies_ms: list[float] | None = None,
+    ranker: Callable[[str, list[float], int], list[DenseHit]] | None = None,
 ) -> tuple[EvaluationMetrics, list[QuestionResult]]:
     if len(query_vectors) != len(dataset.questions):
         raise ValueError("query embeddings do not align with evaluation questions")
     max_k = max(k_values)
     all_results: list[QuestionResult] = []
     for item, query_vector in zip(dataset.questions, query_vectors, strict=True):
-        full_hits = index.search(query_vector, len(chunks))
+        search_started = time.perf_counter()
+        full_hits = (
+            ranker(item.question, query_vector, len(chunks))
+            if ranker is not None
+            else index.search(query_vector, len(chunks))
+        )
+        if search_latencies_ms is not None:
+            search_latencies_ms.append((time.perf_counter() - search_started) * 1000)
         expected_pages = set(item.source_pages)
         first_relevant_rank = next(
             (
@@ -306,6 +315,7 @@ def score_results(
                         chunk_id=hit.chunk.chunk_id,
                         pages=hit.chunk.page_numbers,
                         score=hit.score,
+                        method_metadata=hit.method_metadata,
                     )
                     for rank, hit in enumerate(full_hits[:max_k], start=1)
                 ],
@@ -318,11 +328,20 @@ def score_results(
             )
         )
 
-    question_count = len(all_results)
-    metrics = EvaluationMetrics(
+    return aggregate_metrics(all_results, k_values), all_results
+
+
+def aggregate_metrics(
+    results: list[QuestionResult],
+    k_values: tuple[int, ...] = DEFAULT_K_VALUES,
+) -> EvaluationMetrics:
+    if not results:
+        raise ValueError("cannot aggregate an empty result set")
+    question_count = len(results)
+    return EvaluationMetrics(
         question_count=question_count,
         recall_at_k={
-            str(k): sum(result.recall_at_k[str(k)] for result in all_results) / question_count
+            str(k): sum(result.recall_at_k[str(k)] for result in results) / question_count
             for k in k_values
         },
         mrr_at_k={
@@ -331,27 +350,26 @@ def score_results(
                 if result.first_relevant_rank is not None
                 and result.first_relevant_rank <= k
                 else 0
-                for result in all_results
+                for result in results
             )
             / question_count
             for k in k_values
         },
         mean_evidence_coverage_at_k={
             str(k): sum(
-                result.evidence_coverage_at_k[str(k)] for result in all_results
+                result.evidence_coverage_at_k[str(k)] for result in results
             )
             / question_count
             for k in k_values
         },
         full_evidence_coverage_at_k={
             str(k): sum(
-                result.full_evidence_found_at_k[str(k)] for result in all_results
+                result.full_evidence_found_at_k[str(k)] for result in results
             )
             / question_count
             for k in k_values
         },
     )
-    return metrics, all_results
 
 
 def write_bad_case_report(report: EvaluationReport, path: Path) -> None:

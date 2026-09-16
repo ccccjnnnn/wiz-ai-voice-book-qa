@@ -17,12 +17,17 @@ from retrieval.evaluate import (
     score_results,
     validate_dataset_against_source,
 )
+from retrieval.experiment import _validate_test_gate
+from retrieval.hybrid import BM25Index, HybridRRFIndex
 from retrieval.models import (
     Difficulty,
     EvaluationDataset,
     EvaluationQuestion,
     EvaluationSource,
 )
+from retrieval.splits import load_frozen_split, validate_frozen_split
+from retrieval.structure_chunker import create_structure_aware_chunks
+from retrieval.runtime import DenseRuntimeRetriever, RetrievalRequest
 from retrieval.voyage import EmbeddingResponse, VoyageEmbeddingClient, VoyageError
 
 
@@ -117,11 +122,103 @@ class RetrievalFoundationTests(unittest.TestCase):
         self.assertEqual(metrics.recall_at_k["3"], 1.0)
         self.assertEqual(metrics.full_evidence_coverage_at_k["3"], 1.0)
 
+    def test_bm25_rrf_records_component_ranks(self):
+        chunks = [
+            make_chunk(0, 1, "generic rabbit story"),
+            make_chunk(1, 2, "the Duchess baby turned into a pig"),
+            make_chunk(2, 3, "another unrelated chapter"),
+        ]
+        dense = DenseIndex(chunks, [[1.0, 0.0], [0.8, 0.2], [0.0, 1.0]])
+        hybrid = HybridRRFIndex(dense, BM25Index(chunks), rrf_k=60)
+        hits = hybrid.search("What did the Duchess baby turn into?", [1.0, 0.0], 3)
+        self.assertEqual(hits[0].chunk.chunk_id, chunks[1].chunk_id)
+        self.assertEqual(hits[0].method_metadata["dense_rank"], 2)
+        self.assertEqual(hits[0].method_metadata["bm25_rank"], 1)
+        self.assertEqual(hits[0].method_metadata["fusion"], "rrf")
+
     def test_real_dataset_schema_loads(self):
         path = Path(__file__).resolve().parents[1] / "eval" / "alice_in_wonderland_v1.json"
         dataset = load_dataset(path)
         self.assertEqual(len(dataset.questions), 30)
         self.assertEqual(dataset.source.page_count, 92)
+
+        split_path = path.parent / "splits" / "alice_v1_dev_test.json"
+        split = load_frozen_split(split_path)
+        validate_frozen_split(split, dataset, path)
+        self.assertEqual(len(split.dev_question_ids), 20)
+        self.assertEqual(len(split.test_question_ids), 10)
+        self.assertIn("q010", split.dev_question_ids)
+        self.assertIn("q021", split.dev_question_ids)
+
+    def test_structure_chunks_keep_heading_provenance_and_hard_max(self):
+        heading = "CHAPTER 1. A TEST"
+        paragraph = " ".join(
+            f"Sentence {index} has enough words to exercise paragraph grouping."
+            for index in range(80)
+        )
+        pages = [
+            Page(
+                document_id="doc",
+                page_number=1,
+                source_filename="book.pdf",
+                text=f"{heading}\n\n{paragraph}",
+                char_count=len(heading) + len(paragraph) + 2,
+            ),
+            Page(
+                document_id="doc",
+                page_number=2,
+                source_filename="book.pdf",
+                text="A final short paragraph follows the chapter text.",
+                char_count=47,
+            ),
+        ]
+        chunks = create_structure_aware_chunks(pages, target_tokens=100, max_tokens=160)
+        self.assertTrue(chunks[0].text.startswith(heading + "\n\n"))
+        self.assertTrue(all(chunk.token_count <= 160 for chunk in chunks))
+        self.assertTrue(all(chunk.page_numbers == sorted(set(chunk.page_numbers)) for chunk in chunks))
+        self.assertEqual(chunks[0].chunk_id, "doc:structure-v1:chunk:00000")
+
+    def test_held_out_test_requires_matching_frozen_winner(self):
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory) / "test.json"
+            with self.assertRaisesRegex(ValueError, "frozen_winner_required_before_test"):
+                _validate_test_gate("test", "candidate", "split", None, output)
+            decision = Path(directory) / "decision.json"
+            decision.write_text(
+                json.dumps(
+                    {"split_id": "split", "winner_experiment_id": "winner"}
+                )
+            )
+            with self.assertRaisesRegex(
+                ValueError, "test_configuration_does_not_match_frozen_winner"
+            ):
+                _validate_test_gate("test", "candidate", "split", decision, output)
+
+    def test_frozen_runtime_contract_returns_text_and_provenance(self):
+        chunks = [
+            make_chunk(0, 1, "first evidence"),
+            make_chunk(1, 2, "second evidence"),
+        ]
+        retriever = DenseRuntimeRetriever(
+            document_id="doc",
+            index_version="fixed-window-dense-v1",
+            chunks=chunks,
+            vectors=[[1.0, 0.0], [0.0, 1.0]],
+            embed_query=lambda _query: [0.0, 1.0],
+        )
+        response = retriever.retrieve(
+            RetrievalRequest(
+                document_id="doc",
+                index_version="fixed-window-dense-v1",
+                query="find second",
+                top_k=1,
+            )
+        )
+        self.assertEqual(response.items[0].chunk_id, chunks[1].chunk_id)
+        self.assertEqual(response.items[0].text, "second evidence")
+        self.assertEqual(response.items[0].pages, [2])
+        self.assertEqual(response.items[0].rank, 1)
+        self.assertEqual(response.items[0].retrieval_method, "dense_exact_cosine")
 
     def test_source_validation_checks_hash_pages_and_evidence(self):
         with tempfile.TemporaryDirectory() as directory:

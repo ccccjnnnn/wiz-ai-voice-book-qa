@@ -1,0 +1,53 @@
+{
+  "split_id": "alice-v1-dev20-test10",
+  "dataset_id": "alice-in-wonderland-v1",
+  "dataset_sha256_at_freeze": "8dbaf54eaa977a19b41a342608f219a161f49384701762d2ba8c9d12833a1baa",
+  "frozen_at": "2026-09-16T05:10:00Z",
+  "protocol": {
+    "selection_basis": "Question metadata only: difficulty, category, source-page distribution, and single/multi-page evidence.",
+    "development_policy": "Inspect per-question DEV results and choose the retrieval configuration using DEV only.",
+    "test_policy": "Do not generate or inspect per-question TEST experiment results until the winning configuration is recorded.",
+    "known_inspected_questions": ["q010", "q021"]
+  },
+  "annotation_corrections_before_freeze": [
+    {
+      "question_id": "q001",
+      "change": "Canonical source page changed from 10 to 1 because the same author evidence occurs on both pages and the valid top-ranked cover evidence is on page 1.",
+      "retrieval_configuration_changed": false
+    }
+  ],
+  "dev_question_ids": [
+    "q001",
+    "q004",
+    "q005",
+    "q007",
+    "q008",
+    "q009",
+    "q010",
+    "q011",
+    "q013",
+    "q014",
+    "q016",
+    "q017",
+    "q019",
+    "q021",
+    "q022",
+    "q023",
+    "q025",
+    "q026",
+    "q028",
+    "q030"
+  ],
+  "test_question_ids": [
+    "q002",
+    "q003",
+    "q006",
+    "q012",
+    "q015",
+    "q018",
+    "q020",
+    "q024",
+    "q027",
+    "q029"
+  ]
+}

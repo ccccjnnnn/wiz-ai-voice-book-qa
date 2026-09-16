@@ -144,3 +144,5 @@ These cases show why page recall alone is insufficient and provide concrete targ
 - The dataset is currently a development set. Freeze a held-out subset before using failures to tune chunking.
 - The account rejected larger indexing requests even though the payload was below Voyage's published model input limit. Pacing 16-chunk batches succeeded; the checkpoint cache prevents completed batches from being purchased again after interruption.
 - Test structure-aware chunking next. Only after measuring that result should BM25/RRF or reranking be considered.
+
+Phase 3 completed these gates. Structure-aware dense and BM25/RRF both caused DEV regressions, so the fixed-window dense control was frozen as the winner. See [the retrieval experiment log](RETRIEVAL_EXPERIMENTS.md).

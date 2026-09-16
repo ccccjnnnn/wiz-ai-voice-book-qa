@@ -1,0 +1,3642 @@
+{
+  "generated_at": "2026-09-16T05:13:58.921428Z",
+  "experiment_id": "fixed-window-dense-bm25-rrf-v1",
+  "subset": "dev",
+  "split_id": "alice-v1-dev20-test10",
+  "dataset_id": "alice-in-wonderland-v1",
+  "document_id": "a6c315f78fbb4c5cb9f16f08f28aed38",
+  "source_filename": "alice-in-wonderland.pdf",
+  "chunk_count": 148,
+  "configuration": {
+    "chunking": "fixed_character_window",
+    "chunk_chars": 1200,
+    "overlap_chars": 150,
+    "dense_retrieval": "exact_cosine",
+    "lexical_retrieval": "local_bm25",
+    "bm25_k1": 1.5,
+    "bm25_b": 0.75,
+    "fusion": "reciprocal_rank_fusion",
+    "rrf_k": 60,
+    "embedding_model": "voyage-4"
+  },
+  "metrics": {
+    "question_count": 20,
+    "recall_at_k": {
+      "1": 0.75,
+      "3": 0.9,
+      "5": 0.9,
+      "10": 0.95
+    },
+    "mrr_at_k": {
+      "1": 0.75,
+      "3": 0.8166666666666667,
+      "5": 0.8166666666666667,
+      "10": 0.8238095238095238
+    },
+    "mean_evidence_coverage_at_k": {
+      "1": 0.7,
+      "3": 0.85,
+      "5": 0.85,
+      "10": 0.95
+    },
+    "full_evidence_coverage_at_k": {
+      "1": 0.65,
+      "3": 0.8,
+      "5": 0.8,
+      "10": 0.95
+    }
+  },
+  "provider_usage": {
+    "model": "voyage-4",
+    "document_request_count": 10,
+    "document_input_tokens": 44303,
+    "document_latency_ms": 35225.642416626215,
+    "document_embeddings_from_cache": true,
+    "query_request_count": 1,
+    "query_input_tokens": 246,
+    "query_latency_ms": 1851.140750106424,
+    "note": null
+  },
+  "retrieval_timing": {
+    "measured_queries": 20,
+    "mean_ms": 3.93606242723763,
+    "p95_ms": 5.459333071485162,
+    "max_ms": 6.120083155110478
+  },
+  "results": [
+    {
+      "question_id": "q001",
+      "question": "Who wrote Alice's Adventures in Wonderland?",
+      "expected_pages": [
+        1
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00010",
+          "pages": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "score": 0.03252247488101534,
+          "method_metadata": {
+            "dense_rank": 2,
+            "bm25_rank": 1,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 2,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00000",
+          "pages": [
+            1,
+            2,
+            3
+          ],
+          "score": 0.031544957774465976,
+          "method_metadata": {
+            "dense_rank": 1,
+            "bm25_rank": 6,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 3,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00022",
+          "pages": [
+            17,
+            18,
+            19
+          ],
+          "score": 0.029910714285714284,
+          "method_metadata": {
+            "dense_rank": 4,
+            "bm25_rank": 10,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 4,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00011",
+          "pages": [
+            11,
+            12,
+            13
+          ],
+          "score": 0.02886002886002886,
+          "method_metadata": {
+            "dense_rank": 3,
+            "bm25_rank": 17,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 5,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00122",
+          "pages": [
+            76
+          ],
+          "score": 0.027118043247075507,
+          "method_metadata": {
+            "dense_rank": 31,
+            "bm25_rank": 2,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 6,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00085",
+          "pages": [
+            54
+          ],
+          "score": 0.027106227106227107,
+          "method_metadata": {
+            "dense_rank": 10,
+            "bm25_rank": 18,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 7,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00136",
+          "pages": [
+            85,
+            86,
+            87
+          ],
+          "score": 0.025849212924606464,
+          "method_metadata": {
+            "dense_rank": 25,
+            "bm25_rank": 11,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 8,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00137",
+          "pages": [
+            85,
+            86,
+            87
+          ],
+          "score": 0.025708635464733027,
+          "method_metadata": {
+            "dense_rank": 22,
+            "bm25_rank": 14,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 9,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00142",
+          "pages": [
+            89,
+            90
+          ],
+          "score": 0.025625000000000002,
+          "method_metadata": {
+            "dense_rank": 40,
+            "bm25_rank": 4,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 10,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00145",
+          "pages": [
+            91
+          ],
+          "score": 0.025488400488400488,
+          "method_metadata": {
+            "dense_rank": 44,
+            "bm25_rank": 3,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        }
+      ],
+      "first_relevant_rank": 2,
+      "recall_at_k": {
+        "1": false,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "evidence_coverage_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "full_evidence_found_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "failure_category": null,
+      "failure_detail": null
+    },
+    {
+      "question_id": "q004",
+      "question": "What was disappointing about the orange marmalade jar?",
+      "expected_pages": [
+        14
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00013",
+          "pages": [
+            13,
+            14
+          ],
+          "score": 0.03278688524590164,
+          "method_metadata": {
+            "dense_rank": 1,
+            "bm25_rank": 1,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 2,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00019",
+          "pages": [
+            16
+          ],
+          "score": 0.02976190476190476,
+          "method_metadata": {
+            "dense_rank": 3,
+            "bm25_rank": 12,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 3,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00081",
+          "pages": [
+            52
+          ],
+          "score": 0.028790389395194696,
+          "method_metadata": {
+            "dense_rank": 11,
+            "bm25_rank": 8,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 4,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00107",
+          "pages": [
+            68,
+            69
+          ],
+          "score": 0.02803921568627451,
+          "method_metadata": {
+            "dense_rank": 8,
+            "bm25_rank": 15,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 5,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00114",
+          "pages": [
+            71,
+            72
+          ],
+          "score": 0.026151315789473682,
+          "method_metadata": {
+            "dense_rank": 35,
+            "bm25_rank": 4,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 6,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00045",
+          "pages": [
+            32,
+            33
+          ],
+          "score": 0.025007766387076732,
+          "method_metadata": {
+            "dense_rank": 14,
+            "bm25_rank": 27,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 7,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00087",
+          "pages": [
+            55
+          ],
+          "score": 0.02472929470295581,
+          "method_metadata": {
+            "dense_rank": 7,
+            "bm25_rank": 42,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 8,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00082",
+          "pages": [
+            52,
+            53
+          ],
+          "score": 0.024320652173913042,
+          "method_metadata": {
+            "dense_rank": 4,
+            "bm25_rank": 55,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 9,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00105",
+          "pages": [
+            67,
+            68
+          ],
+          "score": 0.023822791864028976,
+          "method_metadata": {
+            "dense_rank": 37,
+            "bm25_rank": 14,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 10,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00043",
+          "pages": [
+            31,
+            32
+          ],
+          "score": 0.02363150867823765,
+          "method_metadata": {
+            "dense_rank": 10,
+            "bm25_rank": 47,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        }
+      ],
+      "first_relevant_rank": 1,
+      "recall_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "evidence_coverage_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "full_evidence_found_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "failure_category": null,
+      "failure_detail": null
+    },
+    {
+      "question_id": "q005",
+      "question": "What was the name of Alice's cat?",
+      "expected_pages": [
+        14
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00075",
+          "pages": [
+            47,
+            48
+          ],
+          "score": 0.032266458495966696,
+          "method_metadata": {
+            "dense_rank": 3,
+            "bm25_rank": 1,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 2,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00030",
+          "pages": [
+            22,
+            23
+          ],
+          "score": 0.03177805800756621,
+          "method_metadata": {
+            "dense_rank": 1,
+            "bm25_rank": 5,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 3,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00077",
+          "pages": [
+            48,
+            49
+          ],
+          "score": 0.03128054740957967,
+          "method_metadata": {
+            "dense_rank": 6,
+            "bm25_rank": 2,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 4,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00076",
+          "pages": [
+            48
+          ],
+          "score": 0.031009615384615385,
+          "method_metadata": {
+            "dense_rank": 5,
+            "bm25_rank": 4,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 5,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00078",
+          "pages": [
+            48,
+            49,
+            50,
+            51
+          ],
+          "score": 0.029857397504456328,
+          "method_metadata": {
+            "dense_rank": 8,
+            "bm25_rank": 6,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 6,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00069",
+          "pages": [
+            44,
+            45
+          ],
+          "score": 0.029211087420042643,
+          "method_metadata": {
+            "dense_rank": 7,
+            "bm25_rank": 10,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 7,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00099",
+          "pages": [
+            62,
+            63
+          ],
+          "score": 0.028991596638655463,
+          "method_metadata": {
+            "dense_rank": 10,
+            "bm25_rank": 8,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 8,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00040",
+          "pages": [
+            29,
+            30
+          ],
+          "score": 0.02878726010616578,
+          "method_metadata": {
+            "dense_rank": 2,
+            "bm25_rank": 19,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 9,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00136",
+          "pages": [
+            85,
+            86,
+            87
+          ],
+          "score": 0.028531243721117136,
+          "method_metadata": {
+            "dense_rank": 19,
+            "bm25_rank": 3,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 10,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00070",
+          "pages": [
+            45
+          ],
+          "score": 0.02797339593114241,
+          "method_metadata": {
+            "dense_rank": 11,
+            "bm25_rank": 12,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        }
+      ],
+      "first_relevant_rank": 11,
+      "recall_at_k": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false
+      },
+      "evidence_coverage_at_k": {
+        "1": 0.0,
+        "3": 0.0,
+        "5": 0.0,
+        "10": 0.0
+      },
+      "full_evidence_found_at_k": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": false
+      },
+      "failure_category": "query_mismatch",
+      "failure_detail": "expected page is ranked below retrieval depth"
+    },
+    {
+      "question_id": "q007",
+      "question": "Which foods did Alice say the DRINK ME bottle tasted like?",
+      "expected_pages": [
+        16
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00018",
+          "pages": [
+            15,
+            16
+          ],
+          "score": 0.03252247488101534,
+          "method_metadata": {
+            "dense_rank": 2,
+            "bm25_rank": 1,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 2,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00019",
+          "pages": [
+            16
+          ],
+          "score": 0.032266458495966696,
+          "method_metadata": {
+            "dense_rank": 1,
+            "bm25_rank": 3,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 3,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00043",
+          "pages": [
+            31,
+            32
+          ],
+          "score": 0.03200204813108039,
+          "method_metadata": {
+            "dense_rank": 3,
+            "bm25_rank": 2,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 4,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00053",
+          "pages": [
+            36
+          ],
+          "score": 0.030330882352941176,
+          "method_metadata": {
+            "dense_rank": 4,
+            "bm25_rank": 8,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 5,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00063",
+          "pages": [
+            41,
+            42
+          ],
+          "score": 0.029273504273504274,
+          "method_metadata": {
+            "dense_rank": 12,
+            "bm25_rank": 5,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 6,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00050",
+          "pages": [
+            34,
+            35
+          ],
+          "score": 0.02900988017658188,
+          "method_metadata": {
+            "dense_rank": 11,
+            "bm25_rank": 7,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 7,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00044",
+          "pages": [
+            32
+          ],
+          "score": 0.027820121951219513,
+          "method_metadata": {
+            "dense_rank": 22,
+            "bm25_rank": 4,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 8,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00081",
+          "pages": [
+            52
+          ],
+          "score": 0.02719970792259949,
+          "method_metadata": {
+            "dense_rank": 6,
+            "bm25_rank": 23,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 9,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00015",
+          "pages": [
+            14,
+            15
+          ],
+          "score": 0.0259915611814346,
+          "method_metadata": {
+            "dense_rank": 19,
+            "bm25_rank": 15,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 10,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00064",
+          "pages": [
+            42
+          ],
+          "score": 0.0259915611814346,
+          "method_metadata": {
+            "dense_rank": 15,
+            "bm25_rank": 19,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        }
+      ],
+      "first_relevant_rank": 1,
+      "recall_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "evidence_coverage_at_k": {
+        "1": 0.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "full_evidence_found_at_k": {
+        "1": false,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "failure_category": null,
+      "failure_detail": null
+    },
+    {
+      "question_id": "q008",
+      "question": "What words were marked in currants on the cake?",
+      "expected_pages": [
+        17
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00021",
+          "pages": [
+            17,
+            18,
+            19
+          ],
+          "score": 0.032266458495966696,
+          "method_metadata": {
+            "dense_rank": 3,
+            "bm25_rank": 1,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 2,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00022",
+          "pages": [
+            17,
+            18,
+            19
+          ],
+          "score": 0.031754032258064516,
+          "method_metadata": {
+            "dense_rank": 2,
+            "bm25_rank": 4,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 3,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00127",
+          "pages": [
+            79,
+            80,
+            81
+          ],
+          "score": 0.02904040404040404,
+          "method_metadata": {
+            "dense_rank": 6,
+            "bm25_rank": 12,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 4,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00019",
+          "pages": [
+            16
+          ],
+          "score": 0.02871794871794872,
+          "method_metadata": {
+            "dense_rank": 15,
+            "bm25_rank": 5,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 5,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00125",
+          "pages": [
+            77,
+            78
+          ],
+          "score": 0.026161328190508135,
+          "method_metadata": {
+            "dense_rank": 29,
+            "bm25_rank": 7,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 6,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00144",
+          "pages": [
+            90,
+            91
+          ],
+          "score": 0.02591362126245847,
+          "method_metadata": {
+            "dense_rank": 10,
+            "bm25_rank": 26,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 7,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00018",
+          "pages": [
+            15,
+            16
+          ],
+          "score": 0.025873015873015874,
+          "method_metadata": {
+            "dense_rank": 40,
+            "bm25_rank": 3,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 8,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00126",
+          "pages": [
+            78,
+            79,
+            80
+          ],
+          "score": 0.02478580171358629,
+          "method_metadata": {
+            "dense_rank": 26,
+            "bm25_rank": 16,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 9,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00035",
+          "pages": [
+            26
+          ],
+          "score": 0.02474972191323693,
+          "method_metadata": {
+            "dense_rank": 56,
+            "bm25_rank": 2,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 10,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00128",
+          "pages": [
+            81,
+            82
+          ],
+          "score": 0.024722804914593947,
+          "method_metadata": {
+            "dense_rank": 11,
+            "bm25_rank": 34,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        }
+      ],
+      "first_relevant_rank": 1,
+      "recall_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "evidence_coverage_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "full_evidence_found_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "failure_category": null,
+      "failure_detail": null
+    },
+    {
+      "question_id": "q009",
+      "question": "How tall did Alice become, and how deep was the pool of tears?",
+      "expected_pages": [
+        19,
+        20
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00023",
+          "pages": [
+            19,
+            20
+          ],
+          "score": 0.03278688524590164,
+          "method_metadata": {
+            "dense_rank": 1,
+            "bm25_rank": 1,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 2,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00028",
+          "pages": [
+            21,
+            22
+          ],
+          "score": 0.03200204813108039,
+          "method_metadata": {
+            "dense_rank": 3,
+            "bm25_rank": 2,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 3,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00027",
+          "pages": [
+            21,
+            22
+          ],
+          "score": 0.03128054740957967,
+          "method_metadata": {
+            "dense_rank": 2,
+            "bm25_rank": 6,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 4,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00022",
+          "pages": [
+            17,
+            18,
+            19
+          ],
+          "score": 0.03125,
+          "method_metadata": {
+            "dense_rank": 4,
+            "bm25_rank": 4,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 5,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00026",
+          "pages": [
+            21
+          ],
+          "score": 0.029236022193768675,
+          "method_metadata": {
+            "dense_rank": 6,
+            "bm25_rank": 11,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 6,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00011",
+          "pages": [
+            11,
+            12,
+            13
+          ],
+          "score": 0.028814262023217248,
+          "method_metadata": {
+            "dense_rank": 12,
+            "bm25_rank": 7,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 7,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00021",
+          "pages": [
+            17,
+            18,
+            19
+          ],
+          "score": 0.028594771241830064,
+          "method_metadata": {
+            "dense_rank": 8,
+            "bm25_rank": 12,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 8,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00044",
+          "pages": [
+            32
+          ],
+          "score": 0.027912386121341344,
+          "method_metadata": {
+            "dense_rank": 7,
+            "bm25_rank": 17,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 9,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00012",
+          "pages": [
+            13,
+            14
+          ],
+          "score": 0.027051561365286855,
+          "method_metadata": {
+            "dense_rank": 21,
+            "bm25_rank": 8,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 10,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00032",
+          "pages": [
+            23,
+            24,
+            25
+          ],
+          "score": 0.026984126984126985,
+          "method_metadata": {
+            "dense_rank": 30,
+            "bm25_rank": 3,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        }
+      ],
+      "first_relevant_rank": 1,
+      "recall_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "evidence_coverage_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "full_evidence_found_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "failure_category": null,
+      "failure_detail": null
+    },
+    {
+      "question_id": "q010",
+      "question": "What caused Alice to start shrinking while she was talking to the Mouse?",
+      "expected_pages": [
+        21
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00029",
+          "pages": [
+            22
+          ],
+          "score": 0.03128054740957967,
+          "method_metadata": {
+            "dense_rank": 2,
+            "bm25_rank": 6,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 2,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00060",
+          "pages": [
+            40
+          ],
+          "score": 0.030679156908665108,
+          "method_metadata": {
+            "dense_rank": 1,
+            "bm25_rank": 10,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 3,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00027",
+          "pages": [
+            21,
+            22
+          ],
+          "score": 0.030621785881252923,
+          "method_metadata": {
+            "dense_rank": 9,
+            "bm25_rank": 2,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 4,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00051",
+          "pages": [
+            35
+          ],
+          "score": 0.030090497737556562,
+          "method_metadata": {
+            "dense_rank": 8,
+            "bm25_rank": 5,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 5,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00037",
+          "pages": [
+            27
+          ],
+          "score": 0.028021349599695006,
+          "method_metadata": {
+            "dense_rank": 26,
+            "bm25_rank": 1,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 6,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00028",
+          "pages": [
+            21,
+            22
+          ],
+          "score": 0.02797067901234568,
+          "method_metadata": {
+            "dense_rank": 4,
+            "bm25_rank": 21,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 7,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00038",
+          "pages": [
+            27,
+            28,
+            29
+          ],
+          "score": 0.02792120864410021,
+          "method_metadata": {
+            "dense_rank": 23,
+            "bm25_rank": 3,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 8,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00019",
+          "pages": [
+            16
+          ],
+          "score": 0.02736726874657909,
+          "method_metadata": {
+            "dense_rank": 3,
+            "bm25_rank": 27,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 9,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00026",
+          "pages": [
+            21
+          ],
+          "score": 0.027346637102734665,
+          "method_metadata": {
+            "dense_rank": 6,
+            "bm25_rank": 22,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 10,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00043",
+          "pages": [
+            31,
+            32
+          ],
+          "score": 0.027149321266968326,
+          "method_metadata": {
+            "dense_rank": 5,
+            "bm25_rank": 25,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        }
+      ],
+      "first_relevant_rank": 3,
+      "recall_at_k": {
+        "1": false,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "evidence_coverage_at_k": {
+        "1": 0.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "full_evidence_found_at_k": {
+        "1": false,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "failure_category": null,
+      "failure_detail": null
+    },
+    {
+      "question_id": "q011",
+      "question": "Why did Alice address the Mouse in French?",
+      "expected_pages": [
+        22
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00029",
+          "pages": [
+            22
+          ],
+          "score": 0.03278688524590164,
+          "method_metadata": {
+            "dense_rank": 1,
+            "bm25_rank": 1,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 2,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00033",
+          "pages": [
+            25,
+            26
+          ],
+          "score": 0.03128054740957967,
+          "method_metadata": {
+            "dense_rank": 2,
+            "bm25_rank": 6,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 3,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00089",
+          "pages": [
+            56
+          ],
+          "score": 0.03055037313432836,
+          "method_metadata": {
+            "dense_rank": 4,
+            "bm25_rank": 7,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 4,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00030",
+          "pages": [
+            22,
+            23
+          ],
+          "score": 0.030158730158730156,
+          "method_metadata": {
+            "dense_rank": 3,
+            "bm25_rank": 10,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 5,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00038",
+          "pages": [
+            27,
+            28,
+            29
+          ],
+          "score": 0.030158730158730156,
+          "method_metadata": {
+            "dense_rank": 10,
+            "bm25_rank": 3,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 6,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00034",
+          "pages": [
+            25,
+            26
+          ],
+          "score": 0.030117753623188408,
+          "method_metadata": {
+            "dense_rank": 9,
+            "bm25_rank": 4,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 7,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00031",
+          "pages": [
+            23
+          ],
+          "score": 0.030090497737556562,
+          "method_metadata": {
+            "dense_rank": 5,
+            "bm25_rank": 8,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 8,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00113",
+          "pages": [
+            71
+          ],
+          "score": 0.029827662395050816,
+          "method_metadata": {
+            "dense_rank": 13,
+            "bm25_rank": 2,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 9,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00037",
+          "pages": [
+            27
+          ],
+          "score": 0.0288981288981289,
+          "method_metadata": {
+            "dense_rank": 14,
+            "bm25_rank": 5,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 10,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00028",
+          "pages": [
+            21,
+            22
+          ],
+          "score": 0.028438886647841874,
+          "method_metadata": {
+            "dense_rank": 7,
+            "bm25_rank": 14,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        }
+      ],
+      "first_relevant_rank": 1,
+      "recall_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "evidence_coverage_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "full_evidence_found_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "failure_category": null,
+      "failure_detail": null
+    },
+    {
+      "question_id": "q013",
+      "question": "What prizes did Alice and the other racers receive after the Caucus-race?",
+      "expected_pages": [
+        27
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00036",
+          "pages": [
+            26,
+            27
+          ],
+          "score": 0.03278688524590164,
+          "method_metadata": {
+            "dense_rank": 1,
+            "bm25_rank": 1,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 2,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00035",
+          "pages": [
+            26
+          ],
+          "score": 0.03200204813108039,
+          "method_metadata": {
+            "dense_rank": 3,
+            "bm25_rank": 2,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 3,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00010",
+          "pages": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "score": 0.031009615384615385,
+          "method_metadata": {
+            "dense_rank": 4,
+            "bm25_rank": 5,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 4,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00040",
+          "pages": [
+            29,
+            30
+          ],
+          "score": 0.030303030303030304,
+          "method_metadata": {
+            "dense_rank": 6,
+            "bm25_rank": 6,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 5,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00032",
+          "pages": [
+            23,
+            24,
+            25
+          ],
+          "score": 0.030117753623188408,
+          "method_metadata": {
+            "dense_rank": 9,
+            "bm25_rank": 4,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 6,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00037",
+          "pages": [
+            27
+          ],
+          "score": 0.030017921146953404,
+          "method_metadata": {
+            "dense_rank": 2,
+            "bm25_rank": 12,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 7,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00011",
+          "pages": [
+            11,
+            12,
+            13
+          ],
+          "score": 0.02862400327131466,
+          "method_metadata": {
+            "dense_rank": 13,
+            "bm25_rank": 7,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 8,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00038",
+          "pages": [
+            27,
+            28,
+            29
+          ],
+          "score": 0.026687875574407917,
+          "method_metadata": {
+            "dense_rank": 22,
+            "bm25_rank": 9,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 9,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00050",
+          "pages": [
+            34,
+            35
+          ],
+          "score": 0.025708635464733027,
+          "method_metadata": {
+            "dense_rank": 14,
+            "bm25_rank": 22,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 10,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00034",
+          "pages": [
+            25,
+            26
+          ],
+          "score": 0.025218810265539238,
+          "method_metadata": {
+            "dense_rank": 47,
+            "bm25_rank": 3,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        }
+      ],
+      "first_relevant_rank": 1,
+      "recall_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "evidence_coverage_at_k": {
+        "1": 0.5,
+        "3": 0.5,
+        "5": 0.5,
+        "10": 1.0
+      },
+      "full_evidence_found_at_k": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": true
+      },
+      "failure_category": "bad_chunk_boundary",
+      "failure_detail": "expected page retrieved but one or more evidence phrases are outside selected chunks"
+    },
+    {
+      "question_id": "q014",
+      "question": "What did the White Rabbit order 'Mary Ann' to fetch?",
+      "expected_pages": [
+        31
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00042",
+          "pages": [
+            31,
+            32
+          ],
+          "score": 0.03252247488101534,
+          "method_metadata": {
+            "dense_rank": 1,
+            "bm25_rank": 2,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 2,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00046",
+          "pages": [
+            33
+          ],
+          "score": 0.03252247488101534,
+          "method_metadata": {
+            "dense_rank": 2,
+            "bm25_rank": 1,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 3,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00130",
+          "pages": [
+            82,
+            83
+          ],
+          "score": 0.030536130536130537,
+          "method_metadata": {
+            "dense_rank": 5,
+            "bm25_rank": 6,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 4,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00041",
+          "pages": [
+            30,
+            31
+          ],
+          "score": 0.03036576949620428,
+          "method_metadata": {
+            "dense_rank": 3,
+            "bm25_rank": 9,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 5,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00096",
+          "pages": [
+            61,
+            62
+          ],
+          "score": 0.029877369007803793,
+          "method_metadata": {
+            "dense_rank": 9,
+            "bm25_rank": 5,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 6,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00011",
+          "pages": [
+            11,
+            12,
+            13
+          ],
+          "score": 0.029850746268656716,
+          "method_metadata": {
+            "dense_rank": 7,
+            "bm25_rank": 7,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 7,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00136",
+          "pages": [
+            85,
+            86,
+            87
+          ],
+          "score": 0.029411764705882353,
+          "method_metadata": {
+            "dense_rank": 8,
+            "bm25_rank": 8,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 8,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00043",
+          "pages": [
+            31,
+            32
+          ],
+          "score": 0.028958333333333336,
+          "method_metadata": {
+            "dense_rank": 4,
+            "bm25_rank": 15,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 9,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00016",
+          "pages": [
+            15
+          ],
+          "score": 0.028370221327967807,
+          "method_metadata": {
+            "dense_rank": 10,
+            "bm25_rank": 11,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 10,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00024",
+          "pages": [
+            20
+          ],
+          "score": 0.02702702702702703,
+          "method_metadata": {
+            "dense_rank": 14,
+            "bm25_rank": 14,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        }
+      ],
+      "first_relevant_rank": 1,
+      "recall_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "evidence_coverage_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "full_evidence_found_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "failure_category": null,
+      "failure_detail": null
+    },
+    {
+      "question_id": "q016",
+      "question": "What did the pebbles thrown through the window become, and what happened when Alice ate one?",
+      "expected_pages": [
+        35
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00050",
+          "pages": [
+            34,
+            35
+          ],
+          "score": 0.03278688524590164,
+          "method_metadata": {
+            "dense_rank": 1,
+            "bm25_rank": 1,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 2,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00021",
+          "pages": [
+            17,
+            18,
+            19
+          ],
+          "score": 0.0315136476426799,
+          "method_metadata": {
+            "dense_rank": 2,
+            "bm25_rank": 5,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 3,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00046",
+          "pages": [
+            33
+          ],
+          "score": 0.03007688828584351,
+          "method_metadata": {
+            "dense_rank": 7,
+            "bm25_rank": 6,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 4,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00043",
+          "pages": [
+            31,
+            32
+          ],
+          "score": 0.029236022193768675,
+          "method_metadata": {
+            "dense_rank": 6,
+            "bm25_rank": 11,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 5,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00020",
+          "pages": [
+            16,
+            17
+          ],
+          "score": 0.02792120864410021,
+          "method_metadata": {
+            "dense_rank": 23,
+            "bm25_rank": 3,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 6,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00047",
+          "pages": [
+            33,
+            34
+          ],
+          "score": 0.02715098147128967,
+          "method_metadata": {
+            "dense_rank": 19,
+            "bm25_rank": 9,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 7,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00019",
+          "pages": [
+            16
+          ],
+          "score": 0.026984126984126985,
+          "method_metadata": {
+            "dense_rank": 3,
+            "bm25_rank": 30,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 8,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00044",
+          "pages": [
+            32
+          ],
+          "score": 0.026767330130404943,
+          "method_metadata": {
+            "dense_rank": 34,
+            "bm25_rank": 2,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 9,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00037",
+          "pages": [
+            27
+          ],
+          "score": 0.026151315789473682,
+          "method_metadata": {
+            "dense_rank": 4,
+            "bm25_rank": 35,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 10,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00051",
+          "pages": [
+            35
+          ],
+          "score": 0.025588697017268444,
+          "method_metadata": {
+            "dense_rank": 5,
+            "bm25_rank": 38,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        }
+      ],
+      "first_relevant_rank": 1,
+      "recall_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "evidence_coverage_at_k": {
+        "1": 0.5,
+        "3": 0.5,
+        "5": 0.5,
+        "10": 1.0
+      },
+      "full_evidence_found_at_k": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": true
+      },
+      "failure_category": "bad_chunk_boundary",
+      "failure_detail": "expected page retrieved but one or more evidence phrases are outside selected chunks"
+    },
+    {
+      "question_id": "q017",
+      "question": "What different effects did the two sides of the mushroom have?",
+      "expected_pages": [
+        40
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00060",
+          "pages": [
+            40
+          ],
+          "score": 0.03278688524590164,
+          "method_metadata": {
+            "dense_rank": 1,
+            "bm25_rank": 1,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 2,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00054",
+          "pages": [
+            36,
+            37
+          ],
+          "score": 0.03225806451612903,
+          "method_metadata": {
+            "dense_rank": 2,
+            "bm25_rank": 2,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 3,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00078",
+          "pages": [
+            48,
+            49,
+            50,
+            51
+          ],
+          "score": 0.029850746268656716,
+          "method_metadata": {
+            "dense_rank": 7,
+            "bm25_rank": 7,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 4,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00059",
+          "pages": [
+            39,
+            40
+          ],
+          "score": 0.02946912242686891,
+          "method_metadata": {
+            "dense_rank": 5,
+            "bm25_rank": 11,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 5,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00064",
+          "pages": [
+            42
+          ],
+          "score": 0.029386529386529386,
+          "method_metadata": {
+            "dense_rank": 3,
+            "bm25_rank": 14,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 6,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00124",
+          "pages": [
+            77
+          ],
+          "score": 0.028006267136701922,
+          "method_metadata": {
+            "dense_rank": 14,
+            "bm25_rank": 9,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 7,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00090",
+          "pages": [
+            56,
+            57,
+            58
+          ],
+          "score": 0.027252906976744186,
+          "method_metadata": {
+            "dense_rank": 4,
+            "bm25_rank": 26,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 8,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00055",
+          "pages": [
+            37,
+            38
+          ],
+          "score": 0.02701252236135957,
+          "method_metadata": {
+            "dense_rank": 26,
+            "bm25_rank": 5,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 9,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00081",
+          "pages": [
+            52
+          ],
+          "score": 0.026631393298059962,
+          "method_metadata": {
+            "dense_rank": 10,
+            "bm25_rank": 21,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 10,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00123",
+          "pages": [
+            76,
+            77
+          ],
+          "score": 0.02661064425770308,
+          "method_metadata": {
+            "dense_rank": 24,
+            "bm25_rank": 8,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        }
+      ],
+      "first_relevant_rank": 1,
+      "recall_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "evidence_coverage_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "full_evidence_found_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "failure_category": null,
+      "failure_detail": null
+    },
+    {
+      "question_id": "q019",
+      "question": "What invitation did the Fish-Footman deliver to the Duchess?",
+      "expected_pages": [
+        43
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00066",
+          "pages": [
+            43
+          ],
+          "score": 0.03278688524590164,
+          "method_metadata": {
+            "dense_rank": 1,
+            "bm25_rank": 1,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 2,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00069",
+          "pages": [
+            44,
+            45
+          ],
+          "score": 0.03200204813108039,
+          "method_metadata": {
+            "dense_rank": 2,
+            "bm25_rank": 3,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 3,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00067",
+          "pages": [
+            43,
+            44
+          ],
+          "score": 0.031054405392392875,
+          "method_metadata": {
+            "dense_rank": 7,
+            "bm25_rank": 2,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 4,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00072",
+          "pages": [
+            46
+          ],
+          "score": 0.031009615384615385,
+          "method_metadata": {
+            "dense_rank": 4,
+            "bm25_rank": 5,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 5,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00107",
+          "pages": [
+            68,
+            69
+          ],
+          "score": 0.02946912242686891,
+          "method_metadata": {
+            "dense_rank": 5,
+            "bm25_rank": 11,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 6,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00068",
+          "pages": [
+            44
+          ],
+          "score": 0.029138513513513514,
+          "method_metadata": {
+            "dense_rank": 14,
+            "bm25_rank": 4,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 7,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00105",
+          "pages": [
+            67,
+            68
+          ],
+          "score": 0.02900988017658188,
+          "method_metadata": {
+            "dense_rank": 11,
+            "bm25_rank": 7,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 8,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00108",
+          "pages": [
+            68,
+            69
+          ],
+          "score": 0.028985507246376812,
+          "method_metadata": {
+            "dense_rank": 9,
+            "bm25_rank": 9,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 9,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00104",
+          "pages": [
+            64,
+            65,
+            66,
+            67
+          ],
+          "score": 0.028484848484848488,
+          "method_metadata": {
+            "dense_rank": 6,
+            "bm25_rank": 15,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 10,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00096",
+          "pages": [
+            61,
+            62
+          ],
+          "score": 0.02821939586645469,
+          "method_metadata": {
+            "dense_rank": 8,
+            "bm25_rank": 14,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        }
+      ],
+      "first_relevant_rank": 1,
+      "recall_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "evidence_coverage_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "full_evidence_found_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "failure_category": null,
+      "failure_detail": null
+    },
+    {
+      "question_id": "q021",
+      "question": "What did the Duchess's baby turn into?",
+      "expected_pages": [
+        48
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00072",
+          "pages": [
+            46
+          ],
+          "score": 0.03177805800756621,
+          "method_metadata": {
+            "dense_rank": 1,
+            "bm25_rank": 5,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 2,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00070",
+          "pages": [
+            45
+          ],
+          "score": 0.03149801587301587,
+          "method_metadata": {
+            "dense_rank": 3,
+            "bm25_rank": 4,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 3,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00074",
+          "pages": [
+            47
+          ],
+          "score": 0.03131881575727918,
+          "method_metadata": {
+            "dense_rank": 7,
+            "bm25_rank": 1,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 4,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00071",
+          "pages": [
+            45,
+            46
+          ],
+          "score": 0.031054405392392875,
+          "method_metadata": {
+            "dense_rank": 2,
+            "bm25_rank": 7,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 5,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00073",
+          "pages": [
+            46,
+            47
+          ],
+          "score": 0.031024531024531024,
+          "method_metadata": {
+            "dense_rank": 6,
+            "bm25_rank": 3,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 6,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00069",
+          "pages": [
+            44,
+            45
+          ],
+          "score": 0.030776515151515152,
+          "method_metadata": {
+            "dense_rank": 4,
+            "bm25_rank": 6,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 7,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00077",
+          "pages": [
+            48,
+            49
+          ],
+          "score": 0.02919863597612958,
+          "method_metadata": {
+            "dense_rank": 8,
+            "bm25_rank": 9,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 8,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00108",
+          "pages": [
+            68,
+            69
+          ],
+          "score": 0.028991596638655463,
+          "method_metadata": {
+            "dense_rank": 10,
+            "bm25_rank": 8,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 9,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00146",
+          "pages": [
+            91,
+            92
+          ],
+          "score": 0.028949545078577336,
+          "method_metadata": {
+            "dense_rank": 18,
+            "bm25_rank": 2,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 10,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00095",
+          "pages": [
+            60,
+            61
+          ],
+          "score": 0.02658450704225352,
+          "method_metadata": {
+            "dense_rank": 20,
+            "bm25_rank": 11,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        }
+      ],
+      "first_relevant_rank": 7,
+      "recall_at_k": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": true
+      },
+      "evidence_coverage_at_k": {
+        "1": 0.0,
+        "3": 0.0,
+        "5": 0.0,
+        "10": 1.0
+      },
+      "full_evidence_found_at_k": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": true
+      },
+      "failure_category": "insufficient_retrieval_depth",
+      "failure_detail": "missing expected page first appears at rank 7"
+    },
+    {
+      "question_id": "q022",
+      "question": "Who was at the tea table, and what beverage did the March Hare falsely offer Alice?",
+      "expected_pages": [
+        51
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00079",
+          "pages": [
+            49,
+            50,
+            51
+          ],
+          "score": 0.03278688524590164,
+          "method_metadata": {
+            "dense_rank": 1,
+            "bm25_rank": 1,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 2,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00080",
+          "pages": [
+            51,
+            52
+          ],
+          "score": 0.03200204813108039,
+          "method_metadata": {
+            "dense_rank": 3,
+            "bm25_rank": 2,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 3,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00088",
+          "pages": [
+            55,
+            56
+          ],
+          "score": 0.031754032258064516,
+          "method_metadata": {
+            "dense_rank": 2,
+            "bm25_rank": 4,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 4,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00133",
+          "pages": [
+            84
+          ],
+          "score": 0.03125763125763126,
+          "method_metadata": {
+            "dense_rank": 5,
+            "bm25_rank": 3,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 5,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00087",
+          "pages": [
+            55
+          ],
+          "score": 0.031009615384615385,
+          "method_metadata": {
+            "dense_rank": 4,
+            "bm25_rank": 5,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 6,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00084",
+          "pages": [
+            53,
+            54
+          ],
+          "score": 0.03007688828584351,
+          "method_metadata": {
+            "dense_rank": 7,
+            "bm25_rank": 6,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 7,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00130",
+          "pages": [
+            82,
+            83
+          ],
+          "score": 0.03007688828584351,
+          "method_metadata": {
+            "dense_rank": 6,
+            "bm25_rank": 7,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 8,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00086",
+          "pages": [
+            54,
+            55
+          ],
+          "score": 0.02919863597612958,
+          "method_metadata": {
+            "dense_rank": 9,
+            "bm25_rank": 8,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 9,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00081",
+          "pages": [
+            52
+          ],
+          "score": 0.028381642512077296,
+          "method_metadata": {
+            "dense_rank": 12,
+            "bm25_rank": 9,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 10,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00078",
+          "pages": [
+            48,
+            49,
+            50,
+            51
+          ],
+          "score": 0.02817460317460317,
+          "method_metadata": {
+            "dense_rank": 10,
+            "bm25_rank": 12,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        }
+      ],
+      "first_relevant_rank": 1,
+      "recall_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "evidence_coverage_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "full_evidence_found_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "failure_category": null,
+      "failure_detail": null
+    },
+    {
+      "question_id": "q023",
+      "question": "Why was it always tea-time at the Hatter's table?",
+      "expected_pages": [
+        54
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00085",
+          "pages": [
+            54
+          ],
+          "score": 0.032266458495966696,
+          "method_metadata": {
+            "dense_rank": 1,
+            "bm25_rank": 3,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 2,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00082",
+          "pages": [
+            52,
+            53
+          ],
+          "score": 0.032018442622950824,
+          "method_metadata": {
+            "dense_rank": 4,
+            "bm25_rank": 1,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 3,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00079",
+          "pages": [
+            49,
+            50,
+            51
+          ],
+          "score": 0.03200204813108039,
+          "method_metadata": {
+            "dense_rank": 3,
+            "bm25_rank": 2,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 4,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00084",
+          "pages": [
+            53,
+            54
+          ],
+          "score": 0.031054405392392875,
+          "method_metadata": {
+            "dense_rank": 2,
+            "bm25_rank": 7,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 5,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00080",
+          "pages": [
+            51,
+            52
+          ],
+          "score": 0.030536130536130537,
+          "method_metadata": {
+            "dense_rank": 6,
+            "bm25_rank": 5,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 6,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00086",
+          "pages": [
+            54,
+            55
+          ],
+          "score": 0.029138513513513514,
+          "method_metadata": {
+            "dense_rank": 14,
+            "bm25_rank": 4,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 7,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00087",
+          "pages": [
+            55
+          ],
+          "score": 0.028991596638655463,
+          "method_metadata": {
+            "dense_rank": 10,
+            "bm25_rank": 8,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 8,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00133",
+          "pages": [
+            84
+          ],
+          "score": 0.027730294396961064,
+          "method_metadata": {
+            "dense_rank": 5,
+            "bm25_rank": 21,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 9,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00090",
+          "pages": [
+            56,
+            57,
+            58
+          ],
+          "score": 0.027346637102734665,
+          "method_metadata": {
+            "dense_rank": 22,
+            "bm25_rank": 6,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 10,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00127",
+          "pages": [
+            79,
+            80,
+            81
+          ],
+          "score": 0.02632034632034632,
+          "method_metadata": {
+            "dense_rank": 15,
+            "bm25_rank": 17,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        }
+      ],
+      "first_relevant_rank": 1,
+      "recall_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "evidence_coverage_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "full_evidence_found_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "failure_category": null,
+      "failure_detail": null
+    },
+    {
+      "question_id": "q025",
+      "question": "According to the Duchess, under what condition does everything have a moral?",
+      "expected_pages": [
+        67
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00106",
+          "pages": [
+            68
+          ],
+          "score": 0.03252247488101534,
+          "method_metadata": {
+            "dense_rank": 2,
+            "bm25_rank": 1,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 2,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00105",
+          "pages": [
+            67,
+            68
+          ],
+          "score": 0.032018442622950824,
+          "method_metadata": {
+            "dense_rank": 1,
+            "bm25_rank": 4,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 3,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00107",
+          "pages": [
+            68,
+            69
+          ],
+          "score": 0.03200204813108039,
+          "method_metadata": {
+            "dense_rank": 3,
+            "bm25_rank": 2,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 4,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00108",
+          "pages": [
+            68,
+            69
+          ],
+          "score": 0.03125763125763126,
+          "method_metadata": {
+            "dense_rank": 5,
+            "bm25_rank": 3,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 5,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00104",
+          "pages": [
+            64,
+            65,
+            66,
+            67
+          ],
+          "score": 0.030776515151515152,
+          "method_metadata": {
+            "dense_rank": 4,
+            "bm25_rank": 6,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 6,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00070",
+          "pages": [
+            45
+          ],
+          "score": 0.030309988518943745,
+          "method_metadata": {
+            "dense_rank": 7,
+            "bm25_rank": 5,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 7,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00071",
+          "pages": [
+            45,
+            46
+          ],
+          "score": 0.029418126757516764,
+          "method_metadata": {
+            "dense_rank": 9,
+            "bm25_rank": 7,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 8,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00072",
+          "pages": [
+            46
+          ],
+          "score": 0.028370221327967807,
+          "method_metadata": {
+            "dense_rank": 10,
+            "bm25_rank": 11,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 9,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00120",
+          "pages": [
+            75
+          ],
+          "score": 0.02758751902587519,
+          "method_metadata": {
+            "dense_rank": 12,
+            "bm25_rank": 13,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 10,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00069",
+          "pages": [
+            44,
+            45
+          ],
+          "score": 0.02749719416386083,
+          "method_metadata": {
+            "dense_rank": 6,
+            "bm25_rank": 21,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        }
+      ],
+      "first_relevant_rank": 2,
+      "recall_at_k": {
+        "1": false,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "evidence_coverage_at_k": {
+        "1": 0.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "full_evidence_found_at_k": {
+        "1": false,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "failure_category": null,
+      "failure_detail": null
+    },
+    {
+      "question_id": "q026",
+      "question": "Which oddly named subjects did the Mock Turtle say were taught at school?",
+      "expected_pages": [
+        71
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00114",
+          "pages": [
+            71,
+            72
+          ],
+          "score": 0.03278688524590164,
+          "method_metadata": {
+            "dense_rank": 1,
+            "bm25_rank": 1,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 2,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00113",
+          "pages": [
+            71
+          ],
+          "score": 0.03200204813108039,
+          "method_metadata": {
+            "dense_rank": 2,
+            "bm25_rank": 3,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 3,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00112",
+          "pages": [
+            70,
+            71
+          ],
+          "score": 0.031754032258064516,
+          "method_metadata": {
+            "dense_rank": 4,
+            "bm25_rank": 2,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 4,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00115",
+          "pages": [
+            72
+          ],
+          "score": 0.03149801587301587,
+          "method_metadata": {
+            "dense_rank": 3,
+            "bm25_rank": 4,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 5,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00123",
+          "pages": [
+            76,
+            77
+          ],
+          "score": 0.030309988518943745,
+          "method_metadata": {
+            "dense_rank": 5,
+            "bm25_rank": 7,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 6,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00116",
+          "pages": [
+            72,
+            73
+          ],
+          "score": 0.030090497737556562,
+          "method_metadata": {
+            "dense_rank": 8,
+            "bm25_rank": 5,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 7,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00124",
+          "pages": [
+            77
+          ],
+          "score": 0.029631255487269532,
+          "method_metadata": {
+            "dense_rank": 7,
+            "bm25_rank": 8,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 8,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00122",
+          "pages": [
+            76
+          ],
+          "score": 0.029437229437229435,
+          "method_metadata": {
+            "dense_rank": 10,
+            "bm25_rank": 6,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 9,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00125",
+          "pages": [
+            77,
+            78
+          ],
+          "score": 0.029236022193768675,
+          "method_metadata": {
+            "dense_rank": 6,
+            "bm25_rank": 11,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 10,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00121",
+          "pages": [
+            75,
+            76
+          ],
+          "score": 0.027984344422700584,
+          "method_metadata": {
+            "dense_rank": 13,
+            "bm25_rank": 10,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        }
+      ],
+      "first_relevant_rank": 1,
+      "recall_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "evidence_coverage_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "full_evidence_found_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "failure_category": null,
+      "failure_detail": null
+    },
+    {
+      "question_id": "q028",
+      "question": "What was the Knave of Hearts accused of, and who was called as the first witness?",
+      "expected_pages": [
+        82
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00130",
+          "pages": [
+            82,
+            83
+          ],
+          "score": 0.03278688524590164,
+          "method_metadata": {
+            "dense_rank": 1,
+            "bm25_rank": 1,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 2,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00127",
+          "pages": [
+            79,
+            80,
+            81
+          ],
+          "score": 0.03128054740957967,
+          "method_metadata": {
+            "dense_rank": 2,
+            "bm25_rank": 6,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 3,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00135",
+          "pages": [
+            85
+          ],
+          "score": 0.03125,
+          "method_metadata": {
+            "dense_rank": 4,
+            "bm25_rank": 4,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 4,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00094",
+          "pages": [
+            60,
+            61
+          ],
+          "score": 0.03057889822595705,
+          "method_metadata": {
+            "dense_rank": 8,
+            "bm25_rank": 3,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 5,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00136",
+          "pages": [
+            85,
+            86,
+            87
+          ],
+          "score": 0.030536130536130537,
+          "method_metadata": {
+            "dense_rank": 6,
+            "bm25_rank": 5,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 6,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00141",
+          "pages": [
+            89
+          ],
+          "score": 0.029273504273504274,
+          "method_metadata": {
+            "dense_rank": 5,
+            "bm25_rank": 12,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 7,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00093",
+          "pages": [
+            60
+          ],
+          "score": 0.028949545078577336,
+          "method_metadata": {
+            "dense_rank": 18,
+            "bm25_rank": 2,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 8,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00140",
+          "pages": [
+            88,
+            89
+          ],
+          "score": 0.028693528693528692,
+          "method_metadata": {
+            "dense_rank": 3,
+            "bm25_rank": 18,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 9,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00143",
+          "pages": [
+            90
+          ],
+          "score": 0.028577260665441927,
+          "method_metadata": {
+            "dense_rank": 9,
+            "bm25_rank": 11,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 10,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00131",
+          "pages": [
+            83
+          ],
+          "score": 0.02821939586645469,
+          "method_metadata": {
+            "dense_rank": 14,
+            "bm25_rank": 8,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        }
+      ],
+      "first_relevant_rank": 1,
+      "recall_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "evidence_coverage_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "full_evidence_found_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "failure_category": null,
+      "failure_detail": null
+    },
+    {
+      "question_id": "q030",
+      "question": "Under Rule Forty-two, which people had to leave the court?",
+      "expected_pages": [
+        88
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00139",
+          "pages": [
+            88
+          ],
+          "score": 0.03278688524590164,
+          "method_metadata": {
+            "dense_rank": 1,
+            "bm25_rank": 1,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 2,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00135",
+          "pages": [
+            85
+          ],
+          "score": 0.030158730158730156,
+          "method_metadata": {
+            "dense_rank": 3,
+            "bm25_rank": 10,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 3,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00132",
+          "pages": [
+            83,
+            84
+          ],
+          "score": 0.029030910609857977,
+          "method_metadata": {
+            "dense_rank": 16,
+            "bm25_rank": 3,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 4,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00134",
+          "pages": [
+            84,
+            85
+          ],
+          "score": 0.02900988017658188,
+          "method_metadata": {
+            "dense_rank": 7,
+            "bm25_rank": 11,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 5,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00127",
+          "pages": [
+            79,
+            80,
+            81
+          ],
+          "score": 0.02878726010616578,
+          "method_metadata": {
+            "dense_rank": 2,
+            "bm25_rank": 19,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 6,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00129",
+          "pages": [
+            82
+          ],
+          "score": 0.028612012987012988,
+          "method_metadata": {
+            "dense_rank": 4,
+            "bm25_rank": 17,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 7,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00109",
+          "pages": [
+            69
+          ],
+          "score": 0.028594771241830064,
+          "method_metadata": {
+            "dense_rank": 8,
+            "bm25_rank": 12,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 8,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00093",
+          "pages": [
+            60
+          ],
+          "score": 0.028371628371628373,
+          "method_metadata": {
+            "dense_rank": 17,
+            "bm25_rank": 5,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 9,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00136",
+          "pages": [
+            85,
+            86,
+            87
+          ],
+          "score": 0.02667140825035562,
+          "method_metadata": {
+            "dense_rank": 14,
+            "bm25_rank": 16,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        },
+        {
+          "rank": 10,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00097",
+          "pages": [
+            61,
+            62
+          ],
+          "score": 0.02661064425770308,
+          "method_metadata": {
+            "dense_rank": 24,
+            "bm25_rank": 8,
+            "fusion": "rrf",
+            "rrf_k": 60
+          }
+        }
+      ],
+      "first_relevant_rank": 1,
+      "recall_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "evidence_coverage_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "full_evidence_found_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "failure_category": null,
+      "failure_detail": null
+    }
+  ]
+}

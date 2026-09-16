@@ -66,7 +66,7 @@ Every chunk records:
 - exact character count and a deterministic token-count estimate;
 - non-fatal chunk quality issues.
 
-The character baseline is intentionally simple. It provides a reproducible comparison point for later structure-aware chunking experiments; it is not presented as the expected final retrieval method.
+The character baseline is intentionally simple. It provided a reproducible comparison point for structure-aware chunking and BM25/RRF experiments. Those alternatives regressed on the frozen DEV set, so this baseline was retained as the final retrieval corpus for the take-home.
 
 ## API
 
@@ -99,4 +99,4 @@ Automated fixtures cover ordered multi-page extraction, a blank PDF, an image-on
 
 ## Retrieval integration
 
-Only `ready` chunks are eligible for retrieval. The dense baseline consumes normalized chunk text and retains document, page, filename, and page-range metadata in every retrieved result. Structure-aware chunks, BM25/RRF, and reranking remain later experiments and will be introduced one at a time only if the fixed evaluation set shows useful gains.
+Only `ready` chunks are eligible for retrieval. The frozen dense retriever consumes normalized chunk text and retains document, page, filename, and page-range metadata in every result. Structure-aware chunks and BM25/RRF were evaluated as separate artifacts and rejected after DEV regressions; reranking remained disabled because the evidence gate was not met.

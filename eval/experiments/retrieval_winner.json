@@ -1,0 +1,46 @@
+{
+  "decision_id": "alice-v1-retrieval-winner",
+  "frozen_at": "2026-09-16T05:14:33Z",
+  "split_id": "alice-v1-dev20-test10",
+  "winner_experiment_id": "fixed-window-dense-v1",
+  "winner_configuration": {
+    "chunking": "fixed_character_window",
+    "chunk_chars": 1200,
+    "overlap_chars": 150,
+    "retrieval": "exact_cosine_dense",
+    "embedding_model": "voyage-4"
+  },
+  "dev_artifacts": [
+    {
+      "experiment_id": "fixed-window-dense-v1",
+      "path": "eval/experiments/fixed_window_dense_dev.json",
+      "sha256": "28d0a0cddef6b1d7ef3fa4929eecafbb6255dd448aa7ffe5278438a1e4205794"
+    },
+    {
+      "experiment_id": "structure-aware-dense-v1",
+      "path": "eval/experiments/structure_aware_dense_dev.json",
+      "sha256": "1a16a7b3d4cdef9405eae485b77553f8da2de7cc78661ab93855a783ed70fb93"
+    },
+    {
+      "experiment_id": "fixed-window-dense-bm25-rrf-v1",
+      "path": "eval/experiments/fixed_window_hybrid_dev.json",
+      "sha256": "56bc54680c0ccc80f585039e1275fc48768a52c80ed7ad38340b13a915a52199"
+    }
+  ],
+  "decision_basis": [
+    "Fixed-window dense had the highest DEV Recall@5 (95%) and MRR@5 (0.8500).",
+    "Fixed-window dense and structure-aware dense tied at 90% full evidence coverage@5, while structure-aware Recall@5 fell to 90% and Recall@10 fell to 95%.",
+    "Structure-aware chunking fixed q010 but regressed q005 and pushed q021 lower.",
+    "BM25/RRF fixed q010 but reduced full evidence coverage@5 to 80% and introduced q005, q013, and q016 regressions without fixing q021.",
+    "The simpler control therefore has the best measured quality/complexity trade-off on DEV."
+  ],
+  "reranker_decision": {
+    "enabled": false,
+    "reason": "q010 is primarily a fixed-window boundary failure, while q021 is the only remaining pure top-10 ranking failure. One pure ranking case in 20 DEV questions does not justify provider reranking latency and another failure mode in the final path."
+  },
+  "known_winner_limitations": [
+    "q010 exact evidence is rank 9 although page-level recall passes at rank 4.",
+    "q021 evidence is rank 8 and misses the top-5 cutoff."
+  ],
+  "post_test_policy": "Run the matching held-out TEST subset once and do not tune retrieval after seeing it."
+}

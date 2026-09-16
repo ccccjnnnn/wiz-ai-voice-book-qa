@@ -11,9 +11,9 @@ Completed milestones:
 - **Qwen structured output: PASS.** The live provider probe validates grounded answers, insufficient evidence, ambiguity, multi-source answers, strict JSON Schema output, source-ID validation, timeouts, API errors, model identity, latency, and token usage.
 - **Deepgram voice path: PASS.** Browser recording, editable transcription, Nova-3 ASR, Aura-2 TTS, browser playback, MIME detection, latency reporting, empty input, permission failure, and provider failure paths have been exercised.
 - **PDF ingestion vertical slice: PASS.** Streamed local upload, durable status, ordered PyMuPDF extraction, scanned/empty detection, retrieval-oriented normalization, validated baseline chunks, and page-level provenance are implemented and tested.
-- **Retrieval foundation: PASS.** A 30-question source-locked evaluation set, real Voyage `voyage-4` embeddings, local exact-cosine index, Recall@K/MRR/evidence coverage, persistent vector checkpoints, and inspectable bad-case reports are implemented. The fixed-window dense baseline achieved 96.7% Recall@5 and 93.3% full evidence coverage@5.
+- **Retrieval experiments: PASS.** A frozen 20 DEV / 10 TEST protocol compared fixed-window dense, structure-aware dense, and evidence-triggered BM25/RRF. The simpler fixed-window `voyage-4` exact-cosine retriever won on DEV and achieved 100% Recall@5 and full evidence coverage@5 on the one-time TEST run. Reranking remains disabled because DEV evidence did not justify its runtime cost.
 
-The current retrieval path is intentionally dense-only. Structure-aware chunking, BM25/RRF, and reranking remain evaluation-gated experiments.
+The frozen retrieval path is fixed-window dense exact cosine. Structure-aware chunking and BM25/RRF were measured and rejected after DEV regressions; reranking was not justified. See [retrieval experiment log](docs/RETRIEVAL_EXPERIMENTS.md).
 
 ## Architecture
 
@@ -21,10 +21,10 @@ The current retrieval path is intentionally dense-only. Structure-aware chunking
 PDF upload
   -> streamed file storage
   -> PyMuPDF page/block/span parsing
-  -> structure-aware chunks with page/chapter metadata
+  -> normalized fixed-window chunks with page provenance
   -> Voyage embeddings
   -> local exact-cosine dense index
-  -> optional BM25 / RRF / Voyage reranker, retained only after evaluation
+  -> measured retrieval output for evidence packing
 
 Browser microphone
   -> MediaRecorder (runtime MIME detection)
@@ -175,7 +175,7 @@ The evaluator validates every labeled page and evidence phrase before calling Vo
 - **FastAPI:** typed Python API boundaries and direct access to PDF, retrieval, and evaluation tooling.
 - **PyMuPDF:** inspect text blocks, spans, pages, and structural cues. Image-only PDFs will be detected and reported; OCR is outside the initial scope.
 - **Local exact-cosine storage:** sufficient and reproducible for one book. A vector service would add operational cost without solving a measured problem.
-- **Evaluation-gated retrieval:** compare fixed-size dense retrieval with structure-aware chunks, then test BM25/RRF and reranking. Optional components enter the final path only when the held-out evaluation supports them.
+- **Evaluation-gated retrieval:** fixed-window dense beat structure-aware dense and BM25/RRF on the frozen DEV set, so the simpler exact-cosine path is final. The held-out TEST set was run only after that decision was recorded.
 - **Qwen through Bailian Singapore:** the existing account path is available, the chosen model passed strict structured-output validation, and its OpenAI-compatible API keeps integration small.
 - **Deepgram Nova-3 and Aura-2:** one provider covers ASR and TTS, both models passed the real voice validation path.
 - **Deterministic citation validation:** the backend rejects source IDs outside the evidence supplied to the model.

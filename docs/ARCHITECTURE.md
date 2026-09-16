@@ -16,12 +16,11 @@ flowchart TD
     subgraph Ingestion
         API --> FILE[File on local disk]
         FILE --> PARSE[PyMuPDF page / block / span parser]
-        PARSE --> STRUCT[Chapter and section detection]
-        STRUCT --> CHUNK[Structure-aware chunks]
+        PARSE --> STRUCT[Page normalization]
+        STRUCT --> CHUNK[Versioned chunks; fixed-window winner]
         CHUNK --> META[(SQLite metadata and ingestion state)]
         CHUNK --> EMB[Voyage embeddings]
         EMB --> DENSE[(Local vector matrix)]
-        CHUNK --> LEX[(Optional local BM25 index)]
     end
 
     U -->|speaks| MIC[Browser MediaRecorder]
@@ -32,11 +31,7 @@ flowchart TD
 
     subgraph Retrieval_and_answer
         QUERY --> DR[Dense candidates]
-        QUERY --> BR[Optional BM25 candidates]
-        DR --> FUSE[Optional RRF]
-        BR --> FUSE
-        FUSE --> RERANK[Optional Voyage reranker]
-        RERANK --> PACK[Bounded evidence packing]
+        DR --> PACK[Bounded evidence packing]
         META --> PACK
         PACK --> LLM[Qwen grounded generation]
         LLM --> VALIDATE[Strict schema and source-ID validation]
@@ -59,9 +54,8 @@ upload
   -> stream to disk
   -> processing state
   -> parse one page at a time
-  -> normalize reading order, line breaks, headers, and footers
-  -> detect conservative chapter/section boundaries
-  -> create chunks with stable IDs and page provenance
+  -> normalize common whitespace and line-break artifacts
+  -> create fixed-window chunks with stable IDs and page provenance
   -> embed in bounded batches
   -> build local indexes
   -> atomically publish one ready index version
@@ -100,22 +94,22 @@ PDF text is untrusted data. Instructions contained inside the document cannot ov
 | ASR | Deepgram Nova-3 | Real browser audio formats and English speech path validated | External latency, quota, and availability |
 | TTS | Deepgram Aura-2, `aura-2-thalia-en` | Same voice provider as ASR; real MP3 playback validated | Non-streaming REST response adds perceived latency |
 | LLM | Qwen `qwen3.7-plus-2026-05-26` through Bailian Singapore | Existing access; strict JSON Schema and required answer states passed live tests | Regional account/model availability must remain valid |
-| Embeddings | Voyage `voyage-4` candidate | Retrieval-focused API and same provider candidate for reranking | Adds a third provider and must be smoke-tested before use |
-| Reranker | Voyage `rerank-2.5` candidate | Small integration surface if reranking improves measured ranking | Extra latency and cost; removed unless evaluation justifies it |
+| Embeddings | Voyage `voyage-4` | Real document/query embeddings and retrieval metrics validated | External quota requires paced indexing and checkpoints |
+| Reranker | Disabled | Only one pure DEV ranking failure remained after experiments | Avoids provider latency, quota use, and another failure path |
 | PDF parser | PyMuPDF | Page, block, span, font, and position information | Heading and reading-order heuristics still require inspection |
 | Dense index | Local vector matrix with exact cosine | Simple, deterministic, adequate for one book | Does not target a multi-book production corpus |
-| Lexical index | Local BM25 candidate | Helps exact names, numbers, and book-specific terms | More ranking logic; retained only after ablation |
+| Lexical index | Rejected after DEV experiment | BM25/RRF fixed q010 but created three regressions and did not fix q021 | Dense-only winner keeps the stronger quality/complexity trade-off |
 | Metadata | Local SQLite | Atomic ingestion state and simple provenance queries | Single-process scope is intentional |
 
-## Retrieval decision rule
+## Retrieval decision
 
-The baseline is fixed-size chunking with dense retrieval. Experiments then add one change at a time:
+The baseline was fixed-size chunking with dense retrieval. Experiments then added one change at a time:
 
 1. structure-aware chunking;
 2. local BM25 plus reciprocal-rank fusion;
-3. reranking of a bounded candidate pool.
+3. the reranker evidence gate; the provider experiment was skipped because only one pure ranking failure remained.
 
-The comparison uses the same curated development set and held-out test set. Primary evidence includes Recall@K, MRR, and evidence coverage under a fixed context budget. Latency and cost are recorded. A component is removed when it has no useful quality gain or its cost is disproportionate.
+On the frozen 20-question DEV set, fixed-window dense had the strongest Recall@5 and MRR@5. Structure-aware chunking and BM25/RRF each fixed q010 but caused broader regressions. The final retriever is therefore fixed-window `voyage-4` exact cosine; BM25/RRF and reranking are disabled. The matching one-time 10-question TEST run achieved 100% Recall@5 and full evidence coverage@5. Full evidence and rejected alternatives are recorded in [the retrieval experiment log](RETRIEVAL_EXPERIMENTS.md).
 
 ## Reliability boundaries
 
