@@ -1,0 +1,281 @@
+{
+  "dataset_id": "alice-in-wonderland-v1",
+  "source": {
+    "filename": "alice-in-wonderland.pdf",
+    "sha256": "49c843b5e09a9f759781514b49b802e6981baec57bf8873c6404d1111448878e",
+    "page_count": 92,
+    "title": "Alice's Adventures in Wonderland"
+  },
+  "questions": [
+    {
+      "id": "q001",
+      "question": "Who wrote Alice's Adventures in Wonderland?",
+      "expected_answer": "Lewis Carroll.",
+      "source_pages": [1],
+      "evidence_phrases": ["Lewis Carroll"],
+      "difficulty": "easy",
+      "category": "direct_factual"
+    },
+    {
+      "id": "q002",
+      "question": "How many chapters are listed, and what is the final chapter called?",
+      "expected_answer": "There are twelve chapters; the final chapter is Alice's Evidence.",
+      "source_pages": [11],
+      "evidence_phrases": ["12 Alice’s Evidence"],
+      "difficulty": "medium",
+      "category": "chapter_level"
+    },
+    {
+      "id": "q003",
+      "question": "What color were the White Rabbit's eyes?",
+      "expected_answer": "Pink.",
+      "source_pages": [13],
+      "evidence_phrases": ["White Rabbit with pink eyes"],
+      "difficulty": "easy",
+      "category": "direct_factual"
+    },
+    {
+      "id": "q004",
+      "question": "What was disappointing about the orange marmalade jar?",
+      "expected_answer": "It was empty.",
+      "source_pages": [14],
+      "evidence_phrases": ["to her great disappointment it was empty"],
+      "difficulty": "easy",
+      "category": "paraphrase"
+    },
+    {
+      "id": "q005",
+      "question": "What was the name of Alice's cat?",
+      "expected_answer": "Dinah.",
+      "source_pages": [14],
+      "evidence_phrases": ["Dinah was the cat"],
+      "difficulty": "easy",
+      "category": "proper_noun"
+    },
+    {
+      "id": "q006",
+      "question": "Approximately how tall was the little door Alice found?",
+      "expected_answer": "About fifteen inches high.",
+      "source_pages": [15],
+      "evidence_phrases": ["little door about fifteen inches high"],
+      "difficulty": "easy",
+      "category": "number"
+    },
+    {
+      "id": "q007",
+      "question": "Which foods did Alice say the DRINK ME bottle tasted like?",
+      "expected_answer": "Cherry tart, custard, pineapple, roast turkey, toffee, and hot buttered toast.",
+      "source_pages": [16],
+      "evidence_phrases": ["mixed flavour of cherrytart, custard, pine-apple, roast turkey, toffee, and hot buttered toast"],
+      "difficulty": "medium",
+      "category": "list_lookup"
+    },
+    {
+      "id": "q008",
+      "question": "What words were marked in currants on the cake?",
+      "expected_answer": "EAT ME.",
+      "source_pages": [17],
+      "evidence_phrases": ["words ‘EAT ME’ were beautifully marked in currants"],
+      "difficulty": "easy",
+      "category": "exact_term"
+    },
+    {
+      "id": "q009",
+      "question": "How tall did Alice become, and how deep was the pool of tears?",
+      "expected_answer": "Alice became more than nine feet tall, and the pool was about four inches deep.",
+      "source_pages": [19, 20],
+      "evidence_phrases": ["more than nine feet high", "about four inches deep"],
+      "difficulty": "hard",
+      "category": "multi_page"
+    },
+    {
+      "id": "q010",
+      "question": "What caused Alice to start shrinking while she was talking to the Mouse?",
+      "expected_answer": "The Rabbit's fan she was holding.",
+      "source_pages": [21],
+      "evidence_phrases": ["cause of this was the fan she was holding"],
+      "difficulty": "medium",
+      "category": "causal_paraphrase"
+    },
+    {
+      "id": "q011",
+      "question": "Why did Alice address the Mouse in French?",
+      "expected_answer": "She remembered that a French mouse had come over with William the Conqueror.",
+      "source_pages": [22],
+      "evidence_phrases": ["French mouse, come over with William the Conqueror"],
+      "difficulty": "hard",
+      "category": "proper_noun_paraphrase"
+    },
+    {
+      "id": "q012",
+      "question": "What activity did the Dodo recommend to get everyone dry?",
+      "expected_answer": "A Caucus-race.",
+      "source_pages": [26],
+      "evidence_phrases": ["best thing to get us dry would be a Caucus-race"],
+      "difficulty": "easy",
+      "category": "direct_factual"
+    },
+    {
+      "id": "q013",
+      "question": "What prizes did Alice and the other racers receive after the Caucus-race?",
+      "expected_answer": "The others received comfits from Alice, and Alice received her own thimble from the Dodo.",
+      "source_pages": [27],
+      "evidence_phrases": ["handed them round as prizes", "acceptance of this elegant thimble"],
+      "difficulty": "hard",
+      "category": "multi_evidence"
+    },
+    {
+      "id": "q014",
+      "question": "What did the White Rabbit order 'Mary Ann' to fetch?",
+      "expected_answer": "A pair of gloves and a fan.",
+      "source_pages": [31],
+      "evidence_phrases": ["Run home this moment, and fetch me a pair of gloves and a fan"],
+      "difficulty": "easy",
+      "category": "direct_factual"
+    },
+    {
+      "id": "q015",
+      "question": "What name was engraved on the brass plate at the Rabbit's house?",
+      "expected_answer": "W. RABBIT.",
+      "source_pages": [31],
+      "evidence_phrases": ["name ‘W. RABBIT’ engraved upon it"],
+      "difficulty": "medium",
+      "category": "exact_term"
+    },
+    {
+      "id": "q016",
+      "question": "What did the pebbles thrown through the window become, and what happened when Alice ate one?",
+      "expected_answer": "They became little cakes, and eating one made Alice shrink.",
+      "source_pages": [35],
+      "evidence_phrases": ["pebbles were all turning into little cakes", "began shrinking directly"],
+      "difficulty": "medium",
+      "category": "multi_evidence"
+    },
+    {
+      "id": "q017",
+      "question": "What different effects did the two sides of the mushroom have?",
+      "expected_answer": "One side made Alice grow taller and the other made her grow shorter.",
+      "source_pages": [40],
+      "evidence_phrases": ["One side will make you grow taller, and the other side will make you grow shorter"],
+      "difficulty": "easy",
+      "category": "direct_factual"
+    },
+    {
+      "id": "q018",
+      "question": "Why did the Pigeon call Alice a serpent?",
+      "expected_answer": "The Pigeon was guarding eggs and concluded that Alice was a serpent because Alice admitted that little girls eat eggs too.",
+      "source_pages": [41, 42],
+      "evidence_phrases": ["As if it wasn’t trouble enough hatching the eggs", "little girls eat eggs quite as much as serpents do"],
+      "difficulty": "hard",
+      "category": "multi_page"
+    },
+    {
+      "id": "q019",
+      "question": "What invitation did the Fish-Footman deliver to the Duchess?",
+      "expected_answer": "An invitation from the Queen to play croquet.",
+      "source_pages": [43],
+      "evidence_phrases": ["An invitation from the Queen to play croquet"],
+      "difficulty": "easy",
+      "category": "direct_factual"
+    },
+    {
+      "id": "q020",
+      "question": "Which two residents did the Cheshire Cat direct Alice toward, and what did it say about them?",
+      "expected_answer": "The Hatter and the March Hare; the Cat said they were both mad.",
+      "source_pages": [48],
+      "evidence_phrases": ["Hatter:", "lives a March Hare", "they’re both mad"],
+      "difficulty": "hard",
+      "category": "multi_evidence"
+    },
+    {
+      "id": "q021",
+      "question": "What did the Duchess's baby turn into?",
+      "expected_answer": "A pig.",
+      "source_pages": [48],
+      "evidence_phrases": ["It turned into a pig"],
+      "difficulty": "easy",
+      "category": "direct_factual"
+    },
+    {
+      "id": "q022",
+      "question": "Who was at the tea table, and what beverage did the March Hare falsely offer Alice?",
+      "expected_answer": "The March Hare, Hatter, and Dormouse were there; the March Hare offered wine even though there was none.",
+      "source_pages": [51],
+      "evidence_phrases": ["Hatter were having tea", "nothing on it but tea", "There isn’t any"],
+      "difficulty": "hard",
+      "category": "multi_evidence"
+    },
+    {
+      "id": "q023",
+      "question": "Why was it always tea-time at the Hatter's table?",
+      "expected_answer": "Time had stopped at six o'clock, so it was always tea-time.",
+      "source_pages": [54],
+      "evidence_phrases": ["It’s always six o’clock now", "it’s always tea-time"],
+      "difficulty": "medium",
+      "category": "causal_paraphrase"
+    },
+    {
+      "id": "q024",
+      "question": "What served as the balls, mallets, and arches in the Queen's croquet game?",
+      "expected_answer": "Hedgehogs were the balls, flamingoes were the mallets, and soldiers bent over to form the arches.",
+      "source_pages": [62],
+      "evidence_phrases": ["balls were live hedgehogs", "mallets live flamingoes", "make the arches"],
+      "difficulty": "medium",
+      "category": "list_lookup"
+    },
+    {
+      "id": "q025",
+      "question": "According to the Duchess, under what condition does everything have a moral?",
+      "expected_answer": "If only you can find it.",
+      "source_pages": [67],
+      "evidence_phrases": ["Everything’s got a moral, if only you can find it"],
+      "difficulty": "medium",
+      "category": "quotation_paraphrase"
+    },
+    {
+      "id": "q026",
+      "question": "Which oddly named subjects did the Mock Turtle say were taught at school?",
+      "expected_answer": "Reeling and Writhing, plus Ambition, Distraction, Uglification, and Derision.",
+      "source_pages": [71],
+      "evidence_phrases": ["Reeling and Writhing", "Ambition, Distraction, Uglification, and Derision"],
+      "difficulty": "hard",
+      "category": "exact_terms"
+    },
+    {
+      "id": "q027",
+      "question": "What final actions complete the first figure of the Lobster Quadrille?",
+      "expected_answer": "The dancers change lobsters and retire in the same order, then return to land to finish the first figure.",
+      "source_pages": [73, 74],
+      "evidence_phrases": ["change lobsters, and retire in same order", "Back to land again, and that’s all the first figure"],
+      "difficulty": "hard",
+      "category": "multi_page"
+    },
+    {
+      "id": "q028",
+      "question": "What was the Knave of Hearts accused of, and who was called as the first witness?",
+      "expected_answer": "He was accused of stealing the Queen's tarts, and the Hatter was the first witness.",
+      "source_pages": [82],
+      "evidence_phrases": ["The Knave of Hearts, he stole those tarts", "The first witness was the Hatter"],
+      "difficulty": "medium",
+      "category": "multi_evidence"
+    },
+    {
+      "id": "q029",
+      "question": "Who was the next witness after the Hatter, and what did she say the tarts were mostly made of?",
+      "expected_answer": "The Duchess's cook; she said the tarts were mostly made of pepper.",
+      "source_pages": [85],
+      "evidence_phrases": ["next witness was the Duchess’s cook", "Pepper, mostly"],
+      "difficulty": "medium",
+      "category": "multi_evidence"
+    },
+    {
+      "id": "q030",
+      "question": "Under Rule Forty-two, which people had to leave the court?",
+      "expected_answer": "All persons more than a mile high.",
+      "source_pages": [88],
+      "evidence_phrases": ["more than a mile high"],
+      "difficulty": "medium",
+      "category": "exact_term"
+    }
+  ]
+}

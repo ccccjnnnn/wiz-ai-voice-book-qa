@@ -7,6 +7,7 @@ from fastapi import UploadFile
 
 from .chunker import create_baseline_chunks
 from .models import Document
+from .normalization import normalize_page
 from .parser import IngestionError, extract_pages
 from .store import IngestionStore
 
@@ -68,11 +69,12 @@ class IngestionService:
         if document is None or document.status.value != "processing":
             return
         try:
-            pages = extract_pages(
+            extracted_pages = extract_pages(
                 self.store.source_path(document_id),
                 document_id,
                 document.source_filename,
             )
+            pages = [normalize_page(page) for page in extracted_pages]
             chunks = create_baseline_chunks(pages)
             if not chunks:
                 raise IngestionError("empty_pdf")

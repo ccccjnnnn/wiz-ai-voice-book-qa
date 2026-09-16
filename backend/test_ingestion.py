@@ -9,6 +9,7 @@ from fastapi.testclient import TestClient
 
 from ingestion.chunker import create_baseline_chunks
 from ingestion.models import Page
+from ingestion.normalization import normalize_page
 from main import create_app
 
 
@@ -152,6 +153,32 @@ class IngestionApiTests(unittest.TestCase):
             self.assertEqual(chunk.page_numbers, sorted(set(chunk.page_numbers)))
             self.assertEqual(chunk.page_start, chunk.page_numbers[0])
             self.assertEqual(chunk.page_end, chunk.page_numbers[-1])
+            self.assertEqual(chunk.char_count, len(chunk.text))
+            self.assertGreater(chunk.token_count, 0)
+
+    def test_normalization_removes_noise_but_preserves_heading_and_provenance(self):
+        page = Page(
+            document_id="doc-test",
+            page_number=12,
+            source_filename="book.pdf",
+            text=(
+                "CHAPTER ONE\n\n\nThe  first\tline was hyphen-\n"
+                "ated across lines.\nA sentence continues\nwith lowercase text.\n12"
+            ),
+            char_count=96,
+        )
+
+        normalized = normalize_page(page)
+
+        self.assertTrue(normalized.text.startswith("CHAPTER ONE\n\n"))
+        self.assertIn("The first line was hyphenated across lines.", normalized.text)
+        self.assertIn("A sentence continues with lowercase text.", normalized.text)
+        self.assertNotIn("\n12", normalized.text)
+        self.assertEqual(normalized.document_id, page.document_id)
+        self.assertEqual(normalized.page_number, page.page_number)
+        self.assertEqual(normalized.source_filename, page.source_filename)
+        self.assertEqual(normalized.char_count, len(normalized.text))
+        self.assertIn("dehyphenated_line_break", normalized.normalization_issues)
 
 
 if __name__ == "__main__":

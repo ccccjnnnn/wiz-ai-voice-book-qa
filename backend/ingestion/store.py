@@ -3,6 +3,7 @@ import sqlite3
 from datetime import datetime, timezone
 from pathlib import Path
 
+from .chunker import estimate_token_count
 from .models import Chunk, Document, DocumentStatus, Page
 
 
@@ -46,6 +47,7 @@ class IngestionStore:
                     text TEXT NOT NULL,
                     char_count INTEGER NOT NULL,
                     has_images INTEGER NOT NULL,
+                    normalization_issues TEXT NOT NULL DEFAULT '[]',
                     PRIMARY KEY (document_id, page_number)
                 );
                 CREATE TABLE IF NOT EXISTS chunks (
@@ -57,10 +59,40 @@ class IngestionStore:
                     page_end INTEGER NOT NULL,
                     page_numbers TEXT NOT NULL,
                     source_filename TEXT NOT NULL,
+                    char_count INTEGER NOT NULL DEFAULT 0,
+                    token_count INTEGER NOT NULL DEFAULT 0,
+                    quality_issues TEXT NOT NULL DEFAULT '[]',
                     UNIQUE (document_id, chunk_index)
                 );
                 """
             )
+            self._ensure_column(
+                connection, "pages", "normalization_issues", "TEXT NOT NULL DEFAULT '[]'"
+            )
+            self._ensure_column(connection, "chunks", "char_count", "INTEGER NOT NULL DEFAULT 0")
+            self._ensure_column(connection, "chunks", "token_count", "INTEGER NOT NULL DEFAULT 0")
+            self._ensure_column(
+                connection, "chunks", "quality_issues", "TEXT NOT NULL DEFAULT '[]'"
+            )
+            # Phase-1 databases remain readable after token metadata was introduced.
+            connection.execute(
+                "UPDATE chunks SET char_count = length(text) WHERE char_count <= 0"
+            )
+            rows = connection.execute(
+                "SELECT chunk_id, text FROM chunks WHERE token_count <= 0"
+            ).fetchall()
+            connection.executemany(
+                "UPDATE chunks SET token_count = ? WHERE chunk_id = ?",
+                [(estimate_token_count(row["text"]), row["chunk_id"]) for row in rows],
+            )
+
+    @staticmethod
+    def _ensure_column(
+        connection: sqlite3.Connection, table: str, column: str, declaration: str
+    ) -> None:
+        columns = {row[1] for row in connection.execute(f"PRAGMA table_info({table})")}
+        if column not in columns:
+            connection.execute(f"ALTER TABLE {table} ADD COLUMN {column} {declaration}")
 
     def source_path(self, document_id: str) -> Path:
         return self.documents_dir / document_id / "source.pdf"
@@ -96,8 +128,9 @@ class IngestionStore:
             connection.execute("DELETE FROM chunks WHERE document_id = ?", (document_id,))
             connection.executemany(
                 """INSERT INTO pages
-                   (document_id, page_number, source_filename, text, char_count, has_images)
-                   VALUES (?, ?, ?, ?, ?, ?)""",
+                   (document_id, page_number, source_filename, text, char_count,
+                    has_images, normalization_issues)
+                   VALUES (?, ?, ?, ?, ?, ?, ?)""",
                 [
                     (
                         page.document_id,
@@ -106,6 +139,7 @@ class IngestionStore:
                         page.text,
                         page.char_count,
                         int(page.has_images),
+                        json.dumps(page.normalization_issues),
                     )
                     for page in pages
                 ],
@@ -113,8 +147,8 @@ class IngestionStore:
             connection.executemany(
                 """INSERT INTO chunks
                    (chunk_id, document_id, chunk_index, text, page_start, page_end,
-                    page_numbers, source_filename)
-                   VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
+                    page_numbers, source_filename, char_count, token_count, quality_issues)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
                 [
                     (
                         chunk.chunk_id,
@@ -125,6 +159,9 @@ class IngestionStore:
                         chunk.page_end,
                         json.dumps(chunk.page_numbers),
                         chunk.source_filename,
+                        chunk.char_count,
+                        chunk.token_count,
+                        json.dumps(chunk.quality_issues),
                     )
                     for chunk in chunks
                 ],
@@ -155,17 +192,23 @@ class IngestionStore:
         with self._connect() as connection:
             rows = connection.execute(
                 """SELECT document_id, page_number, source_filename, text,
-                          char_count, has_images
+                          char_count, has_images, normalization_issues
                    FROM pages WHERE document_id = ? ORDER BY page_number""",
                 (document_id,),
             ).fetchall()
-        return [Page.model_validate(dict(row), strict=False) for row in rows]
+        pages = []
+        for row in rows:
+            values = dict(row)
+            values["normalization_issues"] = json.loads(values["normalization_issues"])
+            pages.append(Page.model_validate(values, strict=False))
+        return pages
 
     def list_chunks(self, document_id: str) -> list[Chunk]:
         with self._connect() as connection:
             rows = connection.execute(
                 """SELECT chunk_id, document_id, chunk_index, text, page_start,
-                          page_end, page_numbers, source_filename
+                          page_end, page_numbers, source_filename, char_count,
+                          token_count, quality_issues
                    FROM chunks WHERE document_id = ? ORDER BY chunk_index""",
                 (document_id,),
             ).fetchall()
@@ -173,6 +216,7 @@ class IngestionStore:
         for row in rows:
             values = dict(row)
             values["page_numbers"] = json.loads(values["page_numbers"])
+            values["quality_issues"] = json.loads(values["quality_issues"])
             chunks.append(Chunk.model_validate(values, strict=False))
         return chunks
 

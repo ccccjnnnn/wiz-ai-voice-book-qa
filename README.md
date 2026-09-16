@@ -10,9 +10,10 @@ Completed milestones:
 
 - **Qwen structured output: PASS.** The live provider probe validates grounded answers, insufficient evidence, ambiguity, multi-source answers, strict JSON Schema output, source-ID validation, timeouts, API errors, model identity, latency, and token usage.
 - **Deepgram voice path: PASS.** Browser recording, editable transcription, Nova-3 ASR, Aura-2 TTS, browser playback, MIME detection, latency reporting, empty input, permission failure, and provider failure paths have been exercised.
-- **PDF ingestion vertical slice: PASS.** Streamed local upload, durable status, ordered PyMuPDF extraction, scanned/empty detection, baseline chunks, and page-level provenance are implemented and tested.
+- **PDF ingestion vertical slice: PASS.** Streamed local upload, durable status, ordered PyMuPDF extraction, scanned/empty detection, retrieval-oriented normalization, validated baseline chunks, and page-level provenance are implemented and tested.
+- **Retrieval foundation: PASS.** A 30-question source-locked evaluation set, real Voyage `voyage-4` embeddings, local exact-cosine index, Recall@K/MRR/evidence coverage, persistent vector checkpoints, and inspectable bad-case reports are implemented. The fixed-window dense baseline achieved 96.7% Recall@5 and 93.3% full evidence coverage@5.
 
-Embeddings and retrieval are intentionally not implemented yet. They will be built against an evaluation baseline rather than added as an unmeasured collection of RAG techniques.
+The current retrieval path is intentionally dense-only. Structure-aware chunking, BM25/RRF, and reranking remain evaluation-gated experiments.
 
 ## Architecture
 
@@ -65,6 +66,7 @@ DASHSCOPE_API_KEY=
 DASHSCOPE_BASE_URL=
 QWEN_MODEL=
 DEEPGRAM_API_KEY=
+VOYAGE_API_KEY=
 ```
 
 The validated Qwen model is `qwen3.7-plus-2026-05-26`. Use the Bailian Singapore OpenAI-compatible base URL assigned to the account. Secrets remain in `backend/.env`, which is gitignored. Provider keys are never sent to the browser.
@@ -153,6 +155,19 @@ npm test --prefix frontend
 ```
 
 Its provider calls are mocked. Physical microphone permission and audible playback require a manual browser check.
+
+## Run the dense retrieval baseline
+
+Ingest the checksum-locked Alice test PDF, add `VOYAGE_API_KEY` to `backend/.env`, then run from `backend/` with the returned document ID:
+
+```sh
+.venv/bin/python -m retrieval.evaluate \
+  --document-id <document-id> \
+  --dataset ../eval/alice_in_wonderland_v1.json \
+  --output ../eval/results/voyage4_dense_alice_v1.json
+```
+
+The evaluator validates every labeled page and evidence phrase before calling Voyage. See [dense retrieval baseline](docs/RETRIEVAL_BASELINE.md) for metric definitions, cache behavior, and experiment boundaries.
 
 ## Design decisions
 

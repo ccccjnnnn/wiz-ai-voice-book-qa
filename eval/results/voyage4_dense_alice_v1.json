@@ -1,0 +1,3612 @@
+{
+  "generated_at": "2026-09-16T04:55:34.280168Z",
+  "dataset_id": "alice-in-wonderland-v1",
+  "document_id": "a6c315f78fbb4c5cb9f16f08f28aed38",
+  "source_filename": "alice-in-wonderland.pdf",
+  "chunk_count": 148,
+  "embedding_model": "voyage-4",
+  "top_k_values": [
+    1,
+    3,
+    5,
+    10
+  ],
+  "metrics": {
+    "question_count": 30,
+    "recall_at_k": {
+      "1": 0.8,
+      "3": 0.9,
+      "5": 0.9666666666666667,
+      "10": 1.0
+    },
+    "mrr_at_k": {
+      "1": 0.8333333333333334,
+      "3": 0.861111111111111,
+      "5": 0.8777777777777778,
+      "10": 0.8819444444444444
+    },
+    "mean_evidence_coverage_at_k": {
+      "1": 0.7666666666666667,
+      "3": 0.8833333333333333,
+      "5": 0.9333333333333333,
+      "10": 1.0
+    },
+    "full_evidence_coverage_at_k": {
+      "1": 0.7,
+      "3": 0.8666666666666667,
+      "5": 0.9333333333333333,
+      "10": 1.0
+    }
+  },
+  "provider_usage": {
+    "model_requested": "voyage-4",
+    "models_returned": [
+      "voyage-4"
+    ],
+    "request_count": 11,
+    "input_tokens": 44687,
+    "latency_ms": 45218.14416651614,
+    "document_embeddings_from_cache": true
+  },
+  "results": [
+    {
+      "question_id": "q001",
+      "question": "Who wrote Alice's Adventures in Wonderland?",
+      "expected_pages": [
+        1
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00000",
+          "pages": [
+            1,
+            2,
+            3
+          ],
+          "score": 0.7161101248191105
+        },
+        {
+          "rank": 2,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00010",
+          "pages": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "score": 0.5833939690633487
+        },
+        {
+          "rank": 3,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00011",
+          "pages": [
+            11,
+            12,
+            13
+          ],
+          "score": 0.5476927899772304
+        },
+        {
+          "rank": 4,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00022",
+          "pages": [
+            17,
+            18,
+            19
+          ],
+          "score": 0.5244207970189162
+        },
+        {
+          "rank": 5,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00045",
+          "pages": [
+            32,
+            33
+          ],
+          "score": 0.522017936513599
+        },
+        {
+          "rank": 6,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00086",
+          "pages": [
+            54,
+            55
+          ],
+          "score": 0.5209923723735717
+        },
+        {
+          "rank": 7,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00018",
+          "pages": [
+            15,
+            16
+          ],
+          "score": 0.5155840543569375
+        },
+        {
+          "rank": 8,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00141",
+          "pages": [
+            89
+          ],
+          "score": 0.511800555097051
+        },
+        {
+          "rank": 9,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00087",
+          "pages": [
+            55
+          ],
+          "score": 0.504179645294937
+        },
+        {
+          "rank": 10,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00085",
+          "pages": [
+            54
+          ],
+          "score": 0.5000455227253581
+        }
+      ],
+      "first_relevant_rank": 1,
+      "recall_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "evidence_coverage_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "full_evidence_found_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "failure_category": null,
+      "failure_detail": null
+    },
+    {
+      "question_id": "q002",
+      "question": "How many chapters are listed, and what is the final chapter called?",
+      "expected_pages": [
+        11
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00011",
+          "pages": [
+            11,
+            12,
+            13
+          ],
+          "score": 0.39544397290370586
+        },
+        {
+          "rank": 2,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00137",
+          "pages": [
+            85,
+            86,
+            87
+          ],
+          "score": 0.28376898354896074
+        },
+        {
+          "rank": 3,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00127",
+          "pages": [
+            79,
+            80,
+            81
+          ],
+          "score": 0.27432594617843237
+        },
+        {
+          "rank": 4,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00104",
+          "pages": [
+            64,
+            65,
+            66,
+            67
+          ],
+          "score": 0.2707892902300606
+        },
+        {
+          "rank": 5,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00013",
+          "pages": [
+            13,
+            14
+          ],
+          "score": 0.266147554542272
+        },
+        {
+          "rank": 6,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00022",
+          "pages": [
+            17,
+            18,
+            19
+          ],
+          "score": 0.26567319527935007
+        },
+        {
+          "rank": 7,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00056",
+          "pages": [
+            37,
+            38
+          ],
+          "score": 0.26432829375981776
+        },
+        {
+          "rank": 8,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00116",
+          "pages": [
+            72,
+            73
+          ],
+          "score": 0.2609662487417725
+        },
+        {
+          "rank": 9,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00091",
+          "pages": [
+            57,
+            58,
+            59
+          ],
+          "score": 0.26055526446716126
+        },
+        {
+          "rank": 10,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00041",
+          "pages": [
+            30,
+            31
+          ],
+          "score": 0.2588077275913036
+        }
+      ],
+      "first_relevant_rank": 1,
+      "recall_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "evidence_coverage_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "full_evidence_found_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "failure_category": null,
+      "failure_detail": null
+    },
+    {
+      "question_id": "q003",
+      "question": "What color were the White Rabbit's eyes?",
+      "expected_pages": [
+        13
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00041",
+          "pages": [
+            30,
+            31
+          ],
+          "score": 0.4327026375381348
+        },
+        {
+          "rank": 2,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00023",
+          "pages": [
+            19,
+            20
+          ],
+          "score": 0.4181444628651276
+        },
+        {
+          "rank": 3,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00011",
+          "pages": [
+            11,
+            12,
+            13
+          ],
+          "score": 0.4139196732774746
+        },
+        {
+          "rank": 4,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00146",
+          "pages": [
+            91,
+            92
+          ],
+          "score": 0.4128121562782516
+        },
+        {
+          "rank": 5,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00140",
+          "pages": [
+            88,
+            89
+          ],
+          "score": 0.40366297615922686
+        },
+        {
+          "rank": 6,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00016",
+          "pages": [
+            15
+          ],
+          "score": 0.3993535574466704
+        },
+        {
+          "rank": 7,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00024",
+          "pages": [
+            20
+          ],
+          "score": 0.3948302763352434
+        },
+        {
+          "rank": 8,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00138",
+          "pages": [
+            87,
+            88
+          ],
+          "score": 0.3846197270827029
+        },
+        {
+          "rank": 9,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00136",
+          "pages": [
+            85,
+            86,
+            87
+          ],
+          "score": 0.37788501411246794
+        },
+        {
+          "rank": 10,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00141",
+          "pages": [
+            89
+          ],
+          "score": 0.3776729635803929
+        }
+      ],
+      "first_relevant_rank": 3,
+      "recall_at_k": {
+        "1": false,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "evidence_coverage_at_k": {
+        "1": 0.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "full_evidence_found_at_k": {
+        "1": false,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "failure_category": null,
+      "failure_detail": null
+    },
+    {
+      "question_id": "q004",
+      "question": "What was disappointing about the orange marmalade jar?",
+      "expected_pages": [
+        14
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00013",
+          "pages": [
+            13,
+            14
+          ],
+          "score": 0.3587492776638098
+        },
+        {
+          "rank": 2,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00044",
+          "pages": [
+            32
+          ],
+          "score": 0.2617515831949732
+        },
+        {
+          "rank": 3,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00019",
+          "pages": [
+            16
+          ],
+          "score": 0.2593730475304011
+        },
+        {
+          "rank": 4,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00082",
+          "pages": [
+            52,
+            53
+          ],
+          "score": 0.25850321698357287
+        },
+        {
+          "rank": 5,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00037",
+          "pages": [
+            27
+          ],
+          "score": 0.25497910689521847
+        },
+        {
+          "rank": 6,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00088",
+          "pages": [
+            55,
+            56
+          ],
+          "score": 0.24831212082042717
+        },
+        {
+          "rank": 7,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00087",
+          "pages": [
+            55
+          ],
+          "score": 0.24752362645702453
+        },
+        {
+          "rank": 8,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00107",
+          "pages": [
+            68,
+            69
+          ],
+          "score": 0.23742749538601893
+        },
+        {
+          "rank": 9,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00025",
+          "pages": [
+            20,
+            21
+          ],
+          "score": 0.23525417367789878
+        },
+        {
+          "rank": 10,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00043",
+          "pages": [
+            31,
+            32
+          ],
+          "score": 0.23139797027045172
+        }
+      ],
+      "first_relevant_rank": 1,
+      "recall_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "evidence_coverage_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "full_evidence_found_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "failure_category": null,
+      "failure_detail": null
+    },
+    {
+      "question_id": "q005",
+      "question": "What was the name of Alice's cat?",
+      "expected_pages": [
+        14
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00030",
+          "pages": [
+            22,
+            23
+          ],
+          "score": 0.5890789978556497
+        },
+        {
+          "rank": 2,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00040",
+          "pages": [
+            29,
+            30
+          ],
+          "score": 0.5888181771625951
+        },
+        {
+          "rank": 3,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00075",
+          "pages": [
+            47,
+            48
+          ],
+          "score": 0.5771354718285509
+        },
+        {
+          "rank": 4,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00015",
+          "pages": [
+            14,
+            15
+          ],
+          "score": 0.5656363055448548
+        },
+        {
+          "rank": 5,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00076",
+          "pages": [
+            48
+          ],
+          "score": 0.5651916912108671
+        },
+        {
+          "rank": 6,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00077",
+          "pages": [
+            48,
+            49
+          ],
+          "score": 0.5647084446295385
+        },
+        {
+          "rank": 7,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00069",
+          "pages": [
+            44,
+            45
+          ],
+          "score": 0.5623893279204983
+        },
+        {
+          "rank": 8,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00078",
+          "pages": [
+            48,
+            49,
+            50,
+            51
+          ],
+          "score": 0.5483993065218967
+        },
+        {
+          "rank": 9,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00031",
+          "pages": [
+            23
+          ],
+          "score": 0.5432605682849164
+        },
+        {
+          "rank": 10,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00099",
+          "pages": [
+            62,
+            63
+          ],
+          "score": 0.5421120869649246
+        }
+      ],
+      "first_relevant_rank": 4,
+      "recall_at_k": {
+        "1": false,
+        "3": false,
+        "5": true,
+        "10": true
+      },
+      "evidence_coverage_at_k": {
+        "1": 0.0,
+        "3": 0.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "full_evidence_found_at_k": {
+        "1": false,
+        "3": false,
+        "5": true,
+        "10": true
+      },
+      "failure_category": null,
+      "failure_detail": null
+    },
+    {
+      "question_id": "q006",
+      "question": "Approximately how tall was the little door Alice found?",
+      "expected_pages": [
+        15
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00017",
+          "pages": [
+            15,
+            16
+          ],
+          "score": 0.560151202389125
+        },
+        {
+          "rank": 2,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00027",
+          "pages": [
+            21,
+            22
+          ],
+          "score": 0.4869195764671013
+        },
+        {
+          "rank": 3,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00019",
+          "pages": [
+            16
+          ],
+          "score": 0.48512266522324526
+        },
+        {
+          "rank": 4,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00065",
+          "pages": [
+            42,
+            43
+          ],
+          "score": 0.4767446677557552
+        },
+        {
+          "rank": 5,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00046",
+          "pages": [
+            33
+          ],
+          "score": 0.47419492731093893
+        },
+        {
+          "rank": 6,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00067",
+          "pages": [
+            43,
+            44
+          ],
+          "score": 0.4477495287638615
+        },
+        {
+          "rank": 7,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00043",
+          "pages": [
+            31,
+            32
+          ],
+          "score": 0.4445880346643835
+        },
+        {
+          "rank": 8,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00023",
+          "pages": [
+            19,
+            20
+          ],
+          "score": 0.442109660430635
+        },
+        {
+          "rank": 9,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00016",
+          "pages": [
+            15
+          ],
+          "score": 0.44072430984418254
+        },
+        {
+          "rank": 10,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00044",
+          "pages": [
+            32
+          ],
+          "score": 0.43565300335367585
+        }
+      ],
+      "first_relevant_rank": 1,
+      "recall_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "evidence_coverage_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "full_evidence_found_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "failure_category": null,
+      "failure_detail": null
+    },
+    {
+      "question_id": "q007",
+      "question": "Which foods did Alice say the DRINK ME bottle tasted like?",
+      "expected_pages": [
+        16
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00019",
+          "pages": [
+            16
+          ],
+          "score": 0.5055069049667553
+        },
+        {
+          "rank": 2,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00018",
+          "pages": [
+            15,
+            16
+          ],
+          "score": 0.45003506774205404
+        },
+        {
+          "rank": 3,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00043",
+          "pages": [
+            31,
+            32
+          ],
+          "score": 0.43224757599292163
+        },
+        {
+          "rank": 4,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00053",
+          "pages": [
+            36
+          ],
+          "score": 0.41911222488579297
+        },
+        {
+          "rank": 5,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00136",
+          "pages": [
+            85,
+            86,
+            87
+          ],
+          "score": 0.4158937432004738
+        },
+        {
+          "rank": 6,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00081",
+          "pages": [
+            52
+          ],
+          "score": 0.41039070608741257
+        },
+        {
+          "rank": 7,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00107",
+          "pages": [
+            68,
+            69
+          ],
+          "score": 0.40368142526777523
+        },
+        {
+          "rank": 8,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00037",
+          "pages": [
+            27
+          ],
+          "score": 0.40337392041094666
+        },
+        {
+          "rank": 9,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00104",
+          "pages": [
+            64,
+            65,
+            66,
+            67
+          ],
+          "score": 0.3959716215710117
+        },
+        {
+          "rank": 10,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00088",
+          "pages": [
+            55,
+            56
+          ],
+          "score": 0.387917312130041
+        }
+      ],
+      "first_relevant_rank": 1,
+      "recall_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "evidence_coverage_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "full_evidence_found_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "failure_category": null,
+      "failure_detail": null
+    },
+    {
+      "question_id": "q008",
+      "question": "What words were marked in currants on the cake?",
+      "expected_pages": [
+        17
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00143",
+          "pages": [
+            90
+          ],
+          "score": 0.3756205771698139
+        },
+        {
+          "rank": 2,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00022",
+          "pages": [
+            17,
+            18,
+            19
+          ],
+          "score": 0.373611685542359
+        },
+        {
+          "rank": 3,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00021",
+          "pages": [
+            17,
+            18,
+            19
+          ],
+          "score": 0.3693108455933343
+        },
+        {
+          "rank": 4,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00130",
+          "pages": [
+            82,
+            83
+          ],
+          "score": 0.36588979076086786
+        },
+        {
+          "rank": 5,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00136",
+          "pages": [
+            85,
+            86,
+            87
+          ],
+          "score": 0.3452092616730047
+        },
+        {
+          "rank": 6,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00127",
+          "pages": [
+            79,
+            80,
+            81
+          ],
+          "score": 0.33969947069328643
+        },
+        {
+          "rank": 7,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00142",
+          "pages": [
+            89,
+            90
+          ],
+          "score": 0.3384102127341704
+        },
+        {
+          "rank": 8,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00082",
+          "pages": [
+            52,
+            53
+          ],
+          "score": 0.3349393245428014
+        },
+        {
+          "rank": 9,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00081",
+          "pages": [
+            52
+          ],
+          "score": 0.3314251381503779
+        },
+        {
+          "rank": 10,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00144",
+          "pages": [
+            90,
+            91
+          ],
+          "score": 0.3261030088636847
+        }
+      ],
+      "first_relevant_rank": 2,
+      "recall_at_k": {
+        "1": false,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "evidence_coverage_at_k": {
+        "1": 0.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "full_evidence_found_at_k": {
+        "1": false,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "failure_category": null,
+      "failure_detail": null
+    },
+    {
+      "question_id": "q009",
+      "question": "How tall did Alice become, and how deep was the pool of tears?",
+      "expected_pages": [
+        19,
+        20
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00023",
+          "pages": [
+            19,
+            20
+          ],
+          "score": 0.553898756053699
+        },
+        {
+          "rank": 2,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00027",
+          "pages": [
+            21,
+            22
+          ],
+          "score": 0.5476128084470752
+        },
+        {
+          "rank": 3,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00028",
+          "pages": [
+            21,
+            22
+          ],
+          "score": 0.5412077627133137
+        },
+        {
+          "rank": 4,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00022",
+          "pages": [
+            17,
+            18,
+            19
+          ],
+          "score": 0.5174289141673835
+        },
+        {
+          "rank": 5,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00019",
+          "pages": [
+            16
+          ],
+          "score": 0.5010080490375848
+        },
+        {
+          "rank": 6,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00026",
+          "pages": [
+            21
+          ],
+          "score": 0.4811524220017619
+        },
+        {
+          "rank": 7,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00044",
+          "pages": [
+            32
+          ],
+          "score": 0.4760777866931603
+        },
+        {
+          "rank": 8,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00021",
+          "pages": [
+            17,
+            18,
+            19
+          ],
+          "score": 0.47472313843154945
+        },
+        {
+          "rank": 9,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00061",
+          "pages": [
+            40,
+            41
+          ],
+          "score": 0.44836226056202744
+        },
+        {
+          "rank": 10,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00013",
+          "pages": [
+            13,
+            14
+          ],
+          "score": 0.4462155708880494
+        }
+      ],
+      "first_relevant_rank": 1,
+      "recall_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "evidence_coverage_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "full_evidence_found_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "failure_category": null,
+      "failure_detail": null
+    },
+    {
+      "question_id": "q010",
+      "question": "What caused Alice to start shrinking while she was talking to the Mouse?",
+      "expected_pages": [
+        21
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00060",
+          "pages": [
+            40
+          ],
+          "score": 0.5988212598532571
+        },
+        {
+          "rank": 2,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00029",
+          "pages": [
+            22
+          ],
+          "score": 0.5925464569079385
+        },
+        {
+          "rank": 3,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00019",
+          "pages": [
+            16
+          ],
+          "score": 0.5913354597741197
+        },
+        {
+          "rank": 4,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00028",
+          "pages": [
+            21,
+            22
+          ],
+          "score": 0.5895623021719598
+        },
+        {
+          "rank": 5,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00043",
+          "pages": [
+            31,
+            32
+          ],
+          "score": 0.589401878291188
+        },
+        {
+          "rank": 6,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00026",
+          "pages": [
+            21
+          ],
+          "score": 0.5767031868040928
+        },
+        {
+          "rank": 7,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00050",
+          "pages": [
+            34,
+            35
+          ],
+          "score": 0.5759235820934163
+        },
+        {
+          "rank": 8,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00051",
+          "pages": [
+            35
+          ],
+          "score": 0.573708951706596
+        },
+        {
+          "rank": 9,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00027",
+          "pages": [
+            21,
+            22
+          ],
+          "score": 0.568507585649391
+        },
+        {
+          "rank": 10,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00089",
+          "pages": [
+            56
+          ],
+          "score": 0.5566440535813765
+        }
+      ],
+      "first_relevant_rank": 4,
+      "recall_at_k": {
+        "1": false,
+        "3": false,
+        "5": true,
+        "10": true
+      },
+      "evidence_coverage_at_k": {
+        "1": 0.0,
+        "3": 0.0,
+        "5": 0.0,
+        "10": 1.0
+      },
+      "full_evidence_found_at_k": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": true
+      },
+      "failure_category": "bad_chunk_boundary",
+      "failure_detail": "expected page retrieved but one or more evidence phrases are outside selected chunks"
+    },
+    {
+      "question_id": "q011",
+      "question": "Why did Alice address the Mouse in French?",
+      "expected_pages": [
+        22
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00029",
+          "pages": [
+            22
+          ],
+          "score": 0.6884500681459835
+        },
+        {
+          "rank": 2,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00033",
+          "pages": [
+            25,
+            26
+          ],
+          "score": 0.5235709787219264
+        },
+        {
+          "rank": 3,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00030",
+          "pages": [
+            22,
+            23
+          ],
+          "score": 0.5134918673056938
+        },
+        {
+          "rank": 4,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00089",
+          "pages": [
+            56
+          ],
+          "score": 0.5081912939158904
+        },
+        {
+          "rank": 5,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00031",
+          "pages": [
+            23
+          ],
+          "score": 0.49863706458952417
+        },
+        {
+          "rank": 6,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00028",
+          "pages": [
+            21,
+            22
+          ],
+          "score": 0.491094450592318
+        },
+        {
+          "rank": 7,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00082",
+          "pages": [
+            52,
+            53
+          ],
+          "score": 0.4907588798259835
+        },
+        {
+          "rank": 8,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00081",
+          "pages": [
+            52
+          ],
+          "score": 0.4819977622115294
+        },
+        {
+          "rank": 9,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00034",
+          "pages": [
+            25,
+            26
+          ],
+          "score": 0.47949396660924243
+        },
+        {
+          "rank": 10,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00038",
+          "pages": [
+            27,
+            28,
+            29
+          ],
+          "score": 0.4726600597108392
+        }
+      ],
+      "first_relevant_rank": 1,
+      "recall_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "evidence_coverage_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "full_evidence_found_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "failure_category": null,
+      "failure_detail": null
+    },
+    {
+      "question_id": "q012",
+      "question": "What activity did the Dodo recommend to get everyone dry?",
+      "expected_pages": [
+        26
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00035",
+          "pages": [
+            26
+          ],
+          "score": 0.5320733941905977
+        },
+        {
+          "rank": 2,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00036",
+          "pages": [
+            26,
+            27
+          ],
+          "score": 0.42314074126065165
+        },
+        {
+          "rank": 3,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00034",
+          "pages": [
+            25,
+            26
+          ],
+          "score": 0.36535884729145723
+        },
+        {
+          "rank": 4,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00032",
+          "pages": [
+            23,
+            24,
+            25
+          ],
+          "score": 0.3436198003699278
+        },
+        {
+          "rank": 5,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00037",
+          "pages": [
+            27
+          ],
+          "score": 0.2906474774127547
+        },
+        {
+          "rank": 6,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00117",
+          "pages": [
+            73,
+            74
+          ],
+          "score": 0.2660036513643399
+        },
+        {
+          "rank": 7,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00119",
+          "pages": [
+            74,
+            75
+          ],
+          "score": 0.26267921525764515
+        },
+        {
+          "rank": 8,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00097",
+          "pages": [
+            61,
+            62
+          ],
+          "score": 0.25388930687142747
+        },
+        {
+          "rank": 9,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00118",
+          "pages": [
+            74
+          ],
+          "score": 0.24698759964212694
+        },
+        {
+          "rank": 10,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00023",
+          "pages": [
+            19,
+            20
+          ],
+          "score": 0.24687833672797968
+        }
+      ],
+      "first_relevant_rank": 1,
+      "recall_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "evidence_coverage_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "full_evidence_found_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "failure_category": null,
+      "failure_detail": null
+    },
+    {
+      "question_id": "q013",
+      "question": "What prizes did Alice and the other racers receive after the Caucus-race?",
+      "expected_pages": [
+        27
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00036",
+          "pages": [
+            26,
+            27
+          ],
+          "score": 0.5247443874905011
+        },
+        {
+          "rank": 2,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00037",
+          "pages": [
+            27
+          ],
+          "score": 0.3658866074651019
+        },
+        {
+          "rank": 3,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00035",
+          "pages": [
+            26
+          ],
+          "score": 0.36324663199528207
+        },
+        {
+          "rank": 4,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00010",
+          "pages": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "score": 0.32144172027809886
+        },
+        {
+          "rank": 5,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00108",
+          "pages": [
+            68,
+            69
+          ],
+          "score": 0.3104535329340996
+        },
+        {
+          "rank": 6,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00040",
+          "pages": [
+            29,
+            30
+          ],
+          "score": 0.29656302885800423
+        },
+        {
+          "rank": 7,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00022",
+          "pages": [
+            17,
+            18,
+            19
+          ],
+          "score": 0.2802944519768153
+        },
+        {
+          "rank": 8,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00142",
+          "pages": [
+            89,
+            90
+          ],
+          "score": 0.27888064358154063
+        },
+        {
+          "rank": 9,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00032",
+          "pages": [
+            23,
+            24,
+            25
+          ],
+          "score": 0.2670656666080112
+        },
+        {
+          "rank": 10,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00137",
+          "pages": [
+            85,
+            86,
+            87
+          ],
+          "score": 0.26587719644066743
+        }
+      ],
+      "first_relevant_rank": 1,
+      "recall_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "evidence_coverage_at_k": {
+        "1": 0.5,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "full_evidence_found_at_k": {
+        "1": false,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "failure_category": null,
+      "failure_detail": null
+    },
+    {
+      "question_id": "q014",
+      "question": "What did the White Rabbit order 'Mary Ann' to fetch?",
+      "expected_pages": [
+        31
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00042",
+          "pages": [
+            31,
+            32
+          ],
+          "score": 0.5188866452888057
+        },
+        {
+          "rank": 2,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00046",
+          "pages": [
+            33
+          ],
+          "score": 0.4643577322674998
+        },
+        {
+          "rank": 3,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00041",
+          "pages": [
+            30,
+            31
+          ],
+          "score": 0.4121345769249147
+        },
+        {
+          "rank": 4,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00043",
+          "pages": [
+            31,
+            32
+          ],
+          "score": 0.410254511064803
+        },
+        {
+          "rank": 5,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00130",
+          "pages": [
+            82,
+            83
+          ],
+          "score": 0.4000570865374955
+        },
+        {
+          "rank": 6,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00050",
+          "pages": [
+            34,
+            35
+          ],
+          "score": 0.3976193500003714
+        },
+        {
+          "rank": 7,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00011",
+          "pages": [
+            11,
+            12,
+            13
+          ],
+          "score": 0.39258546365970404
+        },
+        {
+          "rank": 8,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00136",
+          "pages": [
+            85,
+            86,
+            87
+          ],
+          "score": 0.386763075229278
+        },
+        {
+          "rank": 9,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00096",
+          "pages": [
+            61,
+            62
+          ],
+          "score": 0.38223398273003606
+        },
+        {
+          "rank": 10,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00016",
+          "pages": [
+            15
+          ],
+          "score": 0.38033293606987717
+        }
+      ],
+      "first_relevant_rank": 1,
+      "recall_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "evidence_coverage_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "full_evidence_found_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "failure_category": null,
+      "failure_detail": null
+    },
+    {
+      "question_id": "q015",
+      "question": "What name was engraved on the brass plate at the Rabbit's house?",
+      "expected_pages": [
+        31
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00042",
+          "pages": [
+            31,
+            32
+          ],
+          "score": 0.44130853741096726
+        },
+        {
+          "rank": 2,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00140",
+          "pages": [
+            88,
+            89
+          ],
+          "score": 0.3729329152912958
+        },
+        {
+          "rank": 3,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00141",
+          "pages": [
+            89
+          ],
+          "score": 0.34899196356916423
+        },
+        {
+          "rank": 4,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00078",
+          "pages": [
+            48,
+            49,
+            50,
+            51
+          ],
+          "score": 0.34646688816209276
+        },
+        {
+          "rank": 5,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00016",
+          "pages": [
+            15
+          ],
+          "score": 0.345513033940812
+        },
+        {
+          "rank": 6,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00041",
+          "pages": [
+            30,
+            31
+          ],
+          "score": 0.34540213982337764
+        },
+        {
+          "rank": 7,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00047",
+          "pages": [
+            33,
+            34
+          ],
+          "score": 0.3422992497937384
+        },
+        {
+          "rank": 8,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00130",
+          "pages": [
+            82,
+            83
+          ],
+          "score": 0.3366854178429586
+        },
+        {
+          "rank": 9,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00046",
+          "pages": [
+            33
+          ],
+          "score": 0.33236588835542485
+        },
+        {
+          "rank": 10,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00080",
+          "pages": [
+            51,
+            52
+          ],
+          "score": 0.3313534518816034
+        }
+      ],
+      "first_relevant_rank": 1,
+      "recall_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "evidence_coverage_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "full_evidence_found_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "failure_category": null,
+      "failure_detail": null
+    },
+    {
+      "question_id": "q016",
+      "question": "What did the pebbles thrown through the window become, and what happened when Alice ate one?",
+      "expected_pages": [
+        35
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00050",
+          "pages": [
+            34,
+            35
+          ],
+          "score": 0.6494091484532255
+        },
+        {
+          "rank": 2,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00021",
+          "pages": [
+            17,
+            18,
+            19
+          ],
+          "score": 0.5274825326926253
+        },
+        {
+          "rank": 3,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00019",
+          "pages": [
+            16
+          ],
+          "score": 0.5128671093720845
+        },
+        {
+          "rank": 4,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00037",
+          "pages": [
+            27
+          ],
+          "score": 0.49311657670618453
+        },
+        {
+          "rank": 5,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00051",
+          "pages": [
+            35
+          ],
+          "score": 0.48580379536841395
+        },
+        {
+          "rank": 6,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00043",
+          "pages": [
+            31,
+            32
+          ],
+          "score": 0.4812614577114028
+        },
+        {
+          "rank": 7,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00046",
+          "pages": [
+            33
+          ],
+          "score": 0.4796314888173826
+        },
+        {
+          "rank": 8,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00136",
+          "pages": [
+            85,
+            86,
+            87
+          ],
+          "score": 0.4779329064728654
+        },
+        {
+          "rank": 9,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00053",
+          "pages": [
+            36
+          ],
+          "score": 0.47190686115564806
+        },
+        {
+          "rank": 10,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00018",
+          "pages": [
+            15,
+            16
+          ],
+          "score": 0.4675681718696625
+        }
+      ],
+      "first_relevant_rank": 1,
+      "recall_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "evidence_coverage_at_k": {
+        "1": 0.5,
+        "3": 0.5,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "full_evidence_found_at_k": {
+        "1": false,
+        "3": false,
+        "5": true,
+        "10": true
+      },
+      "failure_category": null,
+      "failure_detail": null
+    },
+    {
+      "question_id": "q017",
+      "question": "What different effects did the two sides of the mushroom have?",
+      "expected_pages": [
+        40
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00060",
+          "pages": [
+            40
+          ],
+          "score": 0.47928011317993946
+        },
+        {
+          "rank": 2,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00054",
+          "pages": [
+            36,
+            37
+          ],
+          "score": 0.3087321243839856
+        },
+        {
+          "rank": 3,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00064",
+          "pages": [
+            42
+          ],
+          "score": 0.28510434367769216
+        },
+        {
+          "rank": 4,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00090",
+          "pages": [
+            56,
+            57,
+            58
+          ],
+          "score": 0.25730882322584897
+        },
+        {
+          "rank": 5,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00059",
+          "pages": [
+            39,
+            40
+          ],
+          "score": 0.23913124753605858
+        },
+        {
+          "rank": 6,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00061",
+          "pages": [
+            40,
+            41
+          ],
+          "score": 0.22762218291736058
+        },
+        {
+          "rank": 7,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00078",
+          "pages": [
+            48,
+            49,
+            50,
+            51
+          ],
+          "score": 0.22558184251247734
+        },
+        {
+          "rank": 8,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00021",
+          "pages": [
+            17,
+            18,
+            19
+          ],
+          "score": 0.22479600436365435
+        },
+        {
+          "rank": 9,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00019",
+          "pages": [
+            16
+          ],
+          "score": 0.22153941364969157
+        },
+        {
+          "rank": 10,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00081",
+          "pages": [
+            52
+          ],
+          "score": 0.2199996505472091
+        }
+      ],
+      "first_relevant_rank": 1,
+      "recall_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "evidence_coverage_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "full_evidence_found_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "failure_category": null,
+      "failure_detail": null
+    },
+    {
+      "question_id": "q018",
+      "question": "Why did the Pigeon call Alice a serpent?",
+      "expected_pages": [
+        41,
+        42
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00062",
+          "pages": [
+            41
+          ],
+          "score": 0.6977659589565054
+        },
+        {
+          "rank": 2,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00063",
+          "pages": [
+            41,
+            42
+          ],
+          "score": 0.693098063680504
+        },
+        {
+          "rank": 3,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00064",
+          "pages": [
+            42
+          ],
+          "score": 0.6560819587959381
+        },
+        {
+          "rank": 4,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00040",
+          "pages": [
+            29,
+            30
+          ],
+          "score": 0.48189335940027156
+        },
+        {
+          "rank": 5,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00074",
+          "pages": [
+            47
+          ],
+          "score": 0.4780294417496509
+        },
+        {
+          "rank": 6,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00124",
+          "pages": [
+            77
+          ],
+          "score": 0.46248138301516434
+        },
+        {
+          "rank": 7,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00106",
+          "pages": [
+            68
+          ],
+          "score": 0.4609547030187145
+        },
+        {
+          "rank": 8,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00110",
+          "pages": [
+            69,
+            70
+          ],
+          "score": 0.46071990928977086
+        },
+        {
+          "rank": 9,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00112",
+          "pages": [
+            70,
+            71
+          ],
+          "score": 0.4569558716135218
+        },
+        {
+          "rank": 10,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00075",
+          "pages": [
+            47,
+            48
+          ],
+          "score": 0.4453896185304789
+        }
+      ],
+      "first_relevant_rank": 1,
+      "recall_at_k": {
+        "1": false,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "evidence_coverage_at_k": {
+        "1": 0.5,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "full_evidence_found_at_k": {
+        "1": false,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "failure_category": null,
+      "failure_detail": null
+    },
+    {
+      "question_id": "q019",
+      "question": "What invitation did the Fish-Footman deliver to the Duchess?",
+      "expected_pages": [
+        43
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00066",
+          "pages": [
+            43
+          ],
+          "score": 0.55623768527043
+        },
+        {
+          "rank": 2,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00069",
+          "pages": [
+            44,
+            45
+          ],
+          "score": 0.3343489884244987
+        },
+        {
+          "rank": 3,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00034",
+          "pages": [
+            25,
+            26
+          ],
+          "score": 0.29430050792802726
+        },
+        {
+          "rank": 4,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00072",
+          "pages": [
+            46
+          ],
+          "score": 0.2929333027461439
+        },
+        {
+          "rank": 5,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00107",
+          "pages": [
+            68,
+            69
+          ],
+          "score": 0.2881965256647649
+        },
+        {
+          "rank": 6,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00104",
+          "pages": [
+            64,
+            65,
+            66,
+            67
+          ],
+          "score": 0.288013730911025
+        },
+        {
+          "rank": 7,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00067",
+          "pages": [
+            43,
+            44
+          ],
+          "score": 0.2828539572908575
+        },
+        {
+          "rank": 8,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00096",
+          "pages": [
+            61,
+            62
+          ],
+          "score": 0.27920541855411135
+        },
+        {
+          "rank": 9,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00108",
+          "pages": [
+            68,
+            69
+          ],
+          "score": 0.27440942457942874
+        },
+        {
+          "rank": 10,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00036",
+          "pages": [
+            26,
+            27
+          ],
+          "score": 0.27419393169893364
+        }
+      ],
+      "first_relevant_rank": 1,
+      "recall_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "evidence_coverage_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "full_evidence_found_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "failure_category": null,
+      "failure_detail": null
+    },
+    {
+      "question_id": "q020",
+      "question": "Which two residents did the Cheshire Cat direct Alice toward, and what did it say about them?",
+      "expected_pages": [
+        48
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00076",
+          "pages": [
+            48
+          ],
+          "score": 0.5704589363768824
+        },
+        {
+          "rank": 2,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00075",
+          "pages": [
+            47,
+            48
+          ],
+          "score": 0.546860113982758
+        },
+        {
+          "rank": 3,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00100",
+          "pages": [
+            63
+          ],
+          "score": 0.5236105530630178
+        },
+        {
+          "rank": 4,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00069",
+          "pages": [
+            44,
+            45
+          ],
+          "score": 0.5223317971196544
+        },
+        {
+          "rank": 5,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00078",
+          "pages": [
+            48,
+            49,
+            50,
+            51
+          ],
+          "score": 0.5222359522720117
+        },
+        {
+          "rank": 6,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00099",
+          "pages": [
+            62,
+            63
+          ],
+          "score": 0.5210996272411182
+        },
+        {
+          "rank": 7,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00070",
+          "pages": [
+            45
+          ],
+          "score": 0.49956121908311096
+        },
+        {
+          "rank": 8,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00077",
+          "pages": [
+            48,
+            49
+          ],
+          "score": 0.47662271050808325
+        },
+        {
+          "rank": 9,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00102",
+          "pages": [
+            64
+          ],
+          "score": 0.4642596410862502
+        },
+        {
+          "rank": 10,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00040",
+          "pages": [
+            29,
+            30
+          ],
+          "score": 0.4609931095901232
+        }
+      ],
+      "first_relevant_rank": 1,
+      "recall_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "evidence_coverage_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "full_evidence_found_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "failure_category": null,
+      "failure_detail": null
+    },
+    {
+      "question_id": "q021",
+      "question": "What did the Duchess's baby turn into?",
+      "expected_pages": [
+        48
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00072",
+          "pages": [
+            46
+          ],
+          "score": 0.47165850225995
+        },
+        {
+          "rank": 2,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00071",
+          "pages": [
+            45,
+            46
+          ],
+          "score": 0.42031090803673454
+        },
+        {
+          "rank": 3,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00070",
+          "pages": [
+            45
+          ],
+          "score": 0.39593021453817506
+        },
+        {
+          "rank": 4,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00069",
+          "pages": [
+            44,
+            45
+          ],
+          "score": 0.3783899664816674
+        },
+        {
+          "rank": 5,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00104",
+          "pages": [
+            64,
+            65,
+            66,
+            67
+          ],
+          "score": 0.3761844483115539
+        },
+        {
+          "rank": 6,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00073",
+          "pages": [
+            46,
+            47
+          ],
+          "score": 0.37174070020326805
+        },
+        {
+          "rank": 7,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00074",
+          "pages": [
+            47
+          ],
+          "score": 0.36514426563165797
+        },
+        {
+          "rank": 8,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00077",
+          "pages": [
+            48,
+            49
+          ],
+          "score": 0.35862356599488454
+        },
+        {
+          "rank": 9,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00024",
+          "pages": [
+            20
+          ],
+          "score": 0.3544177372743318
+        },
+        {
+          "rank": 10,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00108",
+          "pages": [
+            68,
+            69
+          ],
+          "score": 0.3474325350824938
+        }
+      ],
+      "first_relevant_rank": 8,
+      "recall_at_k": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": true
+      },
+      "evidence_coverage_at_k": {
+        "1": 0.0,
+        "3": 0.0,
+        "5": 0.0,
+        "10": 1.0
+      },
+      "full_evidence_found_at_k": {
+        "1": false,
+        "3": false,
+        "5": false,
+        "10": true
+      },
+      "failure_category": "insufficient_retrieval_depth",
+      "failure_detail": "missing expected page first appears at rank 8"
+    },
+    {
+      "question_id": "q022",
+      "question": "Who was at the tea table, and what beverage did the March Hare falsely offer Alice?",
+      "expected_pages": [
+        51
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00079",
+          "pages": [
+            49,
+            50,
+            51
+          ],
+          "score": 0.6539264786907801
+        },
+        {
+          "rank": 2,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00088",
+          "pages": [
+            55,
+            56
+          ],
+          "score": 0.5809330587653802
+        },
+        {
+          "rank": 3,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00080",
+          "pages": [
+            51,
+            52
+          ],
+          "score": 0.5770740793829429
+        },
+        {
+          "rank": 4,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00087",
+          "pages": [
+            55
+          ],
+          "score": 0.5672761475061344
+        },
+        {
+          "rank": 5,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00133",
+          "pages": [
+            84
+          ],
+          "score": 0.5628274731043621
+        },
+        {
+          "rank": 6,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00130",
+          "pages": [
+            82,
+            83
+          ],
+          "score": 0.5515705982559532
+        },
+        {
+          "rank": 7,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00084",
+          "pages": [
+            53,
+            54
+          ],
+          "score": 0.5456162283837005
+        },
+        {
+          "rank": 8,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00085",
+          "pages": [
+            54
+          ],
+          "score": 0.54485087702097
+        },
+        {
+          "rank": 9,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00086",
+          "pages": [
+            54,
+            55
+          ],
+          "score": 0.5424612543270193
+        },
+        {
+          "rank": 10,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00078",
+          "pages": [
+            48,
+            49,
+            50,
+            51
+          ],
+          "score": 0.5217174793836614
+        }
+      ],
+      "first_relevant_rank": 1,
+      "recall_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "evidence_coverage_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "full_evidence_found_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "failure_category": null,
+      "failure_detail": null
+    },
+    {
+      "question_id": "q023",
+      "question": "Why was it always tea-time at the Hatter's table?",
+      "expected_pages": [
+        54
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00085",
+          "pages": [
+            54
+          ],
+          "score": 0.6105897369967408
+        },
+        {
+          "rank": 2,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00084",
+          "pages": [
+            53,
+            54
+          ],
+          "score": 0.5932294434862405
+        },
+        {
+          "rank": 3,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00079",
+          "pages": [
+            49,
+            50,
+            51
+          ],
+          "score": 0.5573899500211945
+        },
+        {
+          "rank": 4,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00082",
+          "pages": [
+            52,
+            53
+          ],
+          "score": 0.5544659535027219
+        },
+        {
+          "rank": 5,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00133",
+          "pages": [
+            84
+          ],
+          "score": 0.528810195081469
+        },
+        {
+          "rank": 6,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00080",
+          "pages": [
+            51,
+            52
+          ],
+          "score": 0.5248290747748898
+        },
+        {
+          "rank": 7,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00130",
+          "pages": [
+            82,
+            83
+          ],
+          "score": 0.5166665290061705
+        },
+        {
+          "rank": 8,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00083",
+          "pages": [
+            53
+          ],
+          "score": 0.5112619922448316
+        },
+        {
+          "rank": 9,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00088",
+          "pages": [
+            55,
+            56
+          ],
+          "score": 0.5069682836036259
+        },
+        {
+          "rank": 10,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00087",
+          "pages": [
+            55
+          ],
+          "score": 0.4935078921663568
+        }
+      ],
+      "first_relevant_rank": 1,
+      "recall_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "evidence_coverage_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "full_evidence_found_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "failure_category": null,
+      "failure_detail": null
+    },
+    {
+      "question_id": "q024",
+      "question": "What served as the balls, mallets, and arches in the Queen's croquet game?",
+      "expected_pages": [
+        62
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00097",
+          "pages": [
+            61,
+            62
+          ],
+          "score": 0.47976710823966345
+        },
+        {
+          "rank": 2,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00109",
+          "pages": [
+            69
+          ],
+          "score": 0.43686203820002034
+        },
+        {
+          "rank": 3,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00066",
+          "pages": [
+            43
+          ],
+          "score": 0.3636807419353749
+        },
+        {
+          "rank": 4,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00092",
+          "pages": [
+            59,
+            60
+          ],
+          "score": 0.35950712211283975
+        },
+        {
+          "rank": 5,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00096",
+          "pages": [
+            61,
+            62
+          ],
+          "score": 0.3549256904517779
+        },
+        {
+          "rank": 6,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00101",
+          "pages": [
+            63,
+            64
+          ],
+          "score": 0.3323322594098456
+        },
+        {
+          "rank": 7,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00098",
+          "pages": [
+            62
+          ],
+          "score": 0.3251244186571949
+        },
+        {
+          "rank": 8,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00100",
+          "pages": [
+            63
+          ],
+          "score": 0.3085212002092456
+        },
+        {
+          "rank": 9,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00102",
+          "pages": [
+            64
+          ],
+          "score": 0.2815581030465917
+        },
+        {
+          "rank": 10,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00104",
+          "pages": [
+            64,
+            65,
+            66,
+            67
+          ],
+          "score": 0.27698910490493056
+        }
+      ],
+      "first_relevant_rank": 1,
+      "recall_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "evidence_coverage_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "full_evidence_found_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "failure_category": null,
+      "failure_detail": null
+    },
+    {
+      "question_id": "q025",
+      "question": "According to the Duchess, under what condition does everything have a moral?",
+      "expected_pages": [
+        67
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00105",
+          "pages": [
+            67,
+            68
+          ],
+          "score": 0.5233540637718747
+        },
+        {
+          "rank": 2,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00106",
+          "pages": [
+            68
+          ],
+          "score": 0.49717459073733655
+        },
+        {
+          "rank": 3,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00107",
+          "pages": [
+            68,
+            69
+          ],
+          "score": 0.46928397966197577
+        },
+        {
+          "rank": 4,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00104",
+          "pages": [
+            64,
+            65,
+            66,
+            67
+          ],
+          "score": 0.35528980053320236
+        },
+        {
+          "rank": 5,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00108",
+          "pages": [
+            68,
+            69
+          ],
+          "score": 0.34266717191858864
+        },
+        {
+          "rank": 6,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00069",
+          "pages": [
+            44,
+            45
+          ],
+          "score": 0.2796679703374329
+        },
+        {
+          "rank": 7,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00070",
+          "pages": [
+            45
+          ],
+          "score": 0.2754295186763573
+        },
+        {
+          "rank": 8,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00114",
+          "pages": [
+            71,
+            72
+          ],
+          "score": 0.25693692083635367
+        },
+        {
+          "rank": 9,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00071",
+          "pages": [
+            45,
+            46
+          ],
+          "score": 0.2546158655958767
+        },
+        {
+          "rank": 10,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00072",
+          "pages": [
+            46
+          ],
+          "score": 0.2527507178311149
+        }
+      ],
+      "first_relevant_rank": 1,
+      "recall_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "evidence_coverage_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "full_evidence_found_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "failure_category": null,
+      "failure_detail": null
+    },
+    {
+      "question_id": "q026",
+      "question": "Which oddly named subjects did the Mock Turtle say were taught at school?",
+      "expected_pages": [
+        71
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00114",
+          "pages": [
+            71,
+            72
+          ],
+          "score": 0.6522655271450039
+        },
+        {
+          "rank": 2,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00113",
+          "pages": [
+            71
+          ],
+          "score": 0.5503896050187794
+        },
+        {
+          "rank": 3,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00115",
+          "pages": [
+            72
+          ],
+          "score": 0.5470220085319726
+        },
+        {
+          "rank": 4,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00112",
+          "pages": [
+            70,
+            71
+          ],
+          "score": 0.49875508746091574
+        },
+        {
+          "rank": 5,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00123",
+          "pages": [
+            76,
+            77
+          ],
+          "score": 0.46049905419848025
+        },
+        {
+          "rank": 6,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00125",
+          "pages": [
+            77,
+            78
+          ],
+          "score": 0.4509676054623741
+        },
+        {
+          "rank": 7,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00124",
+          "pages": [
+            77
+          ],
+          "score": 0.44982477383300773
+        },
+        {
+          "rank": 8,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00116",
+          "pages": [
+            72,
+            73
+          ],
+          "score": 0.43602203091872016
+        },
+        {
+          "rank": 9,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00120",
+          "pages": [
+            75
+          ],
+          "score": 0.3912215430173659
+        },
+        {
+          "rank": 10,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00122",
+          "pages": [
+            76
+          ],
+          "score": 0.38679332539898265
+        }
+      ],
+      "first_relevant_rank": 1,
+      "recall_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "evidence_coverage_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "full_evidence_found_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "failure_category": null,
+      "failure_detail": null
+    },
+    {
+      "question_id": "q027",
+      "question": "What final actions complete the first figure of the Lobster Quadrille?",
+      "expected_pages": [
+        73,
+        74
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00117",
+          "pages": [
+            73,
+            74
+          ],
+          "score": 0.502880706121009
+        },
+        {
+          "rank": 2,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00116",
+          "pages": [
+            72,
+            73
+          ],
+          "score": 0.42037810402621234
+        },
+        {
+          "rank": 3,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00118",
+          "pages": [
+            74
+          ],
+          "score": 0.40694850156337803
+        },
+        {
+          "rank": 4,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00123",
+          "pages": [
+            76,
+            77
+          ],
+          "score": 0.35668421993135574
+        },
+        {
+          "rank": 5,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00119",
+          "pages": [
+            74,
+            75
+          ],
+          "score": 0.35504512470891725
+        },
+        {
+          "rank": 6,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00120",
+          "pages": [
+            75
+          ],
+          "score": 0.3507648545610118
+        },
+        {
+          "rank": 7,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00125",
+          "pages": [
+            77,
+            78
+          ],
+          "score": 0.34708474164903735
+        },
+        {
+          "rank": 8,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00072",
+          "pages": [
+            46
+          ],
+          "score": 0.3219319327676639
+        },
+        {
+          "rank": 9,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00121",
+          "pages": [
+            75,
+            76
+          ],
+          "score": 0.30571631536573374
+        },
+        {
+          "rank": 10,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00066",
+          "pages": [
+            43
+          ],
+          "score": 0.29931741096463904
+        }
+      ],
+      "first_relevant_rank": 1,
+      "recall_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "evidence_coverage_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "full_evidence_found_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "failure_category": null,
+      "failure_detail": null
+    },
+    {
+      "question_id": "q028",
+      "question": "What was the Knave of Hearts accused of, and who was called as the first witness?",
+      "expected_pages": [
+        82
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00130",
+          "pages": [
+            82,
+            83
+          ],
+          "score": 0.5579262403573276
+        },
+        {
+          "rank": 2,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00127",
+          "pages": [
+            79,
+            80,
+            81
+          ],
+          "score": 0.4782133850891957
+        },
+        {
+          "rank": 3,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00140",
+          "pages": [
+            88,
+            89
+          ],
+          "score": 0.46611540944759633
+        },
+        {
+          "rank": 4,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00135",
+          "pages": [
+            85
+          ],
+          "score": 0.4472182200382372
+        },
+        {
+          "rank": 5,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00141",
+          "pages": [
+            89
+          ],
+          "score": 0.42225577125788605
+        },
+        {
+          "rank": 6,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00136",
+          "pages": [
+            85,
+            86,
+            87
+          ],
+          "score": 0.41360246253214583
+        },
+        {
+          "rank": 7,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00133",
+          "pages": [
+            84
+          ],
+          "score": 0.4110844835021412
+        },
+        {
+          "rank": 8,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00094",
+          "pages": [
+            60,
+            61
+          ],
+          "score": 0.406052118212827
+        },
+        {
+          "rank": 9,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00143",
+          "pages": [
+            90
+          ],
+          "score": 0.395899762950141
+        },
+        {
+          "rank": 10,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00144",
+          "pages": [
+            90,
+            91
+          ],
+          "score": 0.3881841799682683
+        }
+      ],
+      "first_relevant_rank": 1,
+      "recall_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "evidence_coverage_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "full_evidence_found_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "failure_category": null,
+      "failure_detail": null
+    },
+    {
+      "question_id": "q029",
+      "question": "Who was the next witness after the Hatter, and what did she say the tarts were mostly made of?",
+      "expected_pages": [
+        85
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00136",
+          "pages": [
+            85,
+            86,
+            87
+          ],
+          "score": 0.6038060228176563
+        },
+        {
+          "rank": 2,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00130",
+          "pages": [
+            82,
+            83
+          ],
+          "score": 0.5974854944645539
+        },
+        {
+          "rank": 3,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00135",
+          "pages": [
+            85
+          ],
+          "score": 0.5549997726227286
+        },
+        {
+          "rank": 4,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00131",
+          "pages": [
+            83
+          ],
+          "score": 0.5154114854341436
+        },
+        {
+          "rank": 5,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00133",
+          "pages": [
+            84
+          ],
+          "score": 0.488539195065587
+        },
+        {
+          "rank": 6,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00127",
+          "pages": [
+            79,
+            80,
+            81
+          ],
+          "score": 0.4867989852080842
+        },
+        {
+          "rank": 7,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00132",
+          "pages": [
+            83,
+            84
+          ],
+          "score": 0.4679779820016819
+        },
+        {
+          "rank": 8,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00128",
+          "pages": [
+            81,
+            82
+          ],
+          "score": 0.458768566749302
+        },
+        {
+          "rank": 9,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00143",
+          "pages": [
+            90
+          ],
+          "score": 0.4574025029537731
+        },
+        {
+          "rank": 10,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00082",
+          "pages": [
+            52,
+            53
+          ],
+          "score": 0.4337695980862622
+        }
+      ],
+      "first_relevant_rank": 1,
+      "recall_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "evidence_coverage_at_k": {
+        "1": 0.5,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "full_evidence_found_at_k": {
+        "1": false,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "failure_category": null,
+      "failure_detail": null
+    },
+    {
+      "question_id": "q030",
+      "question": "Under Rule Forty-two, which people had to leave the court?",
+      "expected_pages": [
+        88
+      ],
+      "retrieved": [
+        {
+          "rank": 1,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00139",
+          "pages": [
+            88
+          ],
+          "score": 0.37439638559330246
+        },
+        {
+          "rank": 2,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00127",
+          "pages": [
+            79,
+            80,
+            81
+          ],
+          "score": 0.2634115668908654
+        },
+        {
+          "rank": 3,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00135",
+          "pages": [
+            85
+          ],
+          "score": 0.2589023650442289
+        },
+        {
+          "rank": 4,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00129",
+          "pages": [
+            82
+          ],
+          "score": 0.2449034365526656
+        },
+        {
+          "rank": 5,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00128",
+          "pages": [
+            81,
+            82
+          ],
+          "score": 0.2336301379909992
+        },
+        {
+          "rank": 6,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00144",
+          "pages": [
+            90,
+            91
+          ],
+          "score": 0.2295475316928005
+        },
+        {
+          "rank": 7,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00134",
+          "pages": [
+            84,
+            85
+          ],
+          "score": 0.22850567945267572
+        },
+        {
+          "rank": 8,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00109",
+          "pages": [
+            69
+          ],
+          "score": 0.22082625780507473
+        },
+        {
+          "rank": 9,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00101",
+          "pages": [
+            63,
+            64
+          ],
+          "score": 0.21547302034404417
+        },
+        {
+          "rank": 10,
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00138",
+          "pages": [
+            87,
+            88
+          ],
+          "score": 0.21458656598666953
+        }
+      ],
+      "first_relevant_rank": 1,
+      "recall_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "evidence_coverage_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "full_evidence_found_at_k": {
+        "1": true,
+        "3": true,
+        "5": true,
+        "10": true
+      },
+      "failure_category": null,
+      "failure_detail": null
+    }
+  ]
+}

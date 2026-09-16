@@ -9,7 +9,7 @@ class IngestionError(Exception):
     """A stable ingestion failure code safe to persist and return."""
 
 
-def _normalize_text(text: str) -> str:
+def _clean_extracted_text(text: str) -> str:
     lines = text.replace("\r\n", "\n").replace("\r", "\n").split("\n")
     return "\n".join(line.rstrip() for line in lines).strip()
 
@@ -38,7 +38,7 @@ def extract_pages(pdf_path: Path, document_id: str, source_filename: str) -> lis
         for index in range(document.page_count):
             try:
                 pdf_page = document.load_page(index)
-                text = _normalize_text(pdf_page.get_text("text", sort=True))
+                text = _clean_extracted_text(pdf_page.get_text("text", sort=True))
                 has_images = bool(pdf_page.get_images(full=True))
             except Exception:
                 raise IngestionError("extraction_failed") from None

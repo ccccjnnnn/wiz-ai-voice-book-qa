@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+import re
 
 from .models import Chunk, Page
 
@@ -12,6 +13,11 @@ class _PageSpan:
     page_number: int
     start: int
     end: int
+
+
+def estimate_token_count(text: str) -> int:
+    """Cheap deterministic estimate; the embedding API remains the usage authority."""
+    return len(re.findall(r"\w+|[^\w\s]", text, flags=re.UNICODE))
 
 
 def create_baseline_chunks(
@@ -31,6 +37,9 @@ def create_baseline_chunks(
         for page in pages
     ):
         raise ValueError("pages must belong to one document")
+    page_numbers_in_order = [page.page_number for page in pages]
+    if page_numbers_in_order != sorted(set(page_numbers_in_order)):
+        raise ValueError("pages must be unique and ordered")
 
     combined = ""
     spans: list[_PageSpan] = []
@@ -55,6 +64,13 @@ def create_baseline_chunks(
         ]
         if text and page_numbers:
             index = len(chunks)
+            char_count = len(text)
+            token_count = estimate_token_count(text)
+            quality_issues = []
+            if char_count < 200:
+                quality_issues.append("short_chunk")
+            if page_numbers[-1] - page_numbers[0] > 3:
+                quality_issues.append("large_page_span")
             chunks.append(
                 Chunk(
                     chunk_id=f"{document_id}:chunk:{index:05d}",
@@ -65,6 +81,9 @@ def create_baseline_chunks(
                     page_end=page_numbers[-1],
                     page_numbers=page_numbers,
                     source_filename=source_filename,
+                    char_count=char_count,
+                    token_count=token_count,
+                    quality_issues=quality_issues,
                 )
             )
         if window_end == len(combined):

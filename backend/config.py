@@ -22,6 +22,22 @@ class Settings:
     deepgram_api_key: str = field(repr=False)
 
 
+def load_voyage_api_key(path: Path = ENV_PATH) -> str:
+    """Load the retrieval-only credential without changing frozen provider settings."""
+    if not path.is_file():
+        raise ConfigurationError("backend_env_missing")
+    try:
+        value = dotenv_values(path, interpolate=False).get("VOYAGE_API_KEY")
+    except Exception:
+        raise ConfigurationError("configuration_unreadable") from None
+    if not value or not value.strip():
+        raise ConfigurationError("voyage_api_key_missing")
+    cleaned = value.strip()
+    if any(character.isspace() for character in cleaned):
+        raise ConfigurationError("voyage_api_key_invalid")
+    return cleaned
+
+
 def load_settings(path: Path = ENV_PATH) -> Settings:
     """Load backend/.env without interpolation or secret logging."""
     if not path.is_file():

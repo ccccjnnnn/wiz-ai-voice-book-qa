@@ -35,7 +35,7 @@ PyMuPDF opens the stored source and processes pages sequentially. For each page,
 - character count;
 - whether the page contains embedded images.
 
-`sort=True` uses page coordinates to improve reading order. The parser normalizes line endings and trailing whitespace while preserving line and page order.
+`sort=True` uses page coordinates to improve reading order. The parser performs minimal line-ending cleanup. A separate retrieval-oriented normalizer then removes common invisible artifacts and repeated whitespace, collapses excessive blank lines, and repairs conservative lowercase line-wrap and hyphenation artifacts. Each applied cleanup type remains observable on the page record. Headings and page boundaries are preserved.
 
 Stable failure codes include:
 
@@ -63,6 +63,8 @@ Every chunk records:
 - text;
 - first and last contributing page;
 - the complete ordered page-number list.
+- exact character count and a deterministic token-count estimate;
+- non-fatal chunk quality issues.
 
 The character baseline is intentionally simple. It provides a reproducible comparison point for later structure-aware chunking experiments; it is not presented as the expected final retrieval method.
 
@@ -84,7 +86,7 @@ backend/.venv/bin/uvicorn main:app --app-dir backend --host 127.0.0.1 --port 800
 ## Known limitations
 
 - Multi-column, side-note, table, and unusually positioned text may still have imperfect reading order.
-- Headers, footers, hyphenation, chapter headings, and section boundaries are not removed or interpreted in the baseline.
+- Headers, footers, chapter headings, and section boundaries are not removed or interpreted in the baseline. Conservative line-wrap and hyphenation cleanup may still produce false joins.
 - OCR and image understanding are not supported.
 - In mixed PDFs, image-only pages remain empty even when other pages contain a usable text layer.
 - Background processing uses the FastAPI process. A single worker is the supported take-home configuration; no distributed job queue is included.
@@ -93,8 +95,8 @@ backend/.venv/bin/uvicorn main:app --app-dir backend --host 127.0.0.1 --port 800
 
 ## Validation evidence
 
-Automated fixtures cover ordered multi-page extraction, a blank PDF, an image-only scanned PDF, corrupt PDF content, durable source storage, and chunk provenance across pages. A temporary text-layer copy of *Alice's Adventures in Wonderland* was also ingested end to end: 246,901 bytes, 92 ordered pages, 12 chapter markers in sequence, and 154 baseline chunks. The book file and generated database were kept outside the repository.
+Automated fixtures cover ordered multi-page extraction, a blank PDF, an image-only scanned PDF, corrupt PDF content, durable source storage, and chunk provenance across pages. A temporary text-layer copy of *Alice's Adventures in Wonderland* was also ingested end to end: 246,901 bytes, 92 ordered pages, 12 chapter markers in sequence, and 148 normalized baseline chunks. The book file and generated database were kept outside the repository.
 
-## Future retrieval integration
+## Retrieval integration
 
-The next phase can consume only `ready` chunks. Baseline chunks will first receive embeddings and establish retrieval metrics. Structure-aware chunks, BM25/RRF, and reranking will then be introduced one at a time and retained only if the fixed evaluation set shows useful gains. Existing document, page, filename, and page-range metadata will flow unchanged into evidence packing and citations.
+Only `ready` chunks are eligible for retrieval. The dense baseline consumes normalized chunk text and retains document, page, filename, and page-range metadata in every retrieved result. Structure-aware chunks, BM25/RRF, and reranking remain later experiments and will be introduced one at a time only if the fixed evaluation set shows useful gains.
