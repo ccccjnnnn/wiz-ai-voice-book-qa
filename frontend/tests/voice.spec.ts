@@ -81,6 +81,43 @@ test('typed answer stays silent and citation focuses supporting evidence', async
   await expect(page.locator('.evidence-card')).toContainText('Alice ran across the field');
 });
 
+test('audio controls resume after Stop and Replay restarts without a new TTS request', async ({ page }) => {
+  await page.addInitScript(() => {
+    const events: string[] = [];
+    Object.defineProperty(window, '__audioEvents', { value: events });
+    Object.defineProperty(HTMLMediaElement.prototype, 'play', { configurable: true, value() { events.push('play'); return Promise.resolve(); } });
+    Object.defineProperty(HTMLMediaElement.prototype, 'pause', { configurable: true, value() { events.push('pause'); } });
+  });
+  let ttsCalls = 0;
+  await page.route('**/api/voice/synthesize', (route) => { ttsCalls += 1; return route.fulfill({ status: 200, contentType: 'audio/wav', body: wav }); });
+  await mockProduct(page);
+  await askTyped(page);
+  await page.getByRole('button', { name: 'Listen' }).click();
+  const voiceControls = page.locator('.voice-band');
+  await expect(voiceControls.getByRole('button', { name: 'Stop' })).toBeEnabled();
+  await page.evaluate(() => {
+    const player = document.querySelector('audio')!;
+    let position = 12;
+    Object.defineProperty(player, 'currentTime', {
+      configurable: true,
+      get: () => position,
+      set: (value: number) => { position = value; (window as Window & { __audioEvents: string[] }).__audioEvents.push(`seek:${value}`); },
+    });
+    (window as Window & { __audioEvents: string[] }).__audioEvents.length = 0;
+  });
+
+  await voiceControls.getByRole('button', { name: 'Stop' }).click();
+  expect(await page.evaluate(() => document.querySelector('audio')!.currentTime)).toBe(12);
+  await voiceControls.getByRole('button', { name: 'Play', exact: true }).click();
+  expect(await page.evaluate(() => document.querySelector('audio')!.currentTime)).toBe(12);
+
+  await voiceControls.getByRole('button', { name: 'Stop' }).click();
+  await page.getByRole('button', { name: 'Replay' }).click();
+  expect(await page.evaluate(() => document.querySelector('audio')!.currentTime)).toBe(0);
+  expect(await page.evaluate(() => (window as Window & { __audioEvents: string[] }).__audioEvents)).toEqual(['pause', 'play', 'pause', 'seek:0', 'play']);
+  expect(ttsCalls).toBe(1);
+});
+
 test('voice transcript remains voice-originated after editing and requests TTS', async ({ page }) => {
   await installSilentMicrophone(page);
   let ttsCalls = 0;
@@ -100,7 +137,7 @@ test('voice transcript remains voice-originated after editing and requests TTS',
   await expect(page.getByText(answer.answer)).toBeVisible();
   await expect.poll(() => ttsCalls).toBe(1);
   expect(qaPayload).toMatchObject({ input_source: 'voice', original_transcript: 'What Alice do', transcript_edited: true });
-  expect(new URL(transcribeUrl).searchParams.get('language')).toBe('auto');
+  expect(new URL(transcribeUrl).searchParams.get('language')).toBe('zh');
   expect(new URL(transcribeUrl).searchParams.get('document_id')).toBe('book-1');
 });
 

@@ -518,6 +518,17 @@ export function ProductApp() {
     }
   }
 
+  async function replayAudio() {
+    if (!audio.current) return;
+    audio.current.currentTime = 0;
+    try {
+      await audio.current.play();
+      setTtsState('playing');
+    } catch {
+      setTtsError('Browser playback was blocked. Use the audio controls.');
+    }
+  }
+
   function focusEvidence(sourceId: string) {
     const target = evidenceRefs.current[sourceId];
     if (!target) return;
@@ -637,7 +648,7 @@ export function ProductApp() {
         <div className="voice-controls">
           <button type="button" className="command" onClick={playAudio} disabled={!result || !displayedAnswer || ttsState === 'synthesizing' || !ttsConfigured}>{ttsState === 'synthesizing' ? 'Preparing voice...' : ttsState === 'ready' || ttsState === 'playing' ? 'Play' : 'Listen'}</button>
           <button type="button" className="command" onClick={stopAudio} disabled={ttsState !== 'playing'}>Stop</button>
-          <button type="button" className="command" onClick={playAudio} disabled={ttsState !== 'ready' && ttsState !== 'playing'}>Replay</button>
+          <button type="button" className="command" onClick={replayAudio} disabled={ttsState !== 'ready' && ttsState !== 'playing'}>Replay</button>
           <span className="voice-state" role="status">{ttsState === 'synthesizing' ? 'Preparing voice' : ttsState === 'error' ? 'Audio unavailable' : ttsState === 'playing' ? 'Playing' : ttsState === 'ready' ? 'Ready' : 'Not requested'}</span>
         </div>
         <audio ref={audio} controls className={ttsState === 'ready' || ttsState === 'playing' ? '' : 'audio-hidden'} onEnded={() => setTtsState('ready')} />
