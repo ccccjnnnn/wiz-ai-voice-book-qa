@@ -1,0 +1,26 @@
+{
+  "frozen_at": "2026-09-16T06:02:56.694025+00:00",
+  "configuration": {
+    "configuration_id": "grounded-qa-v1",
+    "retrieval_index_version": "fixed-window-dense-v1",
+    "embedding_model": "voyage-4",
+    "candidate_depth": 10,
+    "evidence_token_budget": 3000,
+    "packing": "whole_chunks_in_rank_order_skip_exact_duplicates_v1",
+    "qwen_model": "qwen3.7-plus-2026-05-26",
+    "enable_thinking": false,
+    "structured_output": "strict_json_schema",
+    "system_prompt_sha256": "c992520eedeae0e4fccf3f4d2b58d9a060d10864fe8ee35a40449ac975fc3730",
+    "response_schema_sha256": "972b863181a65d3d476649d6c4bbd55b2f97803ea533695fca78269aa3303051",
+    "qa_annotation_overrides_sha256": "fdd59df361698f41781f7e05b8cf5937311a70641e907c95aa645aa52cb46ac1"
+  },
+  "dev_artifact": {
+    "path": "../eval/qa/grounded_qa_dev.json",
+    "sha256": "95e2374839949f342647faa24c8a63bd2ab8a9c93108df1a4823cc235aff60eb"
+  },
+  "challenge_artifact": {
+    "path": "../eval/qa/grounded_qa_challenge.json",
+    "sha256": "dda39fbc20dcde4fe8a4abcab77eac91601323ccf7498e3351088a7a2c4a1e24"
+  },
+  "test_policy": "Run matching TEST once; do not tune after inspecting it."
+}

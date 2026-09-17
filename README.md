@@ -12,6 +12,9 @@ Completed milestones:
 - **Deepgram voice path: PASS.** Browser recording, editable transcription, Nova-3 ASR, Aura-2 TTS, browser playback, MIME detection, latency reporting, empty input, permission failure, and provider failure paths have been exercised.
 - **PDF ingestion vertical slice: PASS.** Streamed local upload, durable status, ordered PyMuPDF extraction, scanned/empty detection, retrieval-oriented normalization, validated baseline chunks, and page-level provenance are implemented and tested.
 - **Retrieval experiments: PASS.** A frozen 20 DEV / 10 TEST protocol compared fixed-window dense, structure-aware dense, and evidence-triggered BM25/RRF. The simpler fixed-window `voyage-4` exact-cosine retriever won on DEV and achieved 100% Recall@5 and full evidence coverage@5 on the one-time TEST run. Reranking remains disabled because DEV evidence did not justify its runtime cost.
+- **Grounded text QA: PASS.** Top-10 fixed dense retrieval now feeds deterministic ≤3,000-token evidence packing, strict Qwen generation, backend-owned citation pages, per-turn traces, and explicit answered/insufficient/ambiguous/error states. Final DEV was 20/20, the six-case reliability set was 6/6, and the frozen TEST run was 10/10 for status and citation-contract validity; one TEST answer was partially complete on human-review criteria.
+- **Evaluation V2: provisionally frozen at 98 cases.** The context-bearing benchmark covers a new Alice TEST and a zero-tuning *Secret Garden* holdout; provider execution remains zero for TEST/holdout. Start with [`eval/README.md`](eval/README.md).
+- **Feedback foundation: implemented offline.** `POST /api/feedback` stores lightweight TurnTrace-linked feedback locally; deterministic CLI triage can export regression candidates without modifying a frozen suite.
 
 The frozen retrieval path is fixed-window dense exact cosine. Structure-aware chunking and BM25/RRF were measured and rejected after DEV regressions; reranking was not justified. See [retrieval experiment log](docs/RETRIEVAL_EXPERIMENTS.md).
 
@@ -39,7 +42,7 @@ Browser microphone
 
 The backend owns provider credentials, validation, retrieval, citations, failure classification, and latency measurements. The browser owns microphone permission, recording state, transcript editing, visible evidence, playback, and user-facing recovery.
 
-See [Architecture](docs/ARCHITECTURE.md), [AI-assisted workflow](docs/AI_WORKFLOW.md), and [project context](docs/PROJECT_CONTEXT.md) for details.
+See [Architecture](docs/ARCHITECTURE.md), [grounded QA](docs/GROUNDED_QA.md), [engineering retrospective and interview guide](docs/ENGINEERING_RETROSPECTIVE.md), [AI-assisted workflow](docs/AI_WORKFLOW.md), and [project context](docs/PROJECT_CONTEXT.md) for details.
 The ingestion contract and limitations are documented in [PDF ingestion](docs/INGESTION.md).
 
 ## Prerequisites
@@ -88,12 +91,12 @@ python -m venv backend/.venv
 backend/.venv/bin/pip install -r backend/requirements.txt
 ```
 
-## Run the voice validation UI
+## Run the application
 
 Start the backend:
 
 ```sh
-backend/.venv/bin/uvicorn voice_smoke:app --app-dir backend --host 127.0.0.1 --port 8001
+backend/.venv/bin/uvicorn main:app --app-dir backend --host 127.0.0.1 --port 8000
 ```
 
 In a second terminal, start Vite:
@@ -102,9 +105,9 @@ In a second terminal, start Vite:
 npm run dev --prefix frontend
 ```
 
-Open <http://127.0.0.1:5173>. The page must be served by Vite; opening `frontend/index.html` through a `file://` URL will not run the React application.
+Open <http://127.0.0.1:5173>. Upload a PDF (or enter an existing ready document ID), record or type a question, edit the transcript, then ask the book. The page must be served by Vite; opening `frontend/index.html` through a `file://` URL will not run the React application.
 
-## Run the PDF ingestion API
+## Run the ingestion API only
 
 ```sh
 backend/.venv/bin/uvicorn main:app --app-dir backend --host 127.0.0.1 --port 8000

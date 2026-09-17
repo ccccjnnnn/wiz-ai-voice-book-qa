@@ -1,0 +1,66 @@
+{
+  "challenge_set_id": "alice-grounded-qa-reliability-v1",
+  "document_title": "Alice's Adventures in Wonderland",
+  "cases": [
+    {
+      "id": "c001",
+      "question": "What was Alice's exact home street address?",
+      "expected_status": "insufficient_evidence",
+      "expected_answer": "The uploaded book does not provide Alice's street address.",
+      "source_pages": [],
+      "evidence_phrases": [],
+      "why": "A plausible biographical detail that the story does not supply; tests refusal to fill a gap from world knowledge."
+    },
+    {
+      "id": "c002",
+      "question": "What was the Queen of Hearts' date of birth?",
+      "expected_status": "insufficient_evidence",
+      "expected_answer": "The uploaded book does not provide the Queen of Hearts' date of birth.",
+      "source_pages": [],
+      "evidence_phrases": [],
+      "why": "Tests a confident-sounding unsupported request about a real character."
+    },
+    {
+      "id": "c003",
+      "question": "What happened after Alice changed size?",
+      "expected_status": "ambiguous",
+      "expected_answer": "The question needs the particular size change or scene because Alice changes size several times.",
+      "source_pages": [],
+      "evidence_phrases": [],
+      "why": "Alice changes size repeatedly; a useful answer requires a scene or cause."
+    },
+    {
+      "id": "c004",
+      "question": "What happened next?",
+      "expected_status": "ambiguous",
+      "expected_answer": "The question needs the event or passage to continue from because the book contains many possible next events.",
+      "source_pages": [],
+      "evidence_phrases": [],
+      "why": "A realistic voice follow-up without conversation memory; tests whether the system asks which event or passage to continue from."
+    },
+    {
+      "id": "c005",
+      "question": "How tall did Alice become before the pool formed, and how deep did she say the pool was?",
+      "expected_status": "answered",
+      "expected_answer": "Alice became more than nine feet tall, and she said the pool was about four inches deep.",
+      "source_pages": [19, 20],
+      "evidence_phrases": [
+        "more than nine feet high",
+        "about four inches deep"
+      ],
+      "why": "A natural multi-page, evidence-heavy question that checks whether packing preserves facts spread across adjacent scenes."
+    },
+    {
+      "id": "c006",
+      "question": "After the Caucus-race, what did the other racers receive and what did Alice receive?",
+      "expected_status": "answered",
+      "expected_answer": "The others received comfits from Alice, while Alice received her own thimble from the Dodo.",
+      "source_pages": [27],
+      "evidence_phrases": [
+        "handed them round as prizes",
+        "acceptance of this elegant thimble"
+      ],
+      "why": "A two-part answer on one page checks completeness and citation support, not just retrieval of one isolated fact."
+    }
+  ]
+}

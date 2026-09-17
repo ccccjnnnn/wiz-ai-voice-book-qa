@@ -5,8 +5,18 @@ from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 
 class DocumentStatus(str, Enum):
-    PROCESSING = "processing"
+    UPLOADED = "uploaded"
+    PARSING = "parsing"
     READY = "ready"
+    FAILED = "failed"
+
+
+class IndexStatus(str, Enum):
+    MISSING = "missing"
+    INDEXING = "indexing"
+    READY = "ready"
+    PAUSED = "paused"
+    STALE = "stale"
     FAILED = "failed"
 
 
@@ -20,6 +30,15 @@ class Document(BaseModel):
     page_count: int = Field(default=0, ge=0)
     chunk_count: int = Field(default=0, ge=0)
     error_code: str | None = None
+    index_status: IndexStatus = IndexStatus.MISSING
+    index_version: str | None = None
+    index_error_code: str | None = None
+    total_chunks: int = Field(default=0, ge=0)
+    indexed_chunks: int = Field(default=0, ge=0)
+    progress_percent: float = Field(default=0.0, ge=0.0, le=100.0)
+    ready_for_qa: bool = False
+    stage: str = "uploaded"
+    asr_keyterms: list[str] = Field(default_factory=list, max_length=50)
     created_at: datetime
     updated_at: datetime
 

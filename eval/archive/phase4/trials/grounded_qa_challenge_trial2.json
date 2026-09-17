@@ -1,0 +1,2819 @@
+{
+  "generated_at": "2026-09-16T05:57:48.698589+00:00",
+  "configuration": {
+    "configuration_id": "grounded-qa-v1",
+    "retrieval_index_version": "fixed-window-dense-v1",
+    "embedding_model": "voyage-4",
+    "candidate_depth": 10,
+    "evidence_token_budget": 3000,
+    "packing": "whole_chunks_in_rank_order_skip_exact_duplicates_v1",
+    "qwen_model": "qwen3.7-plus-2026-05-26",
+    "enable_thinking": false,
+    "structured_output": "strict_json_schema",
+    "system_prompt_sha256": "daf21091c9c416918c0beb1b9ad0ac2e7069b3f046433c495cbd66e0b41a27ce",
+    "response_schema_sha256": "d4264116159193de7c10972c5e7c9d4efe7aa72c8528d067852ee3b2dd1835cb",
+    "qa_annotation_overrides_sha256": "fdd59df361698f41781f7e05b8cf5937311a70641e907c95aa645aa52cb46ac1"
+  },
+  "subset": "challenge",
+  "dataset_id": "alice-grounded-qa-reliability-v1",
+  "document_id": "a6c315f78fbb4c5cb9f16f08f28aed38",
+  "case_count": 6,
+  "provider_usage": {
+    "voyage_query_tokens": 64,
+    "voyage_query_latency_ms": 2744.8075409047306,
+    "qwen_prompt_tokens": 20444,
+    "qwen_completion_tokens": 658,
+    "qwen_total_tokens": 21102
+  },
+  "deterministic_summary": {
+    "successful_turns": 6,
+    "status_match_count": 6,
+    "citation_contract_valid_count": 6,
+    "citation_page_correct_count": 2,
+    "citation_page_correct_applicable": 2,
+    "citation_page_coverage_count": 2,
+    "citation_page_coverage_applicable": 2,
+    "failure_stage_counts": {
+      "retrieval": 0,
+      "evidence_packing": 0,
+      "generation": 0,
+      "citation_validation": 0,
+      "qwen": 0,
+      "embedding": 0,
+      "system": 0
+    }
+  },
+  "human_review": "Required for correctness, completeness, and groundedness; see companion Markdown rubric.",
+  "results": [
+    {
+      "case_id": "c001",
+      "question": "What was Alice's exact home street address?",
+      "original_question": "What was Alice's exact home street address?",
+      "annotation_override": null,
+      "expected_status": "insufficient_evidence",
+      "expected_answer": "The uploaded book does not provide Alice's street address.",
+      "expected_pages": [],
+      "evidence_phrases": [],
+      "challenge_reason": "A plausible biographical detail that the story does not supply; tests refusal to fill a gap from world knowledge.",
+      "response": {
+        "status": "insufficient_evidence",
+        "answer": "The provided sources do not contain Alice's exact home street address.",
+        "clarification": null,
+        "reason": "The sources mention Alice thinking about 'home' (S3, S5, S7) and imagining sending parcels to her feet with a whimsical address involving 'HEARTHRUG, NEAR THE FENDER' (S4), but they do not provide her actual home street address.",
+        "citations": [],
+        "trace_id": "322e6c2377614ef4b298e569206f99b4",
+        "error": null
+      },
+      "retrieved_candidates": [
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00042",
+          "pages": [
+            31,
+            32
+          ],
+          "rank": 1,
+          "score": 0.40712422210161864
+        },
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00014",
+          "pages": [
+            14
+          ],
+          "rank": 2,
+          "score": 0.390604574201598
+        },
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00045",
+          "pages": [
+            32,
+            33
+          ],
+          "rank": 3,
+          "score": 0.387962529067688
+        },
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00022",
+          "pages": [
+            17,
+            18,
+            19
+          ],
+          "rank": 4,
+          "score": 0.3869179366874804
+        },
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00013",
+          "pages": [
+            13,
+            14
+          ],
+          "rank": 5,
+          "score": 0.37548141782511407
+        },
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00065",
+          "pages": [
+            42,
+            43
+          ],
+          "rank": 6,
+          "score": 0.3741122368697929
+        },
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00044",
+          "pages": [
+            32
+          ],
+          "rank": 7,
+          "score": 0.3697549241347016
+        },
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00046",
+          "pages": [
+            33
+          ],
+          "rank": 8,
+          "score": 0.36829276662136784
+        },
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00048",
+          "pages": [
+            34
+          ],
+          "rank": 9,
+          "score": 0.36742989287098515
+        },
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00021",
+          "pages": [
+            17,
+            18,
+            19
+          ],
+          "rank": 10,
+          "score": 0.3645845292202797
+        }
+      ],
+      "packed_evidence": [
+        {
+          "source_id": "S1",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00042",
+          "pages": [
+            31,
+            32
+          ],
+          "retrieval_rank": 1,
+          "estimated_tokens": 288,
+          "text": "the glass table and the little door, had vanished completely.\nVery soon the Rabbit noticed Alice, as she went hunting about, and called out to her in an angry tone, ‘Why, Mary Ann, what ARE you doing out here?\nRun home this moment, and fetch me a pair of gloves and a fan! Quick, now!’\nAnd Alice was so much frightened that she ran offat once in the direction it pointed to, without trying to explain the mistake it had made.\n‘He took me for his housemaid,’ she said to herself as she ran. ‘How surprised he’ll be when he finds out who I am! But I’d better take him his fan and gloves–that is, if I can find them.’ As she said this, she came upon a neat little house, on the door of which was a bright brass plate with the name ‘W. RABBIT’ engraved upon it. She went in without knocking, and hurried upstairs, in great fear lest she should meet the real Mary Ann, and be turned out of the house before she had found the fan and gloves.\n‘How queer it seems,’ Alice said to herself, ‘to be going messages for a rabbit! I suppose Dinah’ll be sending me on messages next!’ And she began\n\n32 CHAPTER 4. THE RABBIT SENDS IN A LITTLE BILL\n\nfancying the sort of thing that would happen: ‘“Miss Alice! Come h"
+        },
+        {
+          "source_id": "S2",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00014",
+          "pages": [
+            14
+          ],
+          "retrieval_rank": 2,
+          "estimated_tokens": 291,
+          "text": "ud. ‘I must be getting somewhere near the centre of the earth. Let me see: that would be four thousand miles down, I think–’ (for, you see, Alice had learnt several things of this sort in her lessons in the schoolroom, and though this was not a VERY good opportunity for showing offher knowledge, as there was no one to listen to her, still it was good practice to say it over) ‘–yes, that’s about the right distance–but then I wonder what Latitude or Longitude I’ve got to?’ (Alice had no idea what Latitude was, or Longitude either, but thought they were nice grand words to say.)\nPresently she began again. ‘I wonder if I shall fall right THROUGH the earth! How funny it’ll seem to come out among the people that walk with their heads downward! The Antipathies, I think–’ (she was rather glad there\nWAS no one listening, this time, as it didn’t sound at all the right word) ‘–but I shall have to ask them what the name of the country is, you know.\nPlease, Ma’am, is this New Zealand or Australia?’ (and she tried to curtsey as she spoke–fancy CURTSEYING as you’re falling through the air! Do you think you could manage it?) ‘And what an ignorant little girl she’ll think me for asking! No, it’ll n"
+        },
+        {
+          "source_id": "S3",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00045",
+          "pages": [
+            32,
+            33
+          ],
+          "retrieval_rank": 3,
+          "estimated_tokens": 313,
+          "text": "ed to be no sort of chance of her ever getting out of the room again, no wonder she felt unhappy.\n‘It was much pleasanter at home,’ thought poor Alice, ‘when one wasn’t always growing larger and smaller, and being ordered about by mice and rabbits. I almost wish I hadn’t gone down that rabbit-hole–and yet–and yet–it’s rather curious, you know, this sort of life! I do wonder what CAN have happened to me! When I used to read fairy-tales, I fancied that kind of thing never happened, and now here I am in the middle of one! There ought\n\nto be a book written about me, that there ought! And when I grow up, I’ll write one–but I’m grown up now,’ she added in a sorrowful tone; ‘at least there’s no room to grow up any more HERE.’\n‘But then,’ thought Alice, ‘shall I NEVER get any older than I am now?\nThat’ll be a comfort, one way–never to be an old woman– but then–always to have lessons to learn! Oh, I shouldn’t like THAT!’\n‘Oh, you foolish Alice!’ she answered herself. ‘How can you learn lessons in here? Why, there’s hardly room for YOU, and no room at all for any lesson-books!’\nAnd so she went on, taking first one side and then the other, and making quite a conversation of it altogether; but"
+        },
+        {
+          "source_id": "S4",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00022",
+          "pages": [
+            17,
+            18,
+            19
+          ],
+          "retrieval_rank": 4,
+          "estimated_tokens": 307,
+          "text": "o go on in the common way.\nSo she set to work, and very soon finished offthe cake.\n\n18 CHAPTER 1. DOWN THE RABBIT-HOLE\n\nChapter 2\n\nThe Pool of Tears\n\n‘Curiouser and curiouser!’ cried Alice (she was so much surprised, that for the moment she quite forgot how to speak good English); ‘now I’m opening out like the largest telescope that ever was! Good-bye, feet!’ (for when she looked down at her feet, they seemed to be almost out of sight, they were getting so far off). ‘Oh, my poor little feet, I wonder who will put on your shoes and stockings for you now, dears? I’m sure I shan’t be able! I shall be a great deal too far offto trouble myself about you: you must manage the best way you can; –but I must be kind to them,’ thought Alice, ‘or perhaps they won’t walk the way I want to go! Let me see: I’ll give them a new pair of boots every Christmas.’\nAnd she went on planning to herself how she would manage it. ‘They must go by the carrier,’ she thought; ‘and how funny it’ll seem, sending presents to one’s own feet! And how odd the directions will look!\n\nALICE’S RIGHT FOOT, ESQ.\nHEARTHRUG,\nNEAR THE FENDER,\n(WITH ALICE’S LOVE).\n\nOh dear, what nonsense I’m talking!’\nJust then her head struck"
+        },
+        {
+          "source_id": "S5",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00013",
+          "pages": [
+            13,
+            14
+          ],
+          "retrieval_rank": 5,
+          "estimated_tokens": 287,
+          "text": "lenty of time as she went down to look about her and to wonder what was going\n\n14 CHAPTER 1. DOWN THE RABBIT-HOLE\n\nto happen next. First, she tried to look down and make out what she was coming to, but it was too dark to see anything; then she looked at the sides of the well, and noticed that they were filled with cupboards and bookshelves; here and there she saw maps and pictures hung upon pegs. She took down a jar from one of the shelves as she passed; it was labelled ‘ORANGE\nMARMALADE’, but to her great disappointment it was empty: she did not like to drop the jar for fear of killing somebody, so managed to put it into one of the cupboards as she fell past it.\n‘Well!’ thought Alice to herself, ‘after such a fall as this, I shall think nothing of tumbling down stairs! How brave they’ll all think me at home!\nWhy, I wouldn’t say anything about it, even if I fell offthe top of the house!’\n(Which was very likely true.)\nDown, down, down. Would the fall NEVER come to an end! ‘I wonder how many miles I’ve fallen by this time?’ she said aloud. ‘I must be getting somewhere near the centre of the earth. Let me see: that would be four thousand miles down, I think–’ (for, you see, Alice had"
+        },
+        {
+          "source_id": "S6",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00065",
+          "pages": [
+            42,
+            43
+          ],
+          "retrieval_rank": 6,
+          "estimated_tokens": 279,
+          "text": "en at the other, and growing sometimes taller and sometimes shorter, until she had succeeded in bringing herself down to her usual height.\nIt was so long since she had been anything near the right size, that it felt quite strange at first; but she got used to it in a few minutes, and began talking to herself, as usual. ‘Come, there’s half my plan done now! How puzzling all these changes are! I’m never sure what I’m going to be, from one minute to another! However, I’ve got back to my right size: the next thing is, to get into that beautiful garden–how IS that to be done, I wonder?’\nAs she said this, she came suddenly upon an open place, with a little house in it about four feet high. ‘Whoever lives there,’ thought Alice, ‘it’ll never do to come upon them THIS size: why, I should frighten them out of their wits!’ So she began nibbling at the righthand bit again, and did not venture to go near the house till she had brought herself down to nine inches high.\n\nChapter 6\n\nPig and Pepper\n\nFor a minute or two she stood looking at the house, and wondering what to do next, when suddenly a footman in livery came running out of the wood–(she considered him to be a footman because he was in li"
+        },
+        {
+          "source_id": "S7",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00044",
+          "pages": [
+            32
+          ],
+          "retrieval_rank": 7,
+          "estimated_tokens": 287,
+          "text": "tired of being such a tiny little thing!’\nIt did so indeed, and much sooner than she had expected: before she had drunk half the bottle, she found her head pressing against the ceiling, and had to stoop to save her neck from being broken. She hastily put down the bottle, saying to herself ‘That’s quite enough–I hope I shan’t grow any more–As it is, I can’t get out at the door–I do wish I hadn’t drunk quite so much!’\nAlas! it was too late to wish that! She went on growing, and growing, and very soon had to kneel down on the floor: in another minute there was not even room for this, and she tried the effect of lying down with one elbow against the door, and the other arm curled round her head. Still she went on growing, and, as a last resource, she put one arm out of the window, and one foot up the chimney, and said to herself ‘Now I can do no more, whatever happens. What WILL become of me?’\nLuckily for Alice, the little magic bottle had now had its full effect, and she grew no larger: still it was very uncomfortable, and, as there seemed to be no sort of chance of her ever getting out of the room again, no wonder she felt unhappy.\n‘It was much pleasanter at home,’ thought poor Alice"
+        },
+        {
+          "source_id": "S8",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00046",
+          "pages": [
+            33
+          ],
+          "retrieval_rank": 8,
+          "estimated_tokens": 278,
+          "text": "room at all for any lesson-books!’\nAnd so she went on, taking first one side and then the other, and making quite a conversation of it altogether; but after a few minutes she heard a voice outside, and stopped to listen.\n‘Mary Ann! Mary Ann!’ said the voice. ‘Fetch me my gloves this moment!’ Then came a little pattering of feet on the stairs. Alice knew it was the Rabbit coming to look for her, and she trembled till she shook the house, quite forgetting that she was now about a thousand times as large as the\nRabbit, and had no reason to be afraid of it.\nPresently the Rabbit came up to the door, and tried to open it; but, as the door opened inwards, and Alice’s elbow was pressed hard against it, that attempt proved a failure. Alice heard it say to itself ‘Then I’ll go round and get in at the window.’\n‘THAT you won’t’ thought Alice, and, after waiting till she fancied she heard the Rabbit just under the window, she suddenly spread out her hand, and made a snatch in the air. She did not get hold of anything, but she heard a little shriek and a fall, and a crash of broken glass, from which she concluded that it was just possible it had fallen into a cucumber-frame, or something of the"
+        },
+        {
+          "source_id": "S9",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00048",
+          "pages": [
+            34
+          ],
+          "retrieval_rank": 9,
+          "estimated_tokens": 343,
+          "text": "r snatch in the air. This time there were TWO little shrieks, and more sounds of broken glass. ‘What a number of cucumber-frames there must be!’ thought Alice. ‘I wonder what they’ll do next! As for pulling me out of the window, I only wish they COULD! I’m sure I don’t want to stay in here any longer!’\nShe waited for some time without hearing anything more: at last came a rumbling of little cartwheels, and the sound of a good many voices all talking together: she made out the words: ‘Where’s the other ladder?–Why,\nI hadn’t to bring but one; Bill’s got the other–Bill! fetch it here, lad!–Here, put ’em up at this corner–No, tie ’em together first–they don’t reach half high enough yet–Oh! they’ll do well enough; don’t be particular– Here, Bill!\ncatch hold of this rope–Will the roof bear?–Mind that loose slate–Oh, it’s coming down! Heads below!’ (a loud crash)–‘Now, who did that?–It was Bill,\nI fancy–Who’s to go down the chimney?–Nay, I shan’t! YOU do it!–That I won’t, then!–Bill’s to go down–Here, Bill! the master says you’re to go down the chimney!’\n‘Oh! So Bill’s got to come down the chimney, has he?’ said Alice to herself. ‘Shy, they seem to put everything upon Bill! I wouldn’t be"
+        },
+        {
+          "source_id": "S10",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00021",
+          "pages": [
+            17,
+            18,
+            19
+          ],
+          "retrieval_rank": 10,
+          "estimated_tokens": 295,
+          "text": "herself, for this curious child was very fond of pretending to be two people. ‘But it’s no use now,’ thought poor Alice, ‘to pretend to be two people! Why, there’s hardly enough of me left to make ONE respectable person!’\nSoon her eye fell on a little glass box that was lying under the table: she opened it, and found in it a very small cake, on which the words ‘EAT ME’ were beautifully marked in currants. ‘Well, I’ll eat it,’ said Alice, ‘and if it makes me grow larger, I can reach the key; and if it makes me grow smaller,\nI can creep under the door; so either way I’ll get into the garden, and I don’t care which happens!’\nShe ate a little bit, and said anxiously to herself, ‘Which way? Which way?’, holding her hand on the top of her head to feel which way it was growing, and she was quite surprised to find that she remained the same size: to be sure, this generally happens when one eats cake, but Alice had got so much into the way of expecting nothing but out-of-the-way things to happen, that it seemed quite dull and stupid for life to go on in the common way.\nSo she set to work, and very soon finished offthe cake.\n\n18 CHAPTER 1. DOWN THE RABBIT-HOLE\n\nChapter 2\n\nThe Pool of Tears"
+        }
+      ],
+      "deterministic_checks": {
+        "status_matches_expected": true,
+        "citation_contract_valid": true,
+        "citation_pages_correct": null,
+        "citation_pages_cover_expected": null,
+        "candidate_evidence_phrase_coverage": null,
+        "packed_evidence_phrase_coverage": null
+      },
+      "failure_stage": null,
+      "trace": {
+        "trace_id": "322e6c2377614ef4b298e569206f99b4",
+        "timestamp": "2026-09-16T05:57:28.546535Z",
+        "document_id": "a6c315f78fbb4c5cb9f16f08f28aed38",
+        "index_version": "fixed-window-dense-v1",
+        "query": "What was Alice's exact home street address?",
+        "retrieval_configuration": "fixed-window-dense-v1",
+        "retrieved_candidates": [
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00042",
+            "pages": [
+              31,
+              32
+            ],
+            "rank": 1,
+            "score": 0.40712422210161864
+          },
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00014",
+            "pages": [
+              14
+            ],
+            "rank": 2,
+            "score": 0.390604574201598
+          },
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00045",
+            "pages": [
+              32,
+              33
+            ],
+            "rank": 3,
+            "score": 0.387962529067688
+          },
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00022",
+            "pages": [
+              17,
+              18,
+              19
+            ],
+            "rank": 4,
+            "score": 0.3869179366874804
+          },
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00013",
+            "pages": [
+              13,
+              14
+            ],
+            "rank": 5,
+            "score": 0.37548141782511407
+          },
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00065",
+            "pages": [
+              42,
+              43
+            ],
+            "rank": 6,
+            "score": 0.3741122368697929
+          },
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00044",
+            "pages": [
+              32
+            ],
+            "rank": 7,
+            "score": 0.3697549241347016
+          },
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00046",
+            "pages": [
+              33
+            ],
+            "rank": 8,
+            "score": 0.36829276662136784
+          },
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00048",
+            "pages": [
+              34
+            ],
+            "rank": 9,
+            "score": 0.36742989287098515
+          },
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00021",
+            "pages": [
+              17,
+              18,
+              19
+            ],
+            "rank": 10,
+            "score": 0.3645845292202797
+          }
+        ],
+        "packed_evidence": [
+          {
+            "source_id": "S1",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00042",
+            "pages": [
+              31,
+              32
+            ],
+            "retrieval_rank": 1,
+            "estimated_tokens": 288
+          },
+          {
+            "source_id": "S2",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00014",
+            "pages": [
+              14
+            ],
+            "retrieval_rank": 2,
+            "estimated_tokens": 291
+          },
+          {
+            "source_id": "S3",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00045",
+            "pages": [
+              32,
+              33
+            ],
+            "retrieval_rank": 3,
+            "estimated_tokens": 313
+          },
+          {
+            "source_id": "S4",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00022",
+            "pages": [
+              17,
+              18,
+              19
+            ],
+            "retrieval_rank": 4,
+            "estimated_tokens": 307
+          },
+          {
+            "source_id": "S5",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00013",
+            "pages": [
+              13,
+              14
+            ],
+            "retrieval_rank": 5,
+            "estimated_tokens": 287
+          },
+          {
+            "source_id": "S6",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00065",
+            "pages": [
+              42,
+              43
+            ],
+            "retrieval_rank": 6,
+            "estimated_tokens": 279
+          },
+          {
+            "source_id": "S7",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00044",
+            "pages": [
+              32
+            ],
+            "retrieval_rank": 7,
+            "estimated_tokens": 287
+          },
+          {
+            "source_id": "S8",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00046",
+            "pages": [
+              33
+            ],
+            "retrieval_rank": 8,
+            "estimated_tokens": 278
+          },
+          {
+            "source_id": "S9",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00048",
+            "pages": [
+              34
+            ],
+            "retrieval_rank": 9,
+            "estimated_tokens": 343
+          },
+          {
+            "source_id": "S10",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00021",
+            "pages": [
+              17,
+              18,
+              19
+            ],
+            "retrieval_rank": 10,
+            "estimated_tokens": 295
+          }
+        ],
+        "candidate_count": 10,
+        "packed_source_count": 10,
+        "estimated_packed_tokens": 2968,
+        "qwen_model": "qwen3.7-plus-2026-05-26",
+        "answer_status": "insufficient_evidence",
+        "returned_source_ids": [],
+        "validated_citations": [],
+        "qwen_usage": {
+          "prompt_tokens": 3410,
+          "completion_tokens": 107,
+          "total_tokens": 3517
+        },
+        "error": null,
+        "latencies": {
+          "query_embedding_ms": 0.001125037670135498,
+          "local_retrieval_ms": 5.6667078752070665,
+          "evidence_packing_ms": 0.08545792661607265,
+          "qwen_generation_ms": 4033.8397501036525,
+          "validation_ms": 0.021416926756501198,
+          "total_ms": 4041.9539590366185
+        }
+      }
+    },
+    {
+      "case_id": "c002",
+      "question": "What was the Queen of Hearts' date of birth?",
+      "original_question": "What was the Queen of Hearts' date of birth?",
+      "annotation_override": null,
+      "expected_status": "insufficient_evidence",
+      "expected_answer": "The uploaded book does not provide the Queen of Hearts' date of birth.",
+      "expected_pages": [],
+      "evidence_phrases": [],
+      "challenge_reason": "Tests a confident-sounding unsupported request about a real character.",
+      "response": {
+        "status": "insufficient_evidence",
+        "answer": "The provided sources do not contain information regarding the Queen of Hearts' date of birth.",
+        "clarification": null,
+        "reason": "The supplied texts describe the Queen of Hearts' actions, appearance, and interactions (S1, S2, S6, S7, S8, S9, S10) and mention dates related to the Hatter's testimony (S3, S4), but none state the Queen's date of birth.",
+        "citations": [],
+        "trace_id": "83c267d5d3014dd6b7809109f17003d7",
+        "error": null
+      },
+      "retrieved_candidates": [
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00094",
+          "pages": [
+            60,
+            61
+          ],
+          "rank": 1,
+          "score": 0.3971535213774068
+        },
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00127",
+          "pages": [
+            79,
+            80,
+            81
+          ],
+          "rank": 2,
+          "score": 0.36386937164948024
+        },
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00130",
+          "pages": [
+            82,
+            83
+          ],
+          "rank": 3,
+          "score": 0.33242264732506593
+        },
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00131",
+          "pages": [
+            83
+          ],
+          "rank": 4,
+          "score": 0.33232136847289434
+        },
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00144",
+          "pages": [
+            90,
+            91
+          ],
+          "rank": 5,
+          "score": 0.32934204984241267
+        },
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00093",
+          "pages": [
+            60
+          ],
+          "rank": 6,
+          "score": 0.32712460291036377
+        },
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00108",
+          "pages": [
+            68,
+            69
+          ],
+          "rank": 7,
+          "score": 0.32431841306895426
+        },
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00096",
+          "pages": [
+            61,
+            62
+          ],
+          "rank": 8,
+          "score": 0.3075263046034404
+        },
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00092",
+          "pages": [
+            59,
+            60
+          ],
+          "rank": 9,
+          "score": 0.295719033022676
+        },
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00109",
+          "pages": [
+            69
+          ],
+          "rank": 10,
+          "score": 0.2828333860473465
+        }
+      ],
+      "packed_evidence": [
+        {
+          "source_id": "S1",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00094",
+          "pages": [
+            60,
+            61
+          ],
+          "retrieval_rank": 1,
+          "estimated_tokens": 299,
+          "text": "n’t see it?’ So she stood still where she was, and waited.\nWhen the procession came opposite to Alice, they all stopped and looked at her, and the Queen said severely ‘Who is this?’ She said it to the Knave of Hearts, who only bowed and smiled in reply.\n‘Idiot!’ said the Queen, tossing her head impatiently; and, turning to\nAlice, she went on, ‘What’s your name, child?’\n‘My name is Alice, so please your Majesty,’ said Alice very politely; but she added, to herself, ‘Why, they’re only a pack of cards, after all. I needn’t be afraid of them!’\n‘And who are THESE?’ said the Queen, pointing to the three gardeners who were lying round the rosetree; for, you see, as they were lying on their faces, and the pattern on their backs was the same as the rest of the pack, she could not tell whether they were gardeners, or soldiers, or courtiers, or three of her own children.\n‘How should I know?’ said Alice, surprised at her own courage. ‘It’s no business of MINE.’\nThe Queen turned crimson with fury, and, after glaring at her for a moment like a wild beast, screamed ‘Offwith her head! Off–’\n‘Nonsense!’ said Alice, very loudly and decidedly, and the Queen was\n\nsilent.\nThe King laid his hand upon he"
+        },
+        {
+          "source_id": "S2",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00127",
+          "pages": [
+            79,
+            80,
+            81
+          ],
+          "retrieval_rank": 2,
+          "estimated_tokens": 281,
+          "text": "y came, carried on the breeze that followed them, the melancholy words:–\n\n‘Soo–oop of the e–e–evening,\nBeautiful, beautiful Soup!’\n\n80 CHAPTER 10. THE LOBSTER QUADRILLE\n\nChapter 11\n\nWho Stole the Tarts?\n\nThe King and Queen of Hearts were seated on their throne when they arrived, with a great crowd assembled about them–all sorts of little birds and beasts, as well as the whole pack of cards: the Knave was standing before them, in chains, with a soldier on each side to guard him; and near the King was the White Rabbit, with a trumpet in one hand, and a scroll of parchment in the other. In the very middle of the court was a table, with a large dish of tarts upon it: they looked so good, that it made Alice quite hungry to look at them–‘I wish they’d get the trial done,’ she thought, ‘and hand round the refreshments!’ But there seemed to be no chance of this, so she began looking at everything about her, to pass away the time.\nAlice had never been in a court of justice before, but she had read about them in books, and she was quite pleased to find that she knew the name of nearly everything there. ‘That’s the judge,’ she said to herself, ‘because of his great wig.’\nThe judge, by the way"
+        },
+        {
+          "source_id": "S3",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00130",
+          "pages": [
+            82,
+            83
+          ],
+          "retrieval_rank": 3,
+          "estimated_tokens": 304,
+          "text": "nger for the rest of the day; and this was of very little use, as it left no mark on the slate.\n‘Herald, read the accusation!’ said the King.\nOn this the White Rabbit blew three blasts on the trumpet, and then unrolled the parchment scroll, and read as follows:–\n\n‘The Queen of Hearts, she made some tarts,\nAll on a summer day:\nThe Knave of Hearts, he stole those tarts,\nAnd took them quite away!’\n\n‘Consider your verdict,’ the King said to the jury.\n‘Not yet, not yet!’ the Rabbit hastily interrupted. ‘There’s a great deal to come before that!’\n‘Call the first witness,’ said the King; and the White Rabbit blew three blasts on the trumpet, and called out, ‘First witness!’\nThe first witness was the Hatter. He came in with a teacup in one hand and a piece of bread-and-butter in the other. ‘I beg pardon, your Majesty,’ he began, ‘for bringing these in: but I hadn’t quite finished my tea when I was sent for.’\n‘You ought to have finished,’ said the King. ‘When did you begin?’\n\nThe Hatter looked at the March Hare, who had followed him into the court, arm-in-arm with the Dormouse. ‘Fourteenth of March, I think it was,’ he said.\n‘Fifteenth,’ said the March Hare.\n‘Sixteenth,’ added the Dormouse."
+        },
+        {
+          "source_id": "S4",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00131",
+          "pages": [
+            83
+          ],
+          "retrieval_rank": 4,
+          "estimated_tokens": 297,
+          "text": "ourt, arm-in-arm with the Dormouse. ‘Fourteenth of March, I think it was,’ he said.\n‘Fifteenth,’ said the March Hare.\n‘Sixteenth,’ added the Dormouse.\n‘Write that down,’ the King said to the jury, and the jury eagerly wrote down all three dates on their slates, and then added them up, and reduced the answer to shillings and pence.\n‘Take offyour hat,’ the King said to the Hatter.\n‘It isn’t mine,’ said the Hatter.\n‘Stolen!’ the King exclaimed, turning to the jury, who instantly made a memorandum of the fact.\n‘I keep them to sell,’ the Hatter added as an explanation; ‘I’ve none of my own. I’m a hatter.’\nHere the Queen put on her spectacles, and began staring at the Hatter, who turned pale and fidgeted.\n‘Give your evidence,’ said the King; ‘and don’t be nervous, or I’ll have you executed on the spot.’\nThis did not seem to encourage the witness at all: he kept shifting from one foot to the other, looking uneasily at the Queen, and in his confusion he bit a large piece out of his teacup instead of the bread-and-butter.\nJust at this moment Alice felt a very curious sensation, which puzzled her a good deal until she made out what it was: she was beginning to grow larger again, and she thou"
+        },
+        {
+          "source_id": "S5",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00144",
+          "pages": [
+            90,
+            91
+          ],
+          "retrieval_rank": 5,
+          "estimated_tokens": 298,
+          "text": "ortunate little Bill had left offwriting on his slate with one finger, as he found it made no mark; but he now hastily began again, using the ink, that was trickling down his face, as long as it lasted.)\n\n‘Then the words don’t FIT you,’ said the King, looking round the court with a smile. There was a dead silence.\n‘It’s a pun!’ the King added in an offended tone, and everybody laughed,\n‘Let the jury consider their verdict,’ the King said, for about the twentieth time that day.\n‘No, no!’ said the Queen. ‘Sentence first–verdict afterwards.’\n‘Stuffand nonsense!’ said Alice loudly. ‘The idea of having the sentence first!’\n‘Hold your tongue!’ said the Queen, turning purple.\n‘I won’t!’ said Alice.\n‘Offwith her head!’ the Queen shouted at the top of her voice. Nobody moved.\n‘Who cares for you?’ said Alice, (she had grown to her full size by this time.) ‘You’re nothing but a pack of cards!’\nAt this the whole pack rose up into the air, and came flying down upon her: she gave a little scream, half of fright and half of anger, and tried to beat them off, and found herself lying on the bank, with her head in the lap of her sister, who was gently brushing away some dead leaves that had fluttere"
+        },
+        {
+          "source_id": "S6",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00093",
+          "pages": [
+            60
+          ],
+          "retrieval_rank": 6,
+          "estimated_tokens": 256,
+          "text": "three gardeners, oblong and flat, with their hands and feet at the corners: next the ten courtiers; these were ornamented all over with diamonds, and walked two and two, as the soldiers did. After these came the royal children; there were ten of them, and the little dears came jumping merrily along hand in hand, in couples: they were all ornamented with hearts. Next came the guests, mostly\nKings and Queens, and among them Alice recognised the White Rabbit: it was talking in a hurried nervous manner, smiling at everything that was said, and went by without noticing her. Then followed the Knave of Hearts, carrying the King’s crown on a crimson velvet cushion; and, last of all this grand procession, came THE KING AND QUEEN OF HEARTS.\nAlice was rather doubtful whether she ought not to lie down on her face like the three gardeners, but she could not remember ever having heard of such a rule at processions; ‘and besides, what would be the use of a procession,’ thought she, ‘if people had all to lie down upon their faces, so that they couldn’t see it?’ So she stood still where she was, and waited.\nWhen the procession came opposite to Alice, they all stopped and looked at her, and the Que"
+        },
+        {
+          "source_id": "S7",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00108",
+          "pages": [
+            68,
+            69
+          ],
+          "retrieval_rank": 7,
+          "estimated_tokens": 304,
+          "text": "about trouble!’ said the Duchess. ‘I make you a present of everything I’ve said as yet.’\n\n‘A cheap sort of present!’ thought Alice. ‘I’m glad they don’t give birthday presents like that!’ But she did not venture to say it out loud.\n‘Thinking again?’ the Duchess asked, with another dig of her sharp little chin.\n‘I’ve a right to think,’ said Alice sharply, for she was beginning to feel a little worried.\n‘Just about as much right,’ said the Duchess, ‘as pigs have to fly; and the m–’\nBut here, to Alice’s great surprise, the Duchess’s voice died away, even in the middle of her favourite word ‘moral,’ and the arm that was linked into hers began to tremble. Alice looked up, and there stood the Queen in front of them, with her arms folded, frowning like a thunderstorm.\n‘A fine day, your Majesty!’ the Duchess began in a low, weak voice.\n‘Now, I give you fair warning,’ shouted the Queen, stamping on the ground as she spoke; ‘either you or your head must be off, and that in about half no time! Take your choice!’\nThe Duchess took her choice, and was gone in a moment.\n‘Let’s go on with the game,’ the Queen said to Alice; and Alice was too much frightened to say a word, but slowly followed her b"
+        },
+        {
+          "source_id": "S8",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00096",
+          "pages": [
+            61,
+            62
+          ],
+          "retrieval_rank": 8,
+          "estimated_tokens": 315,
+          "text": "d she put them into a large flower-pot that stood near. The three soldiers wandered about for a minute or two, looking for them, and then quietly marched offafter the others.\n‘Are their heads off?’ shouted the Queen.\n‘Their heads are gone, if it please your Majesty!’ the soldiers shouted in reply.\n‘That’s right!’ shouted the Queen. ‘Can you play croquet?’\nThe soldiers were silent, and looked at Alice, as the question was evidently meant for her.\n‘Yes!’ shouted Alice.\n‘Come on, then!’ roared the Queen, and Alice joined the procession, wondering very much what would happen next.\n‘It’s–it’s a very fine day!’ said a timid voice at her side. She was walking by the White Rabbit, who was peeping anxiously into her face.\n‘Very,’ said Alice: ‘–where’s the Duchess?’\n‘Hush! Hush!’ said the Rabbit in a low, hurried tone. He looked anxiously over his shoulder as he spoke, and then raised himself upon tiptoe, put his mouth close to her ear, and whispered ‘She’s under sentence of execution.’\n‘What for?’ said Alice.\n‘Did you say “What a pity!”?’ the Rabbit asked.\n\n62 CHAPTER 8. THE QUEEN’S CROQUET-GROUND\n\n‘No, I didn’t,’ said Alice: ‘I don’t think it’s at all a pity. I said “What for?”’\n‘She boxed"
+        },
+        {
+          "source_id": "S9",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00092",
+          "pages": [
+            59,
+            60
+          ],
+          "retrieval_rank": 9,
+          "estimated_tokens": 282,
+          "text": "ions.’\nSeven flung down his brush, and had just begun ‘Well, of all the unjust things–’ when his eye chanced to fall upon Alice, as she stood watching them, and he checked himself suddenly: the others looked round also, and all of them bowed low.\n‘Would you tell me,’ said Alice, a little timidly, ‘why you are painting those roses?’\nFive and Seven said nothing, but looked at Two. Two began in a low voice, ‘Why the fact is, you see, Miss, this here ought to have been a RED rose-tree, and we put a white one in by mistake; and if the Queen was to find it out, we should all have our heads cut off, you know. So you see,\nMiss, we’re doing our best, afore she comes, to–’ At this moment Five, who\n\n60 CHAPTER 8. THE QUEEN’S CROQUET-GROUND\n\nhad been anxiously looking across the garden, called out ‘The Queen! The\nQueen!’ and the three gardeners instantly threw themselves flat upon their faces. There was a sound of many footsteps, and Alice looked round, eager to see the Queen.\nFirst came ten soldiers carrying clubs; these were all shaped like the three gardeners, oblong and flat, with their hands and feet at the corners: next the ten courtiers; these were ornamented all over with diamonds, and"
+        },
+        {
+          "source_id": "S10",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00109",
+          "pages": [
+            69
+          ],
+          "retrieval_rank": 10,
+          "estimated_tokens": 291,
+          "text": "was gone in a moment.\n‘Let’s go on with the game,’ the Queen said to Alice; and Alice was too much frightened to say a word, but slowly followed her back to the croquetground.\nThe other guests had taken advantage of the Queen’s absence, and were resting in the shade: however, the moment they saw her, they hurried back to the game, the Queen merely remarking that a moment’s delay would cost them their lives.\nAll the time they were playing the Queen never left offquarrelling with the other players, and shouting ‘Offwith his head!’ or ‘Offwith her head!’\nThose whom she sentenced were taken into custody by the soldiers, who of course had to leave offbeing arches to do this, so that by the end of half an hour or so there were no arches left, and all the players, except the King, the\nQueen, and Alice, were in custody and under sentence of execution.\nThen the Queen left off, quite out of breath, and said to Alice, ‘Have you seen the Mock Turtle yet?’\n‘No,’ said Alice. ‘I don’t even know what a Mock Turtle is.’\n‘It’s the thing Mock Turtle Soup is made from,’ said the Queen.\n‘I never saw one, or heard of one,’ said Alice.\n‘Come on, then,’ said the Queen, ‘and he shall tell you his history,’"
+        }
+      ],
+      "deterministic_checks": {
+        "status_matches_expected": true,
+        "citation_contract_valid": true,
+        "citation_pages_correct": null,
+        "citation_pages_cover_expected": null,
+        "candidate_evidence_phrase_coverage": null,
+        "packed_evidence_phrase_coverage": null
+      },
+      "failure_stage": null,
+      "trace": {
+        "trace_id": "83c267d5d3014dd6b7809109f17003d7",
+        "timestamp": "2026-09-16T05:57:32.590790Z",
+        "document_id": "a6c315f78fbb4c5cb9f16f08f28aed38",
+        "index_version": "fixed-window-dense-v1",
+        "query": "What was the Queen of Hearts' date of birth?",
+        "retrieval_configuration": "fixed-window-dense-v1",
+        "retrieved_candidates": [
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00094",
+            "pages": [
+              60,
+              61
+            ],
+            "rank": 1,
+            "score": 0.3971535213774068
+          },
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00127",
+            "pages": [
+              79,
+              80,
+              81
+            ],
+            "rank": 2,
+            "score": 0.36386937164948024
+          },
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00130",
+            "pages": [
+              82,
+              83
+            ],
+            "rank": 3,
+            "score": 0.33242264732506593
+          },
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00131",
+            "pages": [
+              83
+            ],
+            "rank": 4,
+            "score": 0.33232136847289434
+          },
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00144",
+            "pages": [
+              90,
+              91
+            ],
+            "rank": 5,
+            "score": 0.32934204984241267
+          },
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00093",
+            "pages": [
+              60
+            ],
+            "rank": 6,
+            "score": 0.32712460291036377
+          },
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00108",
+            "pages": [
+              68,
+              69
+            ],
+            "rank": 7,
+            "score": 0.32431841306895426
+          },
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00096",
+            "pages": [
+              61,
+              62
+            ],
+            "rank": 8,
+            "score": 0.3075263046034404
+          },
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00092",
+            "pages": [
+              59,
+              60
+            ],
+            "rank": 9,
+            "score": 0.295719033022676
+          },
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00109",
+            "pages": [
+              69
+            ],
+            "rank": 10,
+            "score": 0.2828333860473465
+          }
+        ],
+        "packed_evidence": [
+          {
+            "source_id": "S1",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00094",
+            "pages": [
+              60,
+              61
+            ],
+            "retrieval_rank": 1,
+            "estimated_tokens": 299
+          },
+          {
+            "source_id": "S2",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00127",
+            "pages": [
+              79,
+              80,
+              81
+            ],
+            "retrieval_rank": 2,
+            "estimated_tokens": 281
+          },
+          {
+            "source_id": "S3",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00130",
+            "pages": [
+              82,
+              83
+            ],
+            "retrieval_rank": 3,
+            "estimated_tokens": 304
+          },
+          {
+            "source_id": "S4",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00131",
+            "pages": [
+              83
+            ],
+            "retrieval_rank": 4,
+            "estimated_tokens": 297
+          },
+          {
+            "source_id": "S5",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00144",
+            "pages": [
+              90,
+              91
+            ],
+            "retrieval_rank": 5,
+            "estimated_tokens": 298
+          },
+          {
+            "source_id": "S6",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00093",
+            "pages": [
+              60
+            ],
+            "retrieval_rank": 6,
+            "estimated_tokens": 256
+          },
+          {
+            "source_id": "S7",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00108",
+            "pages": [
+              68,
+              69
+            ],
+            "retrieval_rank": 7,
+            "estimated_tokens": 304
+          },
+          {
+            "source_id": "S8",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00096",
+            "pages": [
+              61,
+              62
+            ],
+            "retrieval_rank": 8,
+            "estimated_tokens": 315
+          },
+          {
+            "source_id": "S9",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00092",
+            "pages": [
+              59,
+              60
+            ],
+            "retrieval_rank": 9,
+            "estimated_tokens": 282
+          },
+          {
+            "source_id": "S10",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00109",
+            "pages": [
+              69
+            ],
+            "retrieval_rank": 10,
+            "estimated_tokens": 291
+          }
+        ],
+        "candidate_count": 10,
+        "packed_source_count": 10,
+        "estimated_packed_tokens": 2927,
+        "qwen_model": "qwen3.7-plus-2026-05-26",
+        "answer_status": "insufficient_evidence",
+        "returned_source_ids": [],
+        "validated_citations": [],
+        "qwen_usage": {
+          "prompt_tokens": 3413,
+          "completion_tokens": 117,
+          "total_tokens": 3530
+        },
+        "error": null,
+        "latencies": {
+          "query_embedding_ms": 0.0021669548004865646,
+          "local_retrieval_ms": 7.463000016286969,
+          "evidence_packing_ms": 0.08712499402463436,
+          "qwen_generation_ms": 2957.2075828909874,
+          "validation_ms": 0.013042008504271507,
+          "total_ms": 2965.9702498465776
+        }
+      }
+    },
+    {
+      "case_id": "c003",
+      "question": "What happened after Alice changed size?",
+      "original_question": "What happened after Alice changed size?",
+      "annotation_override": null,
+      "expected_status": "ambiguous",
+      "expected_answer": "The question needs the particular size change or scene because Alice changes size several times.",
+      "expected_pages": [],
+      "evidence_phrases": [],
+      "challenge_reason": "Alice changes size repeatedly; a useful answer requires a scene or cause.",
+      "response": {
+        "status": "ambiguous",
+        "answer": "",
+        "clarification": "Alice changes size multiple times in the provided text. Which specific instance are you referring to: shrinking after eating cakes (S1, S2), growing after drinking from a bottle (S4, S10), shrinking after using a fan (S8), changing size via mushroom (S7, S6), or growing in court (S9)?",
+        "reason": "The evidence describes several distinct events where Alice changes size, each followed by different consequences. Without specifying which change is meant, materially different answers apply.",
+        "citations": [],
+        "trace_id": "6f5513623daf46e69540b364b1f29899",
+        "error": null
+      },
+      "retrieved_candidates": [
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00051",
+          "pages": [
+            35
+          ],
+          "rank": 1,
+          "score": 0.48728072206615525
+        },
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00050",
+          "pages": [
+            34,
+            35
+          ],
+          "rank": 2,
+          "score": 0.4765848895086752
+        },
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00059",
+          "pages": [
+            39,
+            40
+          ],
+          "rank": 3,
+          "score": 0.474949422006479
+        },
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00044",
+          "pages": [
+            32
+          ],
+          "rank": 4,
+          "score": 0.47157652215951634
+        },
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00019",
+          "pages": [
+            16
+          ],
+          "rank": 5,
+          "score": 0.469818895488334
+        },
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00065",
+          "pages": [
+            42,
+            43
+          ],
+          "rank": 6,
+          "score": 0.4697076549366795
+        },
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00060",
+          "pages": [
+            40
+          ],
+          "rank": 7,
+          "score": 0.4661696099409183
+        },
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00027",
+          "pages": [
+            21,
+            22
+          ],
+          "rank": 8,
+          "score": 0.46297427704721117
+        },
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00132",
+          "pages": [
+            83,
+            84
+          ],
+          "rank": 9,
+          "score": 0.4567657859232178
+        },
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00043",
+          "pages": [
+            31,
+            32
+          ],
+          "rank": 10,
+          "score": 0.4474684299957001
+        }
+      ],
+      "packed_evidence": [
+        {
+          "source_id": "S1",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00051",
+          "pages": [
+            35
+          ],
+          "retrieval_rank": 1,
+          "estimated_tokens": 275,
+          "text": "sure to make SOME change in my size; and as it can’t possibly make me larger, it must make me smaller,\nI suppose.’\nSo she swallowed one of the cakes, and was delighted to find that she began shrinking directly. As soon as she was small enough to get through the door, she ran out of the house, and found quite a crowd of little animals and birds waiting outside. The poor little Lizard, Bill, was in the middle, being held up by two guinea-pigs, who were giving it something out of a bottle. They all made a rush at Alice the moment she appeared; but she ran offas hard as she could, and soon found herself safe in a thick wood.\n‘The first thing I’ve got to do,’ said Alice to herself, as she wandered about in the wood, ‘is to grow to my right size again; and the second thing is to find my way into that lovely garden. I think that will be the best plan.’\nIt sounded an excellent plan, no doubt, and very neatly and simply arranged; the only difficulty was, that she had not the smallest idea how to set about it; and while she was peering about anxiously among the trees, a little sharp bark just over her head made her look up in a great hurry.\nAn enormous puppy was looking down at her with larg"
+        },
+        {
+          "source_id": "S2",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00050",
+          "pages": [
+            34,
+            35
+          ],
+          "retrieval_rank": 2,
+          "estimated_tokens": 309,
+          "text": "ething comes at me like a Jack-in-thebox, and up I goes like a sky-rocket!’\n‘So you did, old fellow!’ said the others.\n‘We must burn the house down!’ said the Rabbit’s voice; and Alice called\n\nout as loud as she could, ‘If you do. I’ll set Dinah at you!’\nThere was a dead silence instantly, and Alice thought to herself, ‘I wonder what they WILL do next! If they had any sense, they’d take the roof off.’\nAfter a minute or two, they began moving about again, and Alice heard the\nRabbit say, ‘A barrowful will do, to begin with.’\n‘A barrowful of WHAT?’ thought Alice; but she had not long to doubt, for the next moment a shower of little pebbles came rattling in at the window, and some of them hit her in the face. ‘I’ll put a stop to this,’ she said to herself, and shouted out, ‘You’d better not do that again!’ which produced another dead silence.\nAlice noticed with some surprise that the pebbles were all turning into little cakes as they lay on the floor, and a bright idea came into her head.\n‘If I eat one of these cakes,’ she thought, ‘it’s sure to make SOME change in my size; and as it can’t possibly make me larger, it must make me smaller,\nI suppose.’\nSo she swallowed one of the cakes,"
+        },
+        {
+          "source_id": "S3",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00059",
+          "pages": [
+            39,
+            40
+          ],
+          "retrieval_rank": 3,
+          "estimated_tokens": 292,
+          "text": "ak.\n‘What size do you want to be?’ it asked.\n‘Oh, I’m not particular as to size,’ Alice hastily replied; ‘only one doesn’t like changing so often, you know.’\n‘I DON’T know,’ said the Caterpillar.\n\n40 CHAPTER 5. ADVICE FROM A CATERPILLAR\n\nAlice said nothing: she had never been so much contradicted in her life before, and she felt that she was losing her temper.\n‘Are you content now?’ said the Caterpillar.\n‘Well, I should like to be a LITTLE larger, sir, if you wouldn’t mind,’ said Alice: ‘three inches is such a wretched height to be.’\n‘It is a very good height indeed!’ said the Caterpillar angrily, rearing itself upright as it spoke (it was exactly three inches high).\n‘But I’m not used to it!’ pleaded poor Alice in a piteous tone. And she thought of herself, ‘I wish the creatures wouldn’t be so easily offended!’\n‘You’ll get used to it in time,’ said the Caterpillar; and it put the hookah into its mouth and began smoking again.\nThis time Alice waited patiently until it chose to speak again. In a minute or two the Caterpillar took the hookah out of its mouth and yawned once or twice, and shook itself. Then it got down offthe mushroom, and crawled away in the grass, merely remarking as"
+        },
+        {
+          "source_id": "S4",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00044",
+          "pages": [
+            32
+          ],
+          "retrieval_rank": 4,
+          "estimated_tokens": 287,
+          "text": "tired of being such a tiny little thing!’\nIt did so indeed, and much sooner than she had expected: before she had drunk half the bottle, she found her head pressing against the ceiling, and had to stoop to save her neck from being broken. She hastily put down the bottle, saying to herself ‘That’s quite enough–I hope I shan’t grow any more–As it is, I can’t get out at the door–I do wish I hadn’t drunk quite so much!’\nAlas! it was too late to wish that! She went on growing, and growing, and very soon had to kneel down on the floor: in another minute there was not even room for this, and she tried the effect of lying down with one elbow against the door, and the other arm curled round her head. Still she went on growing, and, as a last resource, she put one arm out of the window, and one foot up the chimney, and said to herself ‘Now I can do no more, whatever happens. What WILL become of me?’\nLuckily for Alice, the little magic bottle had now had its full effect, and she grew no larger: still it was very uncomfortable, and, as there seemed to be no sort of chance of her ever getting out of the room again, no wonder she felt unhappy.\n‘It was much pleasanter at home,’ thought poor Alice"
+        },
+        {
+          "source_id": "S5",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00019",
+          "pages": [
+            16
+          ],
+          "retrieval_rank": 5,
+          "estimated_tokens": 280,
+          "text": "it too long; and that if you cut your finger VERY deeply with a knife, it usually bleeds; and she had never forgotten that, if you drink much from a bottle marked ‘poison,’ it is almost certain to disagree with you, sooner or later.\nHowever, this bottle was NOT marked ‘poison,’ so Alice ventured to taste it, and finding it very nice, (it had, in fact, a sort of mixed flavour of cherrytart, custard, pine-apple, roast turkey, toffee, and hot buttered toast,) she very soon finished it off.\n‘What a curious feeling!’ said Alice; ‘I must be shutting up like a telescope.’\nAnd so it was indeed: she was now only ten inches high, and her face brightened up at the thought that she was now the right size for going through the little door into that lovely garden. First, however, she waited for a few minutes to see if she was going to shrink any further: she felt a little nervous about this; ‘for it might end, you know,’ said Alice to herself, ‘in my going out altogether, like a candle. I wonder what I should be like then?’ And she tried to fancy what the flame of a candle is like after the candle is blown out, for she could not remember ever having seen such a thing.\nAfter a while, finding tha"
+        },
+        {
+          "source_id": "S6",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00065",
+          "pages": [
+            42,
+            43
+          ],
+          "retrieval_rank": 6,
+          "estimated_tokens": 279,
+          "text": "en at the other, and growing sometimes taller and sometimes shorter, until she had succeeded in bringing herself down to her usual height.\nIt was so long since she had been anything near the right size, that it felt quite strange at first; but she got used to it in a few minutes, and began talking to herself, as usual. ‘Come, there’s half my plan done now! How puzzling all these changes are! I’m never sure what I’m going to be, from one minute to another! However, I’ve got back to my right size: the next thing is, to get into that beautiful garden–how IS that to be done, I wonder?’\nAs she said this, she came suddenly upon an open place, with a little house in it about four feet high. ‘Whoever lives there,’ thought Alice, ‘it’ll never do to come upon them THIS size: why, I should frighten them out of their wits!’ So she began nibbling at the righthand bit again, and did not venture to go near the house till she had brought herself down to nine inches high.\n\nChapter 6\n\nPig and Pepper\n\nFor a minute or two she stood looking at the house, and wondering what to do next, when suddenly a footman in livery came running out of the wood–(she considered him to be a footman because he was in li"
+        },
+        {
+          "source_id": "S7",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00060",
+          "pages": [
+            40
+          ],
+          "retrieval_rank": 7,
+          "estimated_tokens": 273,
+          "text": "okah out of its mouth and yawned once or twice, and shook itself. Then it got down offthe mushroom, and crawled away in the grass, merely remarking as it went, ‘One side will make you grow taller, and the other side will make you grow shorter.’\n‘One side of WHAT? The other side of WHAT?’ thought Alice to herself.\n‘Of the mushroom,’ said the Caterpillar, just as if she had asked it aloud;\nand in another moment it was out of sight.\nAlice remained looking thoughtfully at the mushroom for a minute, trying to make out which were the two sides of it; and as it was perfectly round, she found this a very difficult question. However, at last she stretched her arms round it as far as they would go, and broke offa bit of the edge with each hand.\n‘And now which is which?’ she said to herself, and nibbled a little of the right-hand bit to try the effect: the next moment she felt a violent blow underneath her chin: it had struck her foot!\nShe was a good deal frightened by this very sudden change, but she felt that there was no time to be lost, as she was shrinking rapidly; so she set to work at once to eat some of the other bit. Her chin was pressed so closely against her foot, that there was ha"
+        },
+        {
+          "source_id": "S8",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00027",
+          "pages": [
+            21,
+            22
+          ],
+          "retrieval_rank": 8,
+          "estimated_tokens": 287,
+          "text": "abbit’s little white kid gloves while she was talking. ‘How CAN I have done that?’ she thought. ‘I must be growing small again.’ She got up and went to the table to measure herself by it, and found that, as nearly as she could guess, she was now about two feet high, and was going on shrinking rapidly: she soon found out that the cause of this was the fan she was holding, and she dropped it hastily, just in time to avoid shrinking away altogether.\n‘That WAS a narrow escape!’ said Alice, a good deal frightened at the sudden change, but very glad to find herself still in existence; ‘and now for the garden!’ and she ran with all speed back to the little door: but, alas! the little door was shut again, and the little golden key was lying on the glass table as before, ‘and things are worse than ever,’ thought the poor child, ‘for\nI never was so small as this before, never! And I declare it’s too bad, that it is!’\nAs she said these words her foot slipped, and in another moment, splash!\nshe was up to her chin in salt water. Her first idea was that she had somehow fallen into the sea, ‘and in that case I can go back by railway,’ she said to\n\n22 CHAPTER 2. THE POOL OF TEARS\n\nherself. (Alice"
+        },
+        {
+          "source_id": "S9",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00132",
+          "pages": [
+            83,
+            84
+          ],
+          "retrieval_rank": 9,
+          "estimated_tokens": 300,
+          "text": "lice felt a very curious sensation, which puzzled her a good deal until she made out what it was: she was beginning to grow larger again, and she thought at first she would get up and leave the court;\nbut on second thoughts she decided to remain where she was as long as there was room for her.\n‘I wish you wouldn’t squeeze so.’ said the Dormouse, who was sitting next to her. ‘I can hardly breathe.’\n‘I can’t help it,’ said Alice very meekly: ‘I’m growing.’\n‘You’ve no right to grow here,’ said the Dormouse.\n‘Don’t talk nonsense,’ said Alice more boldly: ‘you know you’re growing too.’\n‘Yes, but I grow at a reasonable pace,’ said the Dormouse: ‘not in that ridiculous fashion.’ And he got up very sulkily and crossed over to the other side of the court.\nAll this time the Queen had never left offstaring at the Hatter, and, just as the Dormouse crossed the court, she said to one of the officers of the court,\n\n84 CHAPTER 11. WHO STOLE THE TARTS?\n\n‘Bring me the list of the singers in the last concert!’ on which the wretched\nHatter trembled so, that he shook both his shoes off.\n‘Give your evidence,’ the King repeated angrily, ‘or I’ll have you executed, whether you’re nervous or not.’\n‘I’m a p"
+        },
+        {
+          "source_id": "S10",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00043",
+          "pages": [
+            31,
+            32
+          ],
+          "retrieval_rank": 10,
+          "estimated_tokens": 295,
+          "text": "on messages next!’ And she began\n\n32 CHAPTER 4. THE RABBIT SENDS IN A LITTLE BILL\n\nfancying the sort of thing that would happen: ‘“Miss Alice! Come here directly, and get ready for your walk!” “Coming in a minute, nurse! But I’ve got to see that the mouse doesn’t get out.” Only I don’t think,’ Alice went on, ‘that they’d let Dinah stop in the house if it began ordering people about like that!’\nBy this time she had found her way into a tidy little room with a table in the window, and on it (as she had hoped) a fan and two or three pairs of tiny white kid gloves: she took up the fan and a pair of the gloves, and was just going to leave the room, when her eye fell upon a little bottle that stood near the looking- glass. There was no label this time with the words\n‘DRINK ME,’ but nevertheless she uncorked it and put it to her lips. ‘I know\nSOMETHING interesting is sure to happen,’ she said to herself, ‘whenever\nI eat or drink anything; so I’ll just see what this bottle does. I do hope it’ll make me grow large again, for really I’m quite tired of being such a tiny little thing!’\nIt did so indeed, and much sooner than she had expected: before she had drunk half the bottle, she found her"
+        }
+      ],
+      "deterministic_checks": {
+        "status_matches_expected": true,
+        "citation_contract_valid": true,
+        "citation_pages_correct": null,
+        "citation_pages_cover_expected": null,
+        "candidate_evidence_phrase_coverage": null,
+        "packed_evidence_phrase_coverage": null
+      },
+      "failure_stage": null,
+      "trace": {
+        "trace_id": "6f5513623daf46e69540b364b1f29899",
+        "timestamp": "2026-09-16T05:57:35.558284Z",
+        "document_id": "a6c315f78fbb4c5cb9f16f08f28aed38",
+        "index_version": "fixed-window-dense-v1",
+        "query": "What happened after Alice changed size?",
+        "retrieval_configuration": "fixed-window-dense-v1",
+        "retrieved_candidates": [
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00051",
+            "pages": [
+              35
+            ],
+            "rank": 1,
+            "score": 0.48728072206615525
+          },
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00050",
+            "pages": [
+              34,
+              35
+            ],
+            "rank": 2,
+            "score": 0.4765848895086752
+          },
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00059",
+            "pages": [
+              39,
+              40
+            ],
+            "rank": 3,
+            "score": 0.474949422006479
+          },
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00044",
+            "pages": [
+              32
+            ],
+            "rank": 4,
+            "score": 0.47157652215951634
+          },
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00019",
+            "pages": [
+              16
+            ],
+            "rank": 5,
+            "score": 0.469818895488334
+          },
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00065",
+            "pages": [
+              42,
+              43
+            ],
+            "rank": 6,
+            "score": 0.4697076549366795
+          },
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00060",
+            "pages": [
+              40
+            ],
+            "rank": 7,
+            "score": 0.4661696099409183
+          },
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00027",
+            "pages": [
+              21,
+              22
+            ],
+            "rank": 8,
+            "score": 0.46297427704721117
+          },
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00132",
+            "pages": [
+              83,
+              84
+            ],
+            "rank": 9,
+            "score": 0.4567657859232178
+          },
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00043",
+            "pages": [
+              31,
+              32
+            ],
+            "rank": 10,
+            "score": 0.4474684299957001
+          }
+        ],
+        "packed_evidence": [
+          {
+            "source_id": "S1",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00051",
+            "pages": [
+              35
+            ],
+            "retrieval_rank": 1,
+            "estimated_tokens": 275
+          },
+          {
+            "source_id": "S2",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00050",
+            "pages": [
+              34,
+              35
+            ],
+            "retrieval_rank": 2,
+            "estimated_tokens": 309
+          },
+          {
+            "source_id": "S3",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00059",
+            "pages": [
+              39,
+              40
+            ],
+            "retrieval_rank": 3,
+            "estimated_tokens": 292
+          },
+          {
+            "source_id": "S4",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00044",
+            "pages": [
+              32
+            ],
+            "retrieval_rank": 4,
+            "estimated_tokens": 287
+          },
+          {
+            "source_id": "S5",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00019",
+            "pages": [
+              16
+            ],
+            "retrieval_rank": 5,
+            "estimated_tokens": 280
+          },
+          {
+            "source_id": "S6",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00065",
+            "pages": [
+              42,
+              43
+            ],
+            "retrieval_rank": 6,
+            "estimated_tokens": 279
+          },
+          {
+            "source_id": "S7",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00060",
+            "pages": [
+              40
+            ],
+            "retrieval_rank": 7,
+            "estimated_tokens": 273
+          },
+          {
+            "source_id": "S8",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00027",
+            "pages": [
+              21,
+              22
+            ],
+            "retrieval_rank": 8,
+            "estimated_tokens": 287
+          },
+          {
+            "source_id": "S9",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00132",
+            "pages": [
+              83,
+              84
+            ],
+            "retrieval_rank": 9,
+            "estimated_tokens": 300
+          },
+          {
+            "source_id": "S10",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00043",
+            "pages": [
+              31,
+              32
+            ],
+            "retrieval_rank": 10,
+            "estimated_tokens": 295
+          }
+        ],
+        "candidate_count": 10,
+        "packed_source_count": 10,
+        "estimated_packed_tokens": 2877,
+        "qwen_model": "qwen3.7-plus-2026-05-26",
+        "answer_status": "ambiguous",
+        "returned_source_ids": [],
+        "validated_citations": [],
+        "qwen_usage": {
+          "prompt_tokens": 3340,
+          "completion_tokens": 133,
+          "total_tokens": 3473
+        },
+        "error": null,
+        "latencies": {
+          "query_embedding_ms": 0.001291045919060707,
+          "local_retrieval_ms": 7.138625020161271,
+          "evidence_packing_ms": 0.0813750084489584,
+          "qwen_generation_ms": 4033.6774999741465,
+          "validation_ms": 0.007416121661663055,
+          "total_ms": 4041.8710419908166
+        }
+      }
+    },
+    {
+      "case_id": "c004",
+      "question": "What happened next?",
+      "original_question": "What happened next?",
+      "annotation_override": null,
+      "expected_status": "ambiguous",
+      "expected_answer": "The question needs the event or passage to continue from because the book contains many possible next events.",
+      "expected_pages": [],
+      "evidence_phrases": [],
+      "challenge_reason": "A realistic voice follow-up without conversation memory; tests whether the system asks which event or passage to continue from.",
+      "response": {
+        "status": "ambiguous",
+        "answer": "",
+        "clarification": "The provided sources contain multiple distinct narrative threads from 'Alice's Adventures in Wonderland'. Please specify which event you are referring to, such as: 1) The end of the Caucus-race (S1, S3), 2) The incident with Bill the Lizard (S9, S2), 3) The Queen ordering the gardeners' execution (S10, S5), or 4) The dispute over the Cheshire Cat's head (S6).",
+        "reason": "The question 'What happened next?' is ambiguous because the sources describe several different scenes. Without knowing the preceding context, it is impossible to determine which specific sequence of events is being queried.",
+        "citations": [],
+        "trace_id": "ad68c3165b6a4b12ad860f9245f0c658",
+        "error": null
+      },
+      "retrieved_candidates": [
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00036",
+          "pages": [
+            26,
+            27
+          ],
+          "rank": 1,
+          "score": 0.30273416714914786
+        },
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00050",
+          "pages": [
+            34,
+            35
+          ],
+          "rank": 2,
+          "score": 0.2843596599022782
+        },
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00037",
+          "pages": [
+            27
+          ],
+          "rank": 3,
+          "score": 0.2784200301433902
+        },
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00135",
+          "pages": [
+            85
+          ],
+          "rank": 4,
+          "score": 0.2744520007256234
+        },
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00096",
+          "pages": [
+            61,
+            62
+          ],
+          "rank": 5,
+          "score": 0.2708263249566481
+        },
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00102",
+          "pages": [
+            64
+          ],
+          "rank": 6,
+          "score": 0.2694897995287675
+        },
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00077",
+          "pages": [
+            48,
+            49
+          ],
+          "rank": 7,
+          "score": 0.2693372426758966
+        },
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00108",
+          "pages": [
+            68,
+            69
+          ],
+          "rank": 8,
+          "score": 0.26340303767880086
+        },
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00049",
+          "pages": [
+            34
+          ],
+          "rank": 9,
+          "score": 0.2633545091531056
+        },
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00095",
+          "pages": [
+            60,
+            61
+          ],
+          "rank": 10,
+          "score": 0.2621365247001275
+        }
+      ],
+      "packed_evidence": [
+        {
+          "source_id": "S1",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00036",
+          "pages": [
+            26,
+            27
+          ],
+          "retrieval_rank": 1,
+          "estimated_tokens": 291,
+          "text": "re was no ‘One, two, three, and away,’ but they began running when they liked, and left offwhen they liked, so that it was not easy to know when the race was over. However, when they had been running half an hour or so, and were quite dry again, the Dodo suddenly called out ‘The race is over!’ and they all crowded round it, panting, and asking, ‘But who has won?’\nThis question the Dodo could not answer without a great deal of thought,\n\nand it sat for a long time with one finger pressed upon its forehead (the position in which you usually see Shakespeare, in the pictures of him), while the rest waited in silence. At last the Dodo said, ‘EVERYBODY has won, and all must have prizes.’\n‘But who is to give the prizes?’ quite a chorus of voices asked.\n‘Why, SHE, of course,’ said the Dodo, pointing to Alice with one finger;\nand the whole party at once crowded round her, calling out in a confused way, ‘Prizes! Prizes!’\nAlice had no idea what to do, and in despair she put her hand in her pocket, and pulled out a box of comfits, (luckily the salt water had not got into it), and handed them round as prizes. There was exactly one a-piece all round.\n‘But she must have a prize herself, you know,’"
+        },
+        {
+          "source_id": "S2",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00050",
+          "pages": [
+            34,
+            35
+          ],
+          "retrieval_rank": 2,
+          "estimated_tokens": 309,
+          "text": "ething comes at me like a Jack-in-thebox, and up I goes like a sky-rocket!’\n‘So you did, old fellow!’ said the others.\n‘We must burn the house down!’ said the Rabbit’s voice; and Alice called\n\nout as loud as she could, ‘If you do. I’ll set Dinah at you!’\nThere was a dead silence instantly, and Alice thought to herself, ‘I wonder what they WILL do next! If they had any sense, they’d take the roof off.’\nAfter a minute or two, they began moving about again, and Alice heard the\nRabbit say, ‘A barrowful will do, to begin with.’\n‘A barrowful of WHAT?’ thought Alice; but she had not long to doubt, for the next moment a shower of little pebbles came rattling in at the window, and some of them hit her in the face. ‘I’ll put a stop to this,’ she said to herself, and shouted out, ‘You’d better not do that again!’ which produced another dead silence.\nAlice noticed with some surprise that the pebbles were all turning into little cakes as they lay on the floor, and a bright idea came into her head.\n‘If I eat one of these cakes,’ she thought, ‘it’s sure to make SOME change in my size; and as it can’t possibly make me larger, it must make me smaller,\nI suppose.’\nSo she swallowed one of the cakes,"
+        },
+        {
+          "source_id": "S3",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00037",
+          "pages": [
+            27
+          ],
+          "retrieval_rank": 3,
+          "estimated_tokens": 285,
+          "text": "t water had not got into it), and handed them round as prizes. There was exactly one a-piece all round.\n‘But she must have a prize herself, you know,’ said the Mouse.\n‘Of course,’ the Dodo replied very gravely. ‘What else have you got in your pocket?’ he went on, turning to Alice.\n‘Only a thimble,’ said Alice sadly.\n‘Hand it over here,’ said the Dodo.\nThen they all crowded round her once more, while the Dodo solemnly presented the thimble, saying ‘We beg your acceptance of this elegant thimble’;\nand, when it had finished this short speech, they all cheered.\nAlice thought the whole thing very absurd, but they all looked so grave that she did not dare to laugh; and, as she could not think of anything to say, she simply bowed, and took the thimble, looking as solemn as she could.\nThe next thing was to eat the comfits: this caused some noise and confusion, as the large birds complained that they could not taste theirs, and the small ones choked and had to be patted on the back. However, it was over at last, and they sat down again in a ring, and begged the Mouse to tell them something more.\n‘You promised to tell me your history, you know,’ said Alice, ‘and why it is you hate–C and D,’"
+        },
+        {
+          "source_id": "S4",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00135",
+          "pages": [
+            85
+          ],
+          "retrieval_rank": 4,
+          "estimated_tokens": 302,
+          "text": "oor, as it is.’\n‘Then you may SIT down,’ the King replied.\nHere the other guinea-pig cheered, and was suppressed.\n‘Come, that finished the guinea-pigs!’ thought Alice. ‘Now we shall get on better.’\n‘I’d rather finish my tea,’ said the Hatter, with an anxious look at the\nQueen, who was reading the list of singers.\n‘You may go,’ said the King, and the Hatter hurriedly left the court, without even waiting to put his shoes on.\n‘–and just take his head offoutside,’ the Queen added to one of the officers: but the Hatter was out of sight before the officer could get to the door.\n‘Call the next witness!’ said the King.\nThe next witness was the Duchess’s cook. She carried the pepper-box in her hand, and Alice guessed who it was, even before she got into the court, by the way the people near the door began sneezing all at once.\n‘Give your evidence,’ said the King.\n‘Shan’t,’ said the cook.\nThe King looked anxiously at the White Rabbit, who said in a low voice,\n‘Your Majesty must cross-examine THIS witness.’\n‘Well, if I must, I must,’ the King said, with a melancholy air, and, after folding his arms and frowning at the cook till his eyes were nearly out of sight, he said in a deep voice, ‘What"
+        },
+        {
+          "source_id": "S5",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00096",
+          "pages": [
+            61,
+            62
+          ],
+          "retrieval_rank": 5,
+          "estimated_tokens": 315,
+          "text": "d she put them into a large flower-pot that stood near. The three soldiers wandered about for a minute or two, looking for them, and then quietly marched offafter the others.\n‘Are their heads off?’ shouted the Queen.\n‘Their heads are gone, if it please your Majesty!’ the soldiers shouted in reply.\n‘That’s right!’ shouted the Queen. ‘Can you play croquet?’\nThe soldiers were silent, and looked at Alice, as the question was evidently meant for her.\n‘Yes!’ shouted Alice.\n‘Come on, then!’ roared the Queen, and Alice joined the procession, wondering very much what would happen next.\n‘It’s–it’s a very fine day!’ said a timid voice at her side. She was walking by the White Rabbit, who was peeping anxiously into her face.\n‘Very,’ said Alice: ‘–where’s the Duchess?’\n‘Hush! Hush!’ said the Rabbit in a low, hurried tone. He looked anxiously over his shoulder as he spoke, and then raised himself upon tiptoe, put his mouth close to her ear, and whispered ‘She’s under sentence of execution.’\n‘What for?’ said Alice.\n‘Did you say “What a pity!”?’ the Rabbit asked.\n\n62 CHAPTER 8. THE QUEEN’S CROQUET-GROUND\n\n‘No, I didn’t,’ said Alice: ‘I don’t think it’s at all a pity. I said “What for?”’\n‘She boxed"
+        },
+        {
+          "source_id": "S6",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00102",
+          "pages": [
+            64
+          ],
+          "retrieval_rank": 6,
+          "estimated_tokens": 256,
+          "text": "game was in such confusion that she never knew whether it was her turn or not. So she went in search of her hedgehog.\nThe hedgehog was engaged in a fight with another hedgehog, which seemed to Alice an excellent opportunity for croqueting one of them with the other: the only difficulty was, that her flamingo was gone across to the other side of the garden, where Alice could see it trying in a helpless sort of way to fly up into a tree.\nBy the time she had caught the flamingo and brought it back, the fight was over, and both the hedgehogs were out of sight: ‘but it doesn’t matter much,’ thought Alice, ‘as all the arches are gone from this side of the ground.’\nSo she tucked it away under her arm, that it might not escape again, and went back for a little more conversation with her friend.\nWhen she got back to the Cheshire Cat, she was surprised to find quite a large crowd collected round it: there was a dispute going on between the executioner, the King, and the Queen, who were all talking at once, while all the rest were quite silent, and looked very uncomfortable.\nThe moment Alice appeared, she was appealed to by all three to settle the question, and they repeated their arguments t"
+        },
+        {
+          "source_id": "S7",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00077",
+          "pages": [
+            48,
+            49
+          ],
+          "retrieval_rank": 7,
+          "estimated_tokens": 324,
+          "text": "en I’m angry. Therefore I’m mad.’\n‘I call it purring, not growling,’ said Alice.\n‘Call it what you like,’ said the Cat. ‘Do you play croquet with the Queen to-day?’\n‘I should like it very much,’ said Alice, ‘but I haven’t been invited yet.’\n‘You’ll see me there,’ said the Cat, and vanished.\nAlice was not much surprised at this, she was getting so used to queer things happening. While she was looking at the place where it had been, it suddenly appeared again.\n‘By-the-bye, what became of the baby?’ said the Cat. ‘I’d nearly forgotten to ask.’\n‘It turned into a pig,’ Alice quietly said, just as if it had come back in a natural way.\n‘I thought it would,’ said the Cat, and vanished again.\nAlice waited a little, half expecting to see it again, but it did not appear, and after a minute or two she walked on in the direction in which the March\nHare was said to live. ‘I’ve seen hatters before,’ she said to herself; ‘the\nMarch Hare will be much the most interesting, and perhaps as this is May it won’t be raving mad–at least not so mad as it was in March.’ As she said\n\nthis, she looked up, and there was the Cat again, sitting on a branch of a tree.\n‘Did you say pig, or fig?’ said the Cat.\n‘I s"
+        },
+        {
+          "source_id": "S8",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00108",
+          "pages": [
+            68,
+            69
+          ],
+          "retrieval_rank": 8,
+          "estimated_tokens": 304,
+          "text": "about trouble!’ said the Duchess. ‘I make you a present of everything I’ve said as yet.’\n\n‘A cheap sort of present!’ thought Alice. ‘I’m glad they don’t give birthday presents like that!’ But she did not venture to say it out loud.\n‘Thinking again?’ the Duchess asked, with another dig of her sharp little chin.\n‘I’ve a right to think,’ said Alice sharply, for she was beginning to feel a little worried.\n‘Just about as much right,’ said the Duchess, ‘as pigs have to fly; and the m–’\nBut here, to Alice’s great surprise, the Duchess’s voice died away, even in the middle of her favourite word ‘moral,’ and the arm that was linked into hers began to tremble. Alice looked up, and there stood the Queen in front of them, with her arms folded, frowning like a thunderstorm.\n‘A fine day, your Majesty!’ the Duchess began in a low, weak voice.\n‘Now, I give you fair warning,’ shouted the Queen, stamping on the ground as she spoke; ‘either you or your head must be off, and that in about half no time! Take your choice!’\nThe Duchess took her choice, and was gone in a moment.\n‘Let’s go on with the game,’ the Queen said to Alice; and Alice was too much frightened to say a word, but slowly followed her b"
+        },
+        {
+          "source_id": "S9",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00049",
+          "pages": [
+            34
+          ],
+          "retrieval_rank": 9,
+          "estimated_tokens": 322,
+          "text": "the chimney!’\n‘Oh! So Bill’s got to come down the chimney, has he?’ said Alice to herself. ‘Shy, they seem to put everything upon Bill! I wouldn’t be in Bill’s place for a good deal: this fireplace is narrow, to be sure; but I THINK I can kick a little!’\nShe drew her foot as far down the chimney as she could, and waited till she heard a little animal (she couldn’t guess of what sort it was) scratching and scrambling about in the chimney close above her: then, saying to herself\n‘This is Bill,’ she gave one sharp kick, and waited to see what would happen next.\nThe first thing she heard was a general chorus of ‘There goes Bill!’ then the Rabbit’s voice along–‘Catch him, you by the hedge!’ then silence, and then another confusion of voices–‘Hold up his head–Brandy now–Don’t choke him–How was it, old fellow? What happened to you? Tell us all about it!’\nLast came a little feeble, squeaking voice, (‘That’s Bill,’ thought Alice,)\n‘Well, I hardly know–No more, thank ye; I’m better now–but I’m a deal too flustered to tell you–all I know is, something comes at me like a Jack-in-thebox, and up I goes like a sky-rocket!’\n‘So you did, old fellow!’ said the others.\n‘We must burn the house down!’"
+        },
+        {
+          "source_id": "S10",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00095",
+          "pages": [
+            60,
+            61
+          ],
+          "retrieval_rank": 10,
+          "estimated_tokens": 291,
+          "text": "beast, screamed ‘Offwith her head! Off–’\n‘Nonsense!’ said Alice, very loudly and decidedly, and the Queen was\n\nsilent.\nThe King laid his hand upon her arm, and timidly said ‘Consider, my dear: she is only a child!’\nThe Queen turned angrily away from him, and said to the Knave ‘Turn them over!’\nThe Knave did so, very carefully, with one foot.\n‘Get up!’ said the Queen, in a shrill, loud voice, and the three gardeners instantly jumped up, and began bowing to the King, the Queen, the royal children, and everybody else.\n‘Leave offthat!’ screamed the Queen. ‘You make me giddy.’ And then, turning to the rose-tree, she went on, ‘What HAVE you been doing here?’\n‘May it please your Majesty,’ said Two, in a very humble tone, going down on one knee as he spoke, ‘we were trying–’\n‘I see!’ said the Queen, who had meanwhile been examining the roses.\n‘Offwith their heads!’ and the procession moved on, three of the soldiers remaining behind to execute the unfortunate gardeners, who ran to Alice for protection.\n‘You shan’t be beheaded!’ said Alice, and she put them into a large flower-pot that stood near. The three soldiers wandered about for a minute or two, looking for them, and then quietly marc"
+        }
+      ],
+      "deterministic_checks": {
+        "status_matches_expected": true,
+        "citation_contract_valid": true,
+        "citation_pages_correct": null,
+        "citation_pages_cover_expected": null,
+        "candidate_evidence_phrase_coverage": null,
+        "packed_evidence_phrase_coverage": null
+      },
+      "failure_stage": null,
+      "trace": {
+        "trace_id": "ad68c3165b6a4b12ad860f9245f0c658",
+        "timestamp": "2026-09-16T05:57:39.601668Z",
+        "document_id": "a6c315f78fbb4c5cb9f16f08f28aed38",
+        "index_version": "fixed-window-dense-v1",
+        "query": "What happened next?",
+        "retrieval_configuration": "fixed-window-dense-v1",
+        "retrieved_candidates": [
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00036",
+            "pages": [
+              26,
+              27
+            ],
+            "rank": 1,
+            "score": 0.30273416714914786
+          },
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00050",
+            "pages": [
+              34,
+              35
+            ],
+            "rank": 2,
+            "score": 0.2843596599022782
+          },
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00037",
+            "pages": [
+              27
+            ],
+            "rank": 3,
+            "score": 0.2784200301433902
+          },
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00135",
+            "pages": [
+              85
+            ],
+            "rank": 4,
+            "score": 0.2744520007256234
+          },
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00096",
+            "pages": [
+              61,
+              62
+            ],
+            "rank": 5,
+            "score": 0.2708263249566481
+          },
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00102",
+            "pages": [
+              64
+            ],
+            "rank": 6,
+            "score": 0.2694897995287675
+          },
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00077",
+            "pages": [
+              48,
+              49
+            ],
+            "rank": 7,
+            "score": 0.2693372426758966
+          },
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00108",
+            "pages": [
+              68,
+              69
+            ],
+            "rank": 8,
+            "score": 0.26340303767880086
+          },
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00049",
+            "pages": [
+              34
+            ],
+            "rank": 9,
+            "score": 0.2633545091531056
+          },
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00095",
+            "pages": [
+              60,
+              61
+            ],
+            "rank": 10,
+            "score": 0.2621365247001275
+          }
+        ],
+        "packed_evidence": [
+          {
+            "source_id": "S1",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00036",
+            "pages": [
+              26,
+              27
+            ],
+            "retrieval_rank": 1,
+            "estimated_tokens": 291
+          },
+          {
+            "source_id": "S2",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00050",
+            "pages": [
+              34,
+              35
+            ],
+            "retrieval_rank": 2,
+            "estimated_tokens": 309
+          },
+          {
+            "source_id": "S3",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00037",
+            "pages": [
+              27
+            ],
+            "retrieval_rank": 3,
+            "estimated_tokens": 285
+          },
+          {
+            "source_id": "S4",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00135",
+            "pages": [
+              85
+            ],
+            "retrieval_rank": 4,
+            "estimated_tokens": 302
+          },
+          {
+            "source_id": "S5",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00096",
+            "pages": [
+              61,
+              62
+            ],
+            "retrieval_rank": 5,
+            "estimated_tokens": 315
+          },
+          {
+            "source_id": "S6",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00102",
+            "pages": [
+              64
+            ],
+            "retrieval_rank": 6,
+            "estimated_tokens": 256
+          },
+          {
+            "source_id": "S7",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00077",
+            "pages": [
+              48,
+              49
+            ],
+            "retrieval_rank": 7,
+            "estimated_tokens": 324
+          },
+          {
+            "source_id": "S8",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00108",
+            "pages": [
+              68,
+              69
+            ],
+            "retrieval_rank": 8,
+            "estimated_tokens": 304
+          },
+          {
+            "source_id": "S9",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00049",
+            "pages": [
+              34
+            ],
+            "retrieval_rank": 9,
+            "estimated_tokens": 322
+          },
+          {
+            "source_id": "S10",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00095",
+            "pages": [
+              60,
+              61
+            ],
+            "retrieval_rank": 10,
+            "estimated_tokens": 291
+          }
+        ],
+        "candidate_count": 10,
+        "packed_source_count": 10,
+        "estimated_packed_tokens": 2999,
+        "qwen_model": "qwen3.7-plus-2026-05-26",
+        "answer_status": "ambiguous",
+        "returned_source_ids": [],
+        "validated_citations": [],
+        "qwen_usage": {
+          "prompt_tokens": 3435,
+          "completion_tokens": 168,
+          "total_tokens": 3603
+        },
+        "error": null,
+        "latencies": {
+          "query_embedding_ms": 0.000959029421210289,
+          "local_retrieval_ms": 6.920665968209505,
+          "evidence_packing_ms": 0.07366691716015339,
+          "qwen_generation_ms": 3832.624167203903,
+          "validation_ms": 0.009082956239581108,
+          "total_ms": 3840.6436250079423
+        }
+      }
+    },
+    {
+      "case_id": "c005",
+      "question": "How tall did Alice become before the pool formed, and how deep did she say the pool was?",
+      "original_question": "How tall did Alice become before the pool formed, and how deep did she say the pool was?",
+      "annotation_override": null,
+      "expected_status": "answered",
+      "expected_answer": "Alice became more than nine feet tall, and she said the pool was about four inches deep.",
+      "expected_pages": [
+        19,
+        20
+      ],
+      "evidence_phrases": [
+        "more than nine feet high",
+        "about four inches deep"
+      ],
+      "challenge_reason": "A natural multi-page, evidence-heavy question that checks whether packing preserves facts spread across adjacent scenes.",
+      "response": {
+        "status": "answered",
+        "answer": "Alice became more than nine feet high before the pool formed, and she said the pool was about four inches deep.",
+        "clarification": null,
+        "reason": null,
+        "citations": [
+          {
+            "source_id": "S3",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00023",
+            "document_id": "a6c315f78fbb4c5cb9f16f08f28aed38",
+            "source_filename": "alice-in-wonderland.pdf",
+            "pages": [
+              19,
+              20
+            ]
+          }
+        ],
+        "trace_id": "083298994f0b419a8967c3d195393930",
+        "error": null
+      },
+      "retrieved_candidates": [
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00027",
+          "pages": [
+            21,
+            22
+          ],
+          "rank": 1,
+          "score": 0.5375300619487251
+        },
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00028",
+          "pages": [
+            21,
+            22
+          ],
+          "rank": 2,
+          "score": 0.5302227574710915
+        },
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00023",
+          "pages": [
+            19,
+            20
+          ],
+          "rank": 3,
+          "score": 0.49237313056533544
+        },
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00019",
+          "pages": [
+            16
+          ],
+          "rank": 4,
+          "score": 0.4727702146367518
+        },
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00022",
+          "pages": [
+            17,
+            18,
+            19
+          ],
+          "rank": 5,
+          "score": 0.46912817839980486
+        },
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00044",
+          "pages": [
+            32
+          ],
+          "rank": 6,
+          "score": 0.469037339488851
+        },
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00021",
+          "pages": [
+            17,
+            18,
+            19
+          ],
+          "rank": 7,
+          "score": 0.4532783311890428
+        },
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00013",
+          "pages": [
+            13,
+            14
+          ],
+          "rank": 8,
+          "score": 0.45272506537613066
+        },
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00014",
+          "pages": [
+            14
+          ],
+          "rank": 9,
+          "score": 0.4445754206713622
+        },
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00012",
+          "pages": [
+            13,
+            14
+          ],
+          "rank": 10,
+          "score": 0.4402471640836783
+        }
+      ],
+      "packed_evidence": [
+        {
+          "source_id": "S1",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00027",
+          "pages": [
+            21,
+            22
+          ],
+          "retrieval_rank": 1,
+          "estimated_tokens": 287,
+          "text": "abbit’s little white kid gloves while she was talking. ‘How CAN I have done that?’ she thought. ‘I must be growing small again.’ She got up and went to the table to measure herself by it, and found that, as nearly as she could guess, she was now about two feet high, and was going on shrinking rapidly: she soon found out that the cause of this was the fan she was holding, and she dropped it hastily, just in time to avoid shrinking away altogether.\n‘That WAS a narrow escape!’ said Alice, a good deal frightened at the sudden change, but very glad to find herself still in existence; ‘and now for the garden!’ and she ran with all speed back to the little door: but, alas! the little door was shut again, and the little golden key was lying on the glass table as before, ‘and things are worse than ever,’ thought the poor child, ‘for\nI never was so small as this before, never! And I declare it’s too bad, that it is!’\nAs she said these words her foot slipped, and in another moment, splash!\nshe was up to her chin in salt water. Her first idea was that she had somehow fallen into the sea, ‘and in that case I can go back by railway,’ she said to\n\n22 CHAPTER 2. THE POOL OF TEARS\n\nherself. (Alice"
+        },
+        {
+          "source_id": "S2",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00028",
+          "pages": [
+            21,
+            22
+          ],
+          "retrieval_rank": 2,
+          "estimated_tokens": 284,
+          "text": "that she had somehow fallen into the sea, ‘and in that case I can go back by railway,’ she said to\n\n22 CHAPTER 2. THE POOL OF TEARS\n\nherself. (Alice had been to the seaside once in her life, and had come to the general conclusion, that wherever you go to on the English coast you find a number of bathing machines in the sea, some children digging in the sand with wooden spades, then a row of lodging houses, and behind them a railway station.) However, she soon made out that she was in the pool of tears which she had wept when she was nine feet high.\n‘I wish I hadn’t cried so much!’ said Alice, as she swam about, trying to find her way out. ‘I shall be punished for it now, I suppose, by being drowned in my own tears! That WILL be a queer thing, to be sure! However, everything is queer to-day.’\nJust then she heard something splashing about in the pool a little way off, and she swam nearer to make out what it was: at first she thought it must be a walrus or hippopotamus, but then she remembered how small she was now, and she soon made out that it was only a mouse that had slipped in like herself.\n‘Would it be of any use, now,’ thought Alice, ‘to speak to this mouse?\nEverything is so o"
+        },
+        {
+          "source_id": "S3",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00023",
+          "pages": [
+            19,
+            20
+          ],
+          "retrieval_rank": 3,
+          "estimated_tokens": 287,
+          "text": "will look!\n\nALICE’S RIGHT FOOT, ESQ.\nHEARTHRUG,\nNEAR THE FENDER,\n(WITH ALICE’S LOVE).\n\nOh dear, what nonsense I’m talking!’\nJust then her head struck against the roof of the hall: in fact she was now more than nine feet high, and she at once took up the little golden key and hurried offto the garden door.\nPoor Alice! It was as much as she could do, lying down on one side, to look through into the garden with one eye; but to get through was more hopeless than ever: she sat down and began to cry again.\n\n20 CHAPTER 2. THE POOL OF TEARS\n\n‘You ought to be ashamed of yourself,’ said Alice, ‘a great girl like you,’ (she might well say this), ‘to go on crying in this way! Stop this moment,\nI tell you!’ But she went on all the same, shedding gallons of tears, until there was a large pool all round her, about four inches deep and reaching half down the hall.\n\nAfter a time she heard a little pattering of feet in the distance, and she hastily dried her eyes to see what was coming. It was the White Rabbit returning, splendidly dressed, with a pair of white kid gloves in one hand and a large fan in the other: he came trotting along in a great hurry, muttering to himself as he came, ‘Oh! the Duc"
+        },
+        {
+          "source_id": "S4",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00019",
+          "pages": [
+            16
+          ],
+          "retrieval_rank": 4,
+          "estimated_tokens": 280,
+          "text": "it too long; and that if you cut your finger VERY deeply with a knife, it usually bleeds; and she had never forgotten that, if you drink much from a bottle marked ‘poison,’ it is almost certain to disagree with you, sooner or later.\nHowever, this bottle was NOT marked ‘poison,’ so Alice ventured to taste it, and finding it very nice, (it had, in fact, a sort of mixed flavour of cherrytart, custard, pine-apple, roast turkey, toffee, and hot buttered toast,) she very soon finished it off.\n‘What a curious feeling!’ said Alice; ‘I must be shutting up like a telescope.’\nAnd so it was indeed: she was now only ten inches high, and her face brightened up at the thought that she was now the right size for going through the little door into that lovely garden. First, however, she waited for a few minutes to see if she was going to shrink any further: she felt a little nervous about this; ‘for it might end, you know,’ said Alice to herself, ‘in my going out altogether, like a candle. I wonder what I should be like then?’ And she tried to fancy what the flame of a candle is like after the candle is blown out, for she could not remember ever having seen such a thing.\nAfter a while, finding tha"
+        },
+        {
+          "source_id": "S5",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00022",
+          "pages": [
+            17,
+            18,
+            19
+          ],
+          "retrieval_rank": 5,
+          "estimated_tokens": 307,
+          "text": "o go on in the common way.\nSo she set to work, and very soon finished offthe cake.\n\n18 CHAPTER 1. DOWN THE RABBIT-HOLE\n\nChapter 2\n\nThe Pool of Tears\n\n‘Curiouser and curiouser!’ cried Alice (she was so much surprised, that for the moment she quite forgot how to speak good English); ‘now I’m opening out like the largest telescope that ever was! Good-bye, feet!’ (for when she looked down at her feet, they seemed to be almost out of sight, they were getting so far off). ‘Oh, my poor little feet, I wonder who will put on your shoes and stockings for you now, dears? I’m sure I shan’t be able! I shall be a great deal too far offto trouble myself about you: you must manage the best way you can; –but I must be kind to them,’ thought Alice, ‘or perhaps they won’t walk the way I want to go! Let me see: I’ll give them a new pair of boots every Christmas.’\nAnd she went on planning to herself how she would manage it. ‘They must go by the carrier,’ she thought; ‘and how funny it’ll seem, sending presents to one’s own feet! And how odd the directions will look!\n\nALICE’S RIGHT FOOT, ESQ.\nHEARTHRUG,\nNEAR THE FENDER,\n(WITH ALICE’S LOVE).\n\nOh dear, what nonsense I’m talking!’\nJust then her head struck"
+        },
+        {
+          "source_id": "S6",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00044",
+          "pages": [
+            32
+          ],
+          "retrieval_rank": 6,
+          "estimated_tokens": 287,
+          "text": "tired of being such a tiny little thing!’\nIt did so indeed, and much sooner than she had expected: before she had drunk half the bottle, she found her head pressing against the ceiling, and had to stoop to save her neck from being broken. She hastily put down the bottle, saying to herself ‘That’s quite enough–I hope I shan’t grow any more–As it is, I can’t get out at the door–I do wish I hadn’t drunk quite so much!’\nAlas! it was too late to wish that! She went on growing, and growing, and very soon had to kneel down on the floor: in another minute there was not even room for this, and she tried the effect of lying down with one elbow against the door, and the other arm curled round her head. Still she went on growing, and, as a last resource, she put one arm out of the window, and one foot up the chimney, and said to herself ‘Now I can do no more, whatever happens. What WILL become of me?’\nLuckily for Alice, the little magic bottle had now had its full effect, and she grew no larger: still it was very uncomfortable, and, as there seemed to be no sort of chance of her ever getting out of the room again, no wonder she felt unhappy.\n‘It was much pleasanter at home,’ thought poor Alice"
+        },
+        {
+          "source_id": "S7",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00021",
+          "pages": [
+            17,
+            18,
+            19
+          ],
+          "retrieval_rank": 7,
+          "estimated_tokens": 295,
+          "text": "herself, for this curious child was very fond of pretending to be two people. ‘But it’s no use now,’ thought poor Alice, ‘to pretend to be two people! Why, there’s hardly enough of me left to make ONE respectable person!’\nSoon her eye fell on a little glass box that was lying under the table: she opened it, and found in it a very small cake, on which the words ‘EAT ME’ were beautifully marked in currants. ‘Well, I’ll eat it,’ said Alice, ‘and if it makes me grow larger, I can reach the key; and if it makes me grow smaller,\nI can creep under the door; so either way I’ll get into the garden, and I don’t care which happens!’\nShe ate a little bit, and said anxiously to herself, ‘Which way? Which way?’, holding her hand on the top of her head to feel which way it was growing, and she was quite surprised to find that she remained the same size: to be sure, this generally happens when one eats cake, but Alice had got so much into the way of expecting nothing but out-of-the-way things to happen, that it seemed quite dull and stupid for life to go on in the common way.\nSo she set to work, and very soon finished offthe cake.\n\n18 CHAPTER 1. DOWN THE RABBIT-HOLE\n\nChapter 2\n\nThe Pool of Tears"
+        },
+        {
+          "source_id": "S8",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00013",
+          "pages": [
+            13,
+            14
+          ],
+          "retrieval_rank": 8,
+          "estimated_tokens": 287,
+          "text": "lenty of time as she went down to look about her and to wonder what was going\n\n14 CHAPTER 1. DOWN THE RABBIT-HOLE\n\nto happen next. First, she tried to look down and make out what she was coming to, but it was too dark to see anything; then she looked at the sides of the well, and noticed that they were filled with cupboards and bookshelves; here and there she saw maps and pictures hung upon pegs. She took down a jar from one of the shelves as she passed; it was labelled ‘ORANGE\nMARMALADE’, but to her great disappointment it was empty: she did not like to drop the jar for fear of killing somebody, so managed to put it into one of the cupboards as she fell past it.\n‘Well!’ thought Alice to herself, ‘after such a fall as this, I shall think nothing of tumbling down stairs! How brave they’ll all think me at home!\nWhy, I wouldn’t say anything about it, even if I fell offthe top of the house!’\n(Which was very likely true.)\nDown, down, down. Would the fall NEVER come to an end! ‘I wonder how many miles I’ve fallen by this time?’ she said aloud. ‘I must be getting somewhere near the centre of the earth. Let me see: that would be four thousand miles down, I think–’ (for, you see, Alice had"
+        },
+        {
+          "source_id": "S9",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00014",
+          "pages": [
+            14
+          ],
+          "retrieval_rank": 9,
+          "estimated_tokens": 291,
+          "text": "ud. ‘I must be getting somewhere near the centre of the earth. Let me see: that would be four thousand miles down, I think–’ (for, you see, Alice had learnt several things of this sort in her lessons in the schoolroom, and though this was not a VERY good opportunity for showing offher knowledge, as there was no one to listen to her, still it was good practice to say it over) ‘–yes, that’s about the right distance–but then I wonder what Latitude or Longitude I’ve got to?’ (Alice had no idea what Latitude was, or Longitude either, but thought they were nice grand words to say.)\nPresently she began again. ‘I wonder if I shall fall right THROUGH the earth! How funny it’ll seem to come out among the people that walk with their heads downward! The Antipathies, I think–’ (she was rather glad there\nWAS no one listening, this time, as it didn’t sound at all the right word) ‘–but I shall have to ask them what the name of the country is, you know.\nPlease, Ma’am, is this New Zealand or Australia?’ (and she tried to curtsey as she spoke–fancy CURTSEYING as you’re falling through the air! Do you think you could manage it?) ‘And what an ignorant little girl she’ll think me for asking! No, it’ll n"
+        },
+        {
+          "source_id": "S10",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00012",
+          "pages": [
+            13,
+            14
+          ],
+          "retrieval_rank": 10,
+          "estimated_tokens": 269,
+          "text": "t of the way to hear the Rabbit say to itself, ‘Oh dear! Oh dear! I shall be late!’ (when she thought it over afterwards, it occurred to her that she ought to have wondered at this, but at the time it all seemed quite natural); but when the Rabbit actually TOOK A WATCH OUT OF\nITS WAISTCOAT- POCKET, and looked at it, and then hurried on, Alice started to her feet, for it flashed across her mind that she had never before seen a rabbit with either a waistcoat-pocket, or a watch to take out of it, and burning with curiosity, she ran across the field after it, and fortunately was just in time to see it pop down a large rabbit-hole under the hedge.\nIn another moment down went Alice after it, never once considering how in the world she was to get out again.\nThe rabbit-hole went straight on like a tunnel for some way, and then dipped suddenly down, so suddenly that Alice had not a moment to think about stopping herself before she found herself falling down a very deep well.\nEither the well was very deep, or she fell very slowly, for she had plenty of time as she went down to look about her and to wonder what was going\n\n14 CHAPTER 1. DOWN THE RABBIT-HOLE\n\nto happen next. First, she tried to"
+        }
+      ],
+      "deterministic_checks": {
+        "status_matches_expected": true,
+        "citation_contract_valid": true,
+        "citation_pages_correct": true,
+        "citation_pages_cover_expected": true,
+        "candidate_evidence_phrase_coverage": 1.0,
+        "packed_evidence_phrase_coverage": 1.0
+      },
+      "failure_stage": null,
+      "trace": {
+        "trace_id": "083298994f0b419a8967c3d195393930",
+        "timestamp": "2026-09-16T05:57:43.443984Z",
+        "document_id": "a6c315f78fbb4c5cb9f16f08f28aed38",
+        "index_version": "fixed-window-dense-v1",
+        "query": "How tall did Alice become before the pool formed, and how deep did she say the pool was?",
+        "retrieval_configuration": "fixed-window-dense-v1",
+        "retrieved_candidates": [
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00027",
+            "pages": [
+              21,
+              22
+            ],
+            "rank": 1,
+            "score": 0.5375300619487251
+          },
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00028",
+            "pages": [
+              21,
+              22
+            ],
+            "rank": 2,
+            "score": 0.5302227574710915
+          },
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00023",
+            "pages": [
+              19,
+              20
+            ],
+            "rank": 3,
+            "score": 0.49237313056533544
+          },
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00019",
+            "pages": [
+              16
+            ],
+            "rank": 4,
+            "score": 0.4727702146367518
+          },
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00022",
+            "pages": [
+              17,
+              18,
+              19
+            ],
+            "rank": 5,
+            "score": 0.46912817839980486
+          },
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00044",
+            "pages": [
+              32
+            ],
+            "rank": 6,
+            "score": 0.469037339488851
+          },
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00021",
+            "pages": [
+              17,
+              18,
+              19
+            ],
+            "rank": 7,
+            "score": 0.4532783311890428
+          },
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00013",
+            "pages": [
+              13,
+              14
+            ],
+            "rank": 8,
+            "score": 0.45272506537613066
+          },
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00014",
+            "pages": [
+              14
+            ],
+            "rank": 9,
+            "score": 0.4445754206713622
+          },
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00012",
+            "pages": [
+              13,
+              14
+            ],
+            "rank": 10,
+            "score": 0.4402471640836783
+          }
+        ],
+        "packed_evidence": [
+          {
+            "source_id": "S1",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00027",
+            "pages": [
+              21,
+              22
+            ],
+            "retrieval_rank": 1,
+            "estimated_tokens": 287
+          },
+          {
+            "source_id": "S2",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00028",
+            "pages": [
+              21,
+              22
+            ],
+            "retrieval_rank": 2,
+            "estimated_tokens": 284
+          },
+          {
+            "source_id": "S3",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00023",
+            "pages": [
+              19,
+              20
+            ],
+            "retrieval_rank": 3,
+            "estimated_tokens": 287
+          },
+          {
+            "source_id": "S4",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00019",
+            "pages": [
+              16
+            ],
+            "retrieval_rank": 4,
+            "estimated_tokens": 280
+          },
+          {
+            "source_id": "S5",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00022",
+            "pages": [
+              17,
+              18,
+              19
+            ],
+            "retrieval_rank": 5,
+            "estimated_tokens": 307
+          },
+          {
+            "source_id": "S6",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00044",
+            "pages": [
+              32
+            ],
+            "retrieval_rank": 6,
+            "estimated_tokens": 287
+          },
+          {
+            "source_id": "S7",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00021",
+            "pages": [
+              17,
+              18,
+              19
+            ],
+            "retrieval_rank": 7,
+            "estimated_tokens": 295
+          },
+          {
+            "source_id": "S8",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00013",
+            "pages": [
+              13,
+              14
+            ],
+            "retrieval_rank": 8,
+            "estimated_tokens": 287
+          },
+          {
+            "source_id": "S9",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00014",
+            "pages": [
+              14
+            ],
+            "retrieval_rank": 9,
+            "estimated_tokens": 291
+          },
+          {
+            "source_id": "S10",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00012",
+            "pages": [
+              13,
+              14
+            ],
+            "retrieval_rank": 10,
+            "estimated_tokens": 269
+          }
+        ],
+        "candidate_count": 10,
+        "packed_source_count": 10,
+        "estimated_packed_tokens": 2874,
+        "qwen_model": "qwen3.7-plus-2026-05-26",
+        "answer_status": "answered",
+        "returned_source_ids": [
+          "S3"
+        ],
+        "validated_citations": [
+          {
+            "source_id": "S3",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00023",
+            "document_id": "a6c315f78fbb4c5cb9f16f08f28aed38",
+            "source_filename": "alice-in-wonderland.pdf",
+            "pages": [
+              19,
+              20
+            ]
+          }
+        ],
+        "qwen_usage": {
+          "prompt_tokens": 3370,
+          "completion_tokens": 61,
+          "total_tokens": 3431
+        },
+        "error": null,
+        "latencies": {
+          "query_embedding_ms": 0.0015830155462026596,
+          "local_retrieval_ms": 7.9714590683579445,
+          "evidence_packing_ms": 0.06629200652241707,
+          "qwen_generation_ms": 2757.184457965195,
+          "validation_ms": 0.017250189557671547,
+          "total_ms": 2766.1409589927644
+        }
+      }
+    },
+    {
+      "case_id": "c006",
+      "question": "After the Caucus-race, what did the other racers receive and what did Alice receive?",
+      "original_question": "After the Caucus-race, what did the other racers receive and what did Alice receive?",
+      "annotation_override": null,
+      "expected_status": "answered",
+      "expected_answer": "The others received comfits from Alice, while Alice received her own thimble from the Dodo.",
+      "expected_pages": [
+        27
+      ],
+      "evidence_phrases": [
+        "handed them round as prizes",
+        "acceptance of this elegant thimble"
+      ],
+      "challenge_reason": "A two-part answer on one page checks completeness and citation support, not just retrieval of one isolated fact.",
+      "response": {
+        "status": "answered",
+        "answer": "The other racers received comfits (one each), and Alice received a thimble.",
+        "clarification": null,
+        "reason": null,
+        "citations": [
+          {
+            "source_id": "S1",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00036",
+            "document_id": "a6c315f78fbb4c5cb9f16f08f28aed38",
+            "source_filename": "alice-in-wonderland.pdf",
+            "pages": [
+              26,
+              27
+            ]
+          },
+          {
+            "source_id": "S3",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00037",
+            "document_id": "a6c315f78fbb4c5cb9f16f08f28aed38",
+            "source_filename": "alice-in-wonderland.pdf",
+            "pages": [
+              27
+            ]
+          }
+        ],
+        "trace_id": "6a6acab283b341fdb989327ffe04db1b",
+        "error": null
+      },
+      "retrieved_candidates": [
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00036",
+          "pages": [
+            26,
+            27
+          ],
+          "rank": 1,
+          "score": 0.4940962604495256
+        },
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00035",
+          "pages": [
+            26
+          ],
+          "rank": 2,
+          "score": 0.3725743760214787
+        },
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00037",
+          "pages": [
+            27
+          ],
+          "rank": 3,
+          "score": 0.3628273139695549
+        },
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00108",
+          "pages": [
+            68,
+            69
+          ],
+          "rank": 4,
+          "score": 0.3195497223751212
+        },
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00040",
+          "pages": [
+            29,
+            30
+          ],
+          "rank": 5,
+          "score": 0.31562124704079975
+        },
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00142",
+          "pages": [
+            89,
+            90
+          ],
+          "rank": 6,
+          "score": 0.3077986485205044
+        },
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00010",
+          "pages": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "rank": 7,
+          "score": 0.2969370158733641
+        },
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00137",
+          "pages": [
+            85,
+            86,
+            87
+          ],
+          "rank": 8,
+          "score": 0.28197460889694126
+        },
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00032",
+          "pages": [
+            23,
+            24,
+            25
+          ],
+          "rank": 9,
+          "score": 0.27980945330059476
+        },
+        {
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00050",
+          "pages": [
+            34,
+            35
+          ],
+          "rank": 10,
+          "score": 0.27805514563642175
+        }
+      ],
+      "packed_evidence": [
+        {
+          "source_id": "S1",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00036",
+          "pages": [
+            26,
+            27
+          ],
+          "retrieval_rank": 1,
+          "estimated_tokens": 291,
+          "text": "re was no ‘One, two, three, and away,’ but they began running when they liked, and left offwhen they liked, so that it was not easy to know when the race was over. However, when they had been running half an hour or so, and were quite dry again, the Dodo suddenly called out ‘The race is over!’ and they all crowded round it, panting, and asking, ‘But who has won?’\nThis question the Dodo could not answer without a great deal of thought,\n\nand it sat for a long time with one finger pressed upon its forehead (the position in which you usually see Shakespeare, in the pictures of him), while the rest waited in silence. At last the Dodo said, ‘EVERYBODY has won, and all must have prizes.’\n‘But who is to give the prizes?’ quite a chorus of voices asked.\n‘Why, SHE, of course,’ said the Dodo, pointing to Alice with one finger;\nand the whole party at once crowded round her, calling out in a confused way, ‘Prizes! Prizes!’\nAlice had no idea what to do, and in despair she put her hand in her pocket, and pulled out a box of comfits, (luckily the salt water had not got into it), and handed them round as prizes. There was exactly one a-piece all round.\n‘But she must have a prize herself, you know,’"
+        },
+        {
+          "source_id": "S2",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00035",
+          "pages": [
+            26
+          ],
+          "retrieval_rank": 2,
+          "estimated_tokens": 311,
+          "text": "all.’\n‘In that case,’ said the Dodo solemnly, rising to its feet, ‘I move that the meeting adjourn, for the immediate adoption of more energetic remedies–’\n‘Speak English!’ said the Eaglet. ‘I don’t know the meaning of half those long words, and, what’s more, I don’t believe you do either!’ And the Eaglet bent down its head to hide a smile: some of the other birds tittered audibly.\n‘What I was going to say,’ said the Dodo in an offended tone, ‘was, that the best thing to get us dry would be a Caucus-race.’\n‘What IS a Caucus-race?’ said Alice; not that she wanted much to know, but the Dodo had paused as if it thought that SOMEBODY ought to speak, and no one else seemed inclined to say anything.\n‘Why,’ said the Dodo, ‘the best way to explain it is to do it.’ (And, as you might like to try the thing yourself, some winter day, I will tell you how the Dodo managed it.)\nFirst it marked out a race-course, in a sort of circle, (‘the exact shape doesn’t matter,’ it said,) and then all the party were placed along the course, here and there. There was no ‘One, two, three, and away,’ but they began running when they liked, and left offwhen they liked, so that it was not easy to know when the r"
+        },
+        {
+          "source_id": "S3",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00037",
+          "pages": [
+            27
+          ],
+          "retrieval_rank": 3,
+          "estimated_tokens": 285,
+          "text": "t water had not got into it), and handed them round as prizes. There was exactly one a-piece all round.\n‘But she must have a prize herself, you know,’ said the Mouse.\n‘Of course,’ the Dodo replied very gravely. ‘What else have you got in your pocket?’ he went on, turning to Alice.\n‘Only a thimble,’ said Alice sadly.\n‘Hand it over here,’ said the Dodo.\nThen they all crowded round her once more, while the Dodo solemnly presented the thimble, saying ‘We beg your acceptance of this elegant thimble’;\nand, when it had finished this short speech, they all cheered.\nAlice thought the whole thing very absurd, but they all looked so grave that she did not dare to laugh; and, as she could not think of anything to say, she simply bowed, and took the thimble, looking as solemn as she could.\nThe next thing was to eat the comfits: this caused some noise and confusion, as the large birds complained that they could not taste theirs, and the small ones choked and had to be patted on the back. However, it was over at last, and they sat down again in a ring, and begged the Mouse to tell them something more.\n‘You promised to tell me your history, you know,’ said Alice, ‘and why it is you hate–C and D,’"
+        },
+        {
+          "source_id": "S4",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00108",
+          "pages": [
+            68,
+            69
+          ],
+          "retrieval_rank": 4,
+          "estimated_tokens": 304,
+          "text": "about trouble!’ said the Duchess. ‘I make you a present of everything I’ve said as yet.’\n\n‘A cheap sort of present!’ thought Alice. ‘I’m glad they don’t give birthday presents like that!’ But she did not venture to say it out loud.\n‘Thinking again?’ the Duchess asked, with another dig of her sharp little chin.\n‘I’ve a right to think,’ said Alice sharply, for she was beginning to feel a little worried.\n‘Just about as much right,’ said the Duchess, ‘as pigs have to fly; and the m–’\nBut here, to Alice’s great surprise, the Duchess’s voice died away, even in the middle of her favourite word ‘moral,’ and the arm that was linked into hers began to tremble. Alice looked up, and there stood the Queen in front of them, with her arms folded, frowning like a thunderstorm.\n‘A fine day, your Majesty!’ the Duchess began in a low, weak voice.\n‘Now, I give you fair warning,’ shouted the Queen, stamping on the ground as she spoke; ‘either you or your head must be off, and that in about half no time! Take your choice!’\nThe Duchess took her choice, and was gone in a moment.\n‘Let’s go on with the game,’ the Queen said to Alice; and Alice was too much frightened to say a word, but slowly followed her b"
+        },
+        {
+          "source_id": "S5",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00040",
+          "pages": [
+            29,
+            30
+          ],
+          "retrieval_rank": 5,
+          "estimated_tokens": 308,
+          "text": "f an oyster!’\n‘I wish I had our Dinah here, I know I do!’ said Alice aloud, addressing nobody in particular. ‘She’d soon fetch it back!’\n‘And who is Dinah, if I might venture to ask the question?’ said the Lory.\nAlice replied eagerly, for she was always ready to talk about her pet:\n‘Dinah’s our cat. And she’s such a capital one for catching mice you can’t think! And oh, I wish you could see her after the birds! Why, she’ll eat a little bird as soon as look at it!’\nThis speech caused a remarkable sensation among the party. Some of the birds hurried offat once: one old Magpie began wrapping itself up very carefully, remarking, ‘I really must be getting home; the night-air doesn’t suit my throat!’ and a Canary called out in a trembling voice to its children,\n\n30 CHAPTER 3. A CAUCUS-RACE AND A LONG TALE\n\n‘Come away, my dears! It’s high time you were all in bed!’ On various pretexts they all moved off, and Alice was soon left alone.\n‘I wish I hadn’t mentioned Dinah!’ she said to herself in a melancholy tone. ‘Nobody seems to like her, down here, and I’m sure she’s the best cat in the world! Oh, my dear Dinah! I wonder if I shall ever see you any more!’ And here poor Alice began to cry a"
+        },
+        {
+          "source_id": "S6",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00142",
+          "pages": [
+            89,
+            90
+          ],
+          "retrieval_rank": 6,
+          "estimated_tokens": 312,
+          "text": "her one, they gave him two,\nYou gave us three or more;\nThey all returned from him to you,\nThough they were mine before.\n\nIf I or she should chance to be\nInvolved in this affair,\nHe trusts to you to set them free,\nExactly as we were.\n\n90 CHAPTER 12. ALICE’S EVIDENCE\n\nMy notion was that you had been\n(Before she had this fit)\nAn obstacle that came between\nHim, and ourselves, and it.\n\nDon’t let him know she liked them best,\nFor this must ever be\nA secret, kept from all the rest,\nBetween yourself and me.’\n\n‘That’s the most important piece of evidence we’ve heard yet,’ said the\nKing, rubbing his hands; ‘so now let the jury–’\n‘If any one of them can explain it,’ said Alice, (she had grown so large in the last few minutes that she wasn’t a bit afraid of interrupting him,) ‘I’ll give him sixpence. I don’t believe there’s an atom of meaning in it.’\nThe jury all wrote down on their slates, ‘SHE doesn’t believe there’s an atom of meaning in it,’ but none of them attempted to explain the paper.\n‘If there’s no meaning in it,’ said the King, ‘that saves a world of trouble, you know, as we needn’t try to find any. And yet I don’t know,’ he went on, spreading out the verses on his knee, and lookin"
+        },
+        {
+          "source_id": "S7",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00010",
+          "pages": [
+            8,
+            9,
+            10,
+            11
+          ],
+          "retrieval_rank": 7,
+          "estimated_tokens": 250,
+          "text": "Project of 20net profits you derive calculated using the method you already use to calculate your applicable taxes. If you don’t derive profits, no royalty is due. Royalties are payable to “Project Gutenberg Association/Carnegie-Mellon University” within the 60 days following each date you prepare (or were legally required to prepare) your annual (or equivalent periodic) tax return.\n\nWHAT IF YOU *WANT* TO SEND MONEY EVEN IF YOU DON’T\nHAVE TO?\n\nThe Project gratefully accepts contributions in money, time, scanning machines, OCR software, public domain etexts, royalty free copyright licenses, and every other sort of contribution you can think of. Money should be paid to “Project Gutenberg Association / Carnegie-Mellon University”.\nWe are planning on making some changes in our donation structure in\n2000, so you might want to email me, hart@pobox.com beforehand.\n*END THE SMALL PRINT! FOR PUBLIC DOMAIN ETEXTS*\nVer.04.29.93*END*\n\nALICE’S ADVENTURES IN\nWONDERLAND\n\nLewis Carroll\n\nTHE MILLENNIUM FULCRUM EDITION 3.0\n\nContents\n\n1 Down the Rabbit-Hole 13\n\n2 The Pool of Tears 19\n\n3 A Caucus-Race and a Long Tale 25\n\n4 The Rabbit Sends in a Little Bill 31\n\n5 Advice from a Caterpillar 37\n\n6 Pig and"
+        },
+        {
+          "source_id": "S8",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00137",
+          "pages": [
+            85,
+            86,
+            87
+          ],
+          "retrieval_rank": 8,
+          "estimated_tokens": 274,
+          "text": "oice, the name ‘Alice!’\n\n86 CHAPTER 11. WHO STOLE THE TARTS?\n\nChapter 12\n\nAlice’s Evidence\n\n‘Here!’ cried Alice, quite forgetting in the flurry of the moment how large she had grown in the last few minutes, and she jumped up in such a hurry that she tipped over the jury-box with the edge of her skirt, upsetting all the jurymen on to the heads of the crowd below, and there they lay sprawling about, reminding her very much of a globe of goldfish she had accidentally upset the week before.\n‘Oh, I BEG your pardon!’ she exclaimed in a tone of great dismay, and began picking them up again as quickly as she could, for the accident of the goldfish kept running in her head, and she had a vague sort of idea that they must be collected at once and put back into the jury-box, or they would die.\n‘The trial cannot proceed,’ said the King in a very grave voice, ‘until all the jurymen are back in their proper places– ALL,’ he repeated with great emphasis, looking hard at Alice as he said do.\nAlice looked at the jury-box, and saw that, in her haste, she had put the\nLizard in head downwards, and the poor little thing was waving its tail about in a melancholy way, being quite unable to move. She soon"
+        },
+        {
+          "source_id": "S9",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00032",
+          "pages": [
+            23,
+            24,
+            25
+          ],
+          "retrieval_rank": 9,
+          "estimated_tokens": 277,
+          "text": "u don’t like them!’ When the Mouse heard this, it turned round and swam slowly back to her: its face was quite pale (with passion, Alice thought), and it said in a low trembling voice, ‘Let us get to the shore, and then I’ll tell you my history, and you’ll understand why it is I hate cats and dogs.’\nIt was high time to go, for the pool was getting quite crowded with the birds and animals that had fallen into it: there were a Duck and a Dodo, a\nLory and an Eaglet, and several other curious creatures. Alice led the way, and the whole party swam to the shore.\n\n24 CHAPTER 2. THE POOL OF TEARS\n\nChapter 3\n\nA Caucus-Race and a Long Tale\n\nThey were indeed a queer-looking party that assembled on the bank–the birds with draggled feathers, the animals with their fur clinging close to them, and all dripping wet, cross, and uncomfortable.\nThe first question of course was, how to get dry again: they had a consultation about this, and after a few minutes it seemed quite natural to Alice to find herself talking familiarly with them, as if she had known them all her life. Indeed, she had quite a long argument with the Lory, who at last turned sulky, and would only say, ‘I am older than you, and mus"
+        },
+        {
+          "source_id": "S10",
+          "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00050",
+          "pages": [
+            34,
+            35
+          ],
+          "retrieval_rank": 10,
+          "estimated_tokens": 309,
+          "text": "ething comes at me like a Jack-in-thebox, and up I goes like a sky-rocket!’\n‘So you did, old fellow!’ said the others.\n‘We must burn the house down!’ said the Rabbit’s voice; and Alice called\n\nout as loud as she could, ‘If you do. I’ll set Dinah at you!’\nThere was a dead silence instantly, and Alice thought to herself, ‘I wonder what they WILL do next! If they had any sense, they’d take the roof off.’\nAfter a minute or two, they began moving about again, and Alice heard the\nRabbit say, ‘A barrowful will do, to begin with.’\n‘A barrowful of WHAT?’ thought Alice; but she had not long to doubt, for the next moment a shower of little pebbles came rattling in at the window, and some of them hit her in the face. ‘I’ll put a stop to this,’ she said to herself, and shouted out, ‘You’d better not do that again!’ which produced another dead silence.\nAlice noticed with some surprise that the pebbles were all turning into little cakes as they lay on the floor, and a bright idea came into her head.\n‘If I eat one of these cakes,’ she thought, ‘it’s sure to make SOME change in my size; and as it can’t possibly make me larger, it must make me smaller,\nI suppose.’\nSo she swallowed one of the cakes,"
+        }
+      ],
+      "deterministic_checks": {
+        "status_matches_expected": true,
+        "citation_contract_valid": true,
+        "citation_pages_correct": true,
+        "citation_pages_cover_expected": true,
+        "candidate_evidence_phrase_coverage": 1.0,
+        "packed_evidence_phrase_coverage": 1.0
+      },
+      "failure_stage": null,
+      "trace": {
+        "trace_id": "6a6acab283b341fdb989327ffe04db1b",
+        "timestamp": "2026-09-16T05:57:46.211634Z",
+        "document_id": "a6c315f78fbb4c5cb9f16f08f28aed38",
+        "index_version": "fixed-window-dense-v1",
+        "query": "After the Caucus-race, what did the other racers receive and what did Alice receive?",
+        "retrieval_configuration": "fixed-window-dense-v1",
+        "retrieved_candidates": [
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00036",
+            "pages": [
+              26,
+              27
+            ],
+            "rank": 1,
+            "score": 0.4940962604495256
+          },
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00035",
+            "pages": [
+              26
+            ],
+            "rank": 2,
+            "score": 0.3725743760214787
+          },
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00037",
+            "pages": [
+              27
+            ],
+            "rank": 3,
+            "score": 0.3628273139695549
+          },
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00108",
+            "pages": [
+              68,
+              69
+            ],
+            "rank": 4,
+            "score": 0.3195497223751212
+          },
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00040",
+            "pages": [
+              29,
+              30
+            ],
+            "rank": 5,
+            "score": 0.31562124704079975
+          },
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00142",
+            "pages": [
+              89,
+              90
+            ],
+            "rank": 6,
+            "score": 0.3077986485205044
+          },
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00010",
+            "pages": [
+              8,
+              9,
+              10,
+              11
+            ],
+            "rank": 7,
+            "score": 0.2969370158733641
+          },
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00137",
+            "pages": [
+              85,
+              86,
+              87
+            ],
+            "rank": 8,
+            "score": 0.28197460889694126
+          },
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00032",
+            "pages": [
+              23,
+              24,
+              25
+            ],
+            "rank": 9,
+            "score": 0.27980945330059476
+          },
+          {
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00050",
+            "pages": [
+              34,
+              35
+            ],
+            "rank": 10,
+            "score": 0.27805514563642175
+          }
+        ],
+        "packed_evidence": [
+          {
+            "source_id": "S1",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00036",
+            "pages": [
+              26,
+              27
+            ],
+            "retrieval_rank": 1,
+            "estimated_tokens": 291
+          },
+          {
+            "source_id": "S2",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00035",
+            "pages": [
+              26
+            ],
+            "retrieval_rank": 2,
+            "estimated_tokens": 311
+          },
+          {
+            "source_id": "S3",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00037",
+            "pages": [
+              27
+            ],
+            "retrieval_rank": 3,
+            "estimated_tokens": 285
+          },
+          {
+            "source_id": "S4",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00108",
+            "pages": [
+              68,
+              69
+            ],
+            "retrieval_rank": 4,
+            "estimated_tokens": 304
+          },
+          {
+            "source_id": "S5",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00040",
+            "pages": [
+              29,
+              30
+            ],
+            "retrieval_rank": 5,
+            "estimated_tokens": 308
+          },
+          {
+            "source_id": "S6",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00142",
+            "pages": [
+              89,
+              90
+            ],
+            "retrieval_rank": 6,
+            "estimated_tokens": 312
+          },
+          {
+            "source_id": "S7",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00010",
+            "pages": [
+              8,
+              9,
+              10,
+              11
+            ],
+            "retrieval_rank": 7,
+            "estimated_tokens": 250
+          },
+          {
+            "source_id": "S8",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00137",
+            "pages": [
+              85,
+              86,
+              87
+            ],
+            "retrieval_rank": 8,
+            "estimated_tokens": 274
+          },
+          {
+            "source_id": "S9",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00032",
+            "pages": [
+              23,
+              24,
+              25
+            ],
+            "retrieval_rank": 9,
+            "estimated_tokens": 277
+          },
+          {
+            "source_id": "S10",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00050",
+            "pages": [
+              34,
+              35
+            ],
+            "retrieval_rank": 10,
+            "estimated_tokens": 309
+          }
+        ],
+        "candidate_count": 10,
+        "packed_source_count": 10,
+        "estimated_packed_tokens": 2921,
+        "qwen_model": "qwen3.7-plus-2026-05-26",
+        "answer_status": "answered",
+        "returned_source_ids": [
+          "S1",
+          "S3"
+        ],
+        "validated_citations": [
+          {
+            "source_id": "S1",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00036",
+            "document_id": "a6c315f78fbb4c5cb9f16f08f28aed38",
+            "source_filename": "alice-in-wonderland.pdf",
+            "pages": [
+              26,
+              27
+            ]
+          },
+          {
+            "source_id": "S3",
+            "chunk_id": "a6c315f78fbb4c5cb9f16f08f28aed38:chunk:00037",
+            "document_id": "a6c315f78fbb4c5cb9f16f08f28aed38",
+            "source_filename": "alice-in-wonderland.pdf",
+            "pages": [
+              27
+            ]
+          }
+        ],
+        "qwen_usage": {
+          "prompt_tokens": 3476,
+          "completion_tokens": 72,
+          "total_tokens": 3548
+        },
+        "error": null,
+        "latencies": {
+          "query_embedding_ms": 0.000959029421210289,
+          "local_retrieval_ms": 6.778290960937738,
+          "evidence_packing_ms": 0.04208390600979328,
+          "qwen_generation_ms": 2477.2534579969943,
+          "validation_ms": 0.026541994884610176,
+          "total_ms": 2484.749000053853
+        }
+      }
+    }
+  ]
+}

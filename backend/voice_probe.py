@@ -22,11 +22,11 @@ def main():
             response = client.post("/api/voice/synthesize", json={"text": text})
             row = {"case": name, "input_kind": "synthetic_text", "words": len(text.split()), "tts_http": response.status_code}
             if response.status_code == 200:
-                (output / (name + ".mp3")).write_bytes(response.content)
+                (output / (name + ".wav")).write_bytes(response.content)
                 row.update(tts_latency_ms=float(response.headers["x-tts-latency-ms"]),
                            audio_bytes=len(response.content), tts_model=response.headers["x-tts-model"])
                 if name != "realistic_tts":
-                    asr = client.post("/api/voice/transcribe", content=response.content, headers={"content-type": "audio/mpeg"})
+                    asr = client.post("/api/voice/transcribe", content=response.content, headers={"content-type": "audio/wav"})
                     row.update(asr_http=asr.status_code, asr_result=asr.json())
             else:
                 row["error"] = response.json()

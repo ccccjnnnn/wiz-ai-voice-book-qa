@@ -19,16 +19,46 @@ def create_ingestion_router(service: IngestionService) -> APIRouter:
         file: UploadFile = File(...),
     ) -> Document:
         try:
-            document = await service.save_upload(file)
+            document, created = await service.save_upload(file)
         except UploadError as error:
             raise HTTPException(
                 status_code=error.status_code, detail={"error": error.code}
             ) from None
-        background_tasks.add_task(service.process_document, document.document_id)
+        if created:
+            background_tasks.add_task(service.process_document, document.document_id)
+        return document
+
+    @router.get("/active", response_model=Document)
+    def get_active_document() -> Document:
+        document = service.store.get_active_document()
+        if document is None:
+            raise HTTPException(status_code=404, detail={"error": "document_not_found"})
         return document
 
     @router.get("/{document_id}", response_model=Document)
     def get_document(document_id: str) -> Document:
+        return require_document(document_id)
+
+    @router.post("/{document_id}/rebuild-index", response_model=Document, status_code=202)
+    def rebuild_index(document_id: str, background_tasks: BackgroundTasks) -> Document:
+        require_document(document_id)
+        try:
+            service.index_manager.prepare_rebuild(document_id)
+        except ValueError as error:
+            code = str(error)
+            raise HTTPException(status_code=409, detail={"error": code}) from None
+        background_tasks.add_task(service.index_manager.rebuild, document_id, True)
+        return require_document(document_id)
+
+    @router.post("/{document_id}/resume-index", response_model=Document, status_code=202)
+    def resume_index(document_id: str, background_tasks: BackgroundTasks) -> Document:
+        require_document(document_id)
+        try:
+            service.index_manager.prepare_resume(document_id)
+        except ValueError as error:
+            code = str(error)
+            raise HTTPException(status_code=409, detail={"error": code}) from None
+        background_tasks.add_task(service.index_manager.resume, document_id, True)
         return require_document(document_id)
 
     @router.get("/{document_id}/pages", response_model=list[Page])

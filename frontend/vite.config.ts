@@ -1,4 +1,4 @@
 import { defineConfig } from 'vite';
 export default defineConfig({
-  server: { proxy: { '/api/voice': 'http://127.0.0.1:8001' } },
+  server: { proxy: { '/api': 'http://127.0.0.1:8000' } },
 });

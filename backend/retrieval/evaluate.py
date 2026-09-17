@@ -34,6 +34,16 @@ DEFAULT_K_VALUES = (1, 3, 5, 10)
 # Smaller paced batches stay bounded and can be checkpointed without changing text.
 DOCUMENT_BATCH_SIZE = 16
 INTER_BATCH_DELAY_SECONDS = 55.0
+TRANSIENT_VOYAGE_ERRORS = {
+    "voyage_rate_limited",
+    "voyage_timeout",
+    "voyage_network_error",
+    "voyage_provider_unavailable",
+}
+
+
+class EmbeddingCancelled(RuntimeError):
+    pass
 
 
 def load_dataset(path: Path) -> EvaluationDataset:
@@ -153,7 +163,31 @@ def embed_document(
     data_dir: Path,
     document_id: str,
     model: str,
+    *,
+    batch_size: int | None = None,
+    max_batch_tokens: int | None = None,
+    inter_batch_delay_seconds: float | None = None,
+    max_transient_retries: int = 0,
+    retry_base_seconds: float = 1.0,
+    rate_limit_retry_base_seconds: float | None = None,
+    retry_max_seconds: float = 30.0,
+    adaptive_rate_limit_pacing: bool = False,
+    sleep: Callable[[float], None] = time.sleep,
+    progress_callback: Callable[[int, int], None] | None = None,
+    is_cancelled: Callable[[], bool] | None = None,
 ) -> tuple[list[list[float]], bool, list[str], int, float, int | None]:
+    batch_size = DOCUMENT_BATCH_SIZE if batch_size is None else batch_size
+    inter_batch_delay_seconds = (
+        INTER_BATCH_DELAY_SECONDS
+        if inter_batch_delay_seconds is None
+        else inter_batch_delay_seconds
+    )
+    if (
+        batch_size <= 0
+        or (max_batch_tokens is not None and max_batch_tokens <= 0)
+        or max_transient_retries < 0
+    ):
+        raise ValueError("invalid_embedding_policy")
     cache_path = _cache_path(data_dir, document_id, model)
     cached = _load_vector_cache(cache_path, document_id, model, chunks)
     if cached is not None and cached.get("complete"):
@@ -171,9 +205,51 @@ def embed_document(
     request_count = int(cached.get("request_count", 0)) if cached else 0
     latency_ms = float(cached.get("latency_ms", 0.0)) if cached else 0.0
     token_total: int | None = cached.get("input_tokens", 0) if cached else 0
-    for start in range(len(vectors), len(chunks), DOCUMENT_BATCH_SIZE):
-        batch = chunks[start : start + DOCUMENT_BATCH_SIZE]
-        response = client.embed([chunk.text for chunk in batch], "document")
+    adaptive_delay_seconds = 0.0
+    if progress_callback:
+        progress_callback(len(vectors), len(chunks))
+    start = len(vectors)
+    while start < len(chunks):
+        end = min(start + batch_size, len(chunks))
+        if max_batch_tokens is not None:
+            end = start
+            estimated_tokens = 0
+            while end < len(chunks) and end - start < batch_size:
+                chunk_tokens = chunks[end].token_count
+                if chunk_tokens > max_batch_tokens:
+                    raise ValueError("chunk_exceeds_embedding_token_cap")
+                if end > start and estimated_tokens + chunk_tokens > max_batch_tokens:
+                    break
+                estimated_tokens += chunk_tokens
+                end += 1
+        batch = chunks[start:end]
+        response = None
+        for attempt in range(max_transient_retries + 1):
+            if is_cancelled and is_cancelled():
+                raise EmbeddingCancelled("indexing_cancelled")
+            try:
+                response = client.embed([chunk.text for chunk in batch], "document")
+                break
+            except VoyageError as error:
+                if error.code not in TRANSIENT_VOYAGE_ERRORS or attempt >= max_transient_retries:
+                    raise
+                delay = error.retry_after_seconds
+                if delay is None:
+                    base = (
+                        rate_limit_retry_base_seconds
+                        if error.code == "voyage_rate_limited"
+                        and rate_limit_retry_base_seconds is not None
+                        else retry_base_seconds
+                    )
+                    delay = min(retry_max_seconds, base * (2**attempt))
+                delay = max(0.0, delay)
+                if adaptive_rate_limit_pacing and error.code == "voyage_rate_limited":
+                    adaptive_delay_seconds = delay
+                sleep(delay)
+        if response is None:
+            raise RuntimeError("embedding_response_missing")
+        if is_cancelled and is_cancelled():
+            raise EmbeddingCancelled("indexing_cancelled")
         vectors.extend(response.vectors)
         returned_models.append(response.model)
         request_count += 1
@@ -197,8 +273,16 @@ def embed_document(
             latency_ms,
             token_total,
         )
+        if progress_callback:
+            progress_callback(len(vectors), len(chunks))
         if not complete:
-            time.sleep(INTER_BATCH_DELAY_SECONDS)
+            pacing_delay = max(
+                inter_batch_delay_seconds,
+                adaptive_delay_seconds if adaptive_rate_limit_pacing else 0.0,
+            )
+            if pacing_delay > 0:
+                sleep(pacing_delay)
+        start = len(vectors)
     return vectors, False, returned_models, request_count, latency_ms, token_total
 
 

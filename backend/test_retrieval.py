@@ -28,7 +28,12 @@ from retrieval.models import (
 from retrieval.splits import load_frozen_split, validate_frozen_split
 from retrieval.structure_chunker import create_structure_aware_chunks
 from retrieval.runtime import DenseRuntimeRetriever, RetrievalRequest
-from retrieval.voyage import EmbeddingResponse, VoyageEmbeddingClient, VoyageError
+from retrieval.voyage import (
+    EmbeddingResponse,
+    VoyageEmbeddingClient,
+    VoyageError,
+    VoyageRerankClient,
+)
 
 
 def make_chunk(index: int, page: int, text: str) -> Chunk:
@@ -312,6 +317,47 @@ class RetrievalFoundationTests(unittest.TestCase):
         finally:
             quota_client.close()
 
+        rate_limit_cases = (
+            ({"detail": "Free tier rate limit: 3 RPM and 10K TPM"}, {}),
+            ({"detail": "Account usage limit reached"}, {"x-ratelimit-reset-requests": "20s"}),
+            ({"detail": "Current quota exceeded"}, {}),
+        )
+        for payload, headers in rate_limit_cases:
+            rate_client = VoyageEmbeddingClient(
+                "test-key",
+                transport=httpx.MockTransport(
+                    lambda _request, payload=payload, headers=headers: httpx.Response(
+                        429, json=payload, headers=headers
+                    )
+                ),
+            )
+            try:
+                with self.assertRaisesRegex(VoyageError, "voyage_rate_limited"):
+                    rate_client.embed(["text"], "document")
+            finally:
+                rate_client.close()
+
+        reset_client = VoyageEmbeddingClient(
+            "test-key",
+            transport=httpx.MockTransport(
+                lambda _request: httpx.Response(
+                    429,
+                    json={"detail": "Rate limit reached"},
+                    headers={
+                        "x-ratelimit-reset-requests": "1m5s",
+                        "x-ratelimit-reset-tokens": "250ms",
+                    },
+                )
+            ),
+        )
+        try:
+            with self.assertRaises(VoyageError) as raised:
+                reset_client.embed(["text"], "document")
+            self.assertEqual(raised.exception.code, "voyage_rate_limited")
+            self.assertEqual(raised.exception.retry_after_seconds, 65.0)
+        finally:
+            reset_client.close()
+
         timeout_client = VoyageEmbeddingClient(
             "test-key",
             transport=httpx.MockTransport(
@@ -338,8 +384,64 @@ class RetrievalFoundationTests(unittest.TestCase):
         finally:
             invalid_client.close()
 
+    def test_voyage_rerank_contract_and_transient_errors(self):
+        requests = []
+
+        def handler(request: httpx.Request) -> httpx.Response:
+            requests.append(json.loads(request.content))
+            return httpx.Response(200, json={
+                "data": [
+                    {"index": 1, "relevance_score": 0.8},
+                    {"index": 0, "relevance_score": 0.4},
+                ],
+                "model": "rerank-2.5",
+            })
+
+        client = VoyageRerankClient("test-key", transport=httpx.MockTransport(handler))
+        try:
+            response = client.rerank("question", ["first", "second"])
+        finally:
+            client.close()
+        self.assertEqual(response.results[0].index, 1)
+        self.assertEqual(requests[0]["model"], "rerank-2.5")
+        self.assertEqual(requests[0]["top_k"], 2)
+        self.assertFalse(requests[0]["truncation"])
+
+        for status, code in (
+            (429, "voyage_rate_limited"),
+            (503, "voyage_provider_unavailable"),
+        ):
+            failing = VoyageRerankClient(
+                "test-key",
+                transport=httpx.MockTransport(
+                    lambda _request, status=status: httpx.Response(status)
+                ),
+            )
+            try:
+                with self.assertRaisesRegex(VoyageError, code):
+                    failing.rerank("question", ["text"])
+            finally:
+                failing.close()
+
+        timed = VoyageRerankClient(
+            "test-key",
+            transport=httpx.MockTransport(
+                lambda request: (_ for _ in ()).throw(
+                    httpx.ReadTimeout("timed out", request=request)
+                )
+            ),
+        )
+        try:
+            with self.assertRaisesRegex(VoyageError, "voyage_timeout"):
+                timed.rerank("question", ["text"])
+        finally:
+            timed.close()
+
     def test_document_embedding_resumes_from_atomic_checkpoint(self):
-        chunks = [make_chunk(index, index + 1, f"chunk {index}") for index in range(3)]
+        chunks = [
+            make_chunk(index, index + 1, "word " * 300 + str(index))
+            for index in range(260)
+        ]
 
         class FakeClient:
             def __init__(self, fail_after_first: bool):
@@ -357,34 +459,244 @@ class RetrievalFoundationTests(unittest.TestCase):
                     latency_ms=10.0,
                 )
 
-        with tempfile.TemporaryDirectory() as directory, patch(
-            "retrieval.evaluate.DOCUMENT_BATCH_SIZE", 2
-        ), patch("retrieval.evaluate.INTER_BATCH_DELAY_SECONDS", 0):
+        with tempfile.TemporaryDirectory() as directory:
             data_dir = Path(directory)
             interrupted = FakeClient(fail_after_first=True)
             with self.assertRaisesRegex(VoyageError, "voyage_rate_limited"):
-                embed_document(interrupted, chunks, data_dir, "doc", "voyage-4")
-            self.assertEqual([len(call[0]) for call in interrupted.calls], [2, 1])
+                embed_document(
+                    interrupted,
+                    chunks,
+                    data_dir,
+                    "doc",
+                    "voyage-4",
+                    batch_size=128,
+                    max_batch_tokens=100_000,
+                    inter_batch_delay_seconds=0,
+                )
+            self.assertEqual(
+                [len(call[0]) for call in interrupted.calls], [128, 128]
+            )
 
             resumed = FakeClient(fail_after_first=False)
             vectors, from_cache, _, requests, _, tokens = embed_document(
-                resumed, chunks, data_dir, "doc", "voyage-4"
+                resumed,
+                chunks,
+                data_dir,
+                "doc",
+                "voyage-4",
+                batch_size=128,
+                max_batch_tokens=100_000,
+                inter_batch_delay_seconds=0,
             )
-            self.assertEqual(len(vectors), 3)
+            self.assertEqual(len(vectors), 260)
             self.assertFalse(from_cache)
-            self.assertEqual([len(call[0]) for call in resumed.calls], [1])
-            self.assertEqual(requests, 2)
-            self.assertEqual(tokens, 3)
+            self.assertEqual([len(call[0]) for call in resumed.calls], [128, 4])
+            self.assertEqual(requests, 3)
+            self.assertEqual(tokens, 260)
 
             cached = FakeClient(fail_after_first=False)
             _, from_cache, _, requests, _, tokens = embed_document(
-                cached, chunks, data_dir, "doc", "voyage-4"
+                cached,
+                chunks,
+                data_dir,
+                "doc",
+                "voyage-4",
+                batch_size=128,
+                max_batch_tokens=100_000,
+                inter_batch_delay_seconds=0,
             )
             self.assertTrue(from_cache)
             self.assertEqual(cached.calls, [])
-            self.assertEqual(requests, 2)
-            self.assertEqual(tokens, 3)
+            self.assertEqual(requests, 3)
+            self.assertEqual(tokens, 260)
 
+    def test_production_batching_packs_by_text_count_then_token_cap(self):
+        class RecordingClient:
+            def __init__(self):
+                self.calls = []
+
+            def embed(self, texts, input_type):
+                self.calls.append(texts)
+                return EmbeddingResponse(
+                    [[1.0, 0.0] for _ in texts], "voyage-4", len(texts), 1.0
+                )
+
+        personal_finance_like = [
+            make_chunk(index, index + 1, "word " * 300 + str(index))
+            for index in range(260)
+        ]
+        with tempfile.TemporaryDirectory() as directory:
+            client = RecordingClient()
+            embed_document(
+                client,
+                personal_finance_like,
+                Path(directory),
+                "doc",
+                "voyage-4",
+                batch_size=128,
+                max_batch_tokens=100_000,
+                inter_batch_delay_seconds=0,
+            )
+        self.assertEqual([len(batch) for batch in client.calls], [128, 128, 4])
+
+        unusually_large = [
+            make_chunk(index, index + 1, f"large chunk {index}").model_copy(
+                update={"token_count": 40_000}
+            )
+            for index in range(5)
+        ]
+        with tempfile.TemporaryDirectory() as directory:
+            client = RecordingClient()
+            embed_document(
+                client,
+                unusually_large,
+                Path(directory),
+                "large-doc",
+                "voyage-4",
+                batch_size=128,
+                max_batch_tokens=100_000,
+                inter_batch_delay_seconds=0,
+            )
+        self.assertEqual([len(batch) for batch in client.calls], [2, 2, 1])
+
+    def test_transient_embedding_retry_uses_retry_after_and_is_bounded(self):
+        chunks = [make_chunk(0, 1, "chunk")]
+
+        class RateLimitedClient:
+            def __init__(self):
+                self.calls = 0
+
+            def embed(self, texts, input_type):
+                self.calls += 1
+                if self.calls < 3:
+                    raise VoyageError("voyage_rate_limited", retry_after_seconds=2.5)
+                return EmbeddingResponse([[1.0, 0.0]], "voyage-4", 1, 1.0)
+
+        with tempfile.TemporaryDirectory() as directory:
+            client = RateLimitedClient()
+            sleeps = []
+            vectors, *_ = embed_document(
+                client,
+                chunks,
+                Path(directory),
+                "doc",
+                "voyage-4",
+                inter_batch_delay_seconds=0,
+                max_transient_retries=2,
+                sleep=sleeps.append,
+            )
+            self.assertEqual(vectors, [[1.0, 0.0]])
+            self.assertEqual(client.calls, 3)
+            self.assertEqual(sleeps, [2.5, 2.5])
+
+    def test_evaluation_embedding_retains_default_conservative_pacing(self):
+        chunks = [make_chunk(index, index + 1, f"chunk {index}") for index in range(17)]
+
+        class FakeClient:
+            def __init__(self):
+                self.calls = []
+
+            def embed(self, texts, input_type):
+                self.calls.append(texts)
+                return EmbeddingResponse(
+                    [[1.0, 0.0] for _ in texts], "voyage-4", len(texts), 1.0
+                )
+
+        with tempfile.TemporaryDirectory() as directory:
+            sleeps = []
+            client = FakeClient()
+            embed_document(
+                client,
+                chunks,
+                Path(directory),
+                "doc",
+                "voyage-4",
+                sleep=sleeps.append,
+            )
+
+        self.assertEqual([len(batch) for batch in client.calls], [16, 1])
+        self.assertEqual(sleeps, [55.0])
+
+    def test_quota_is_not_retried(self):
+        chunks = [make_chunk(0, 1, "chunk")]
+
+        class QuotaClient:
+            calls = 0
+
+            def embed(self, texts, input_type):
+                type(self).calls += 1
+                raise VoyageError("voyage_quota_exhausted")
+
+        with tempfile.TemporaryDirectory() as directory:
+            with self.assertRaisesRegex(VoyageError, "voyage_quota_exhausted"):
+                embed_document(
+                    QuotaClient(),
+                    chunks,
+                    Path(directory),
+                    "doc",
+                    "voyage-4",
+                    max_transient_retries=3,
+                    sleep=lambda _seconds: self.fail("quota must not sleep or retry"),
+                )
+        self.assertEqual(QuotaClient.calls, 1)
+
+    def test_rate_limit_without_provider_timing_uses_production_backoff(self):
+        chunks = [make_chunk(0, 1, "chunk")]
+
+        class RateLimitedClient:
+            calls = 0
+
+            def embed(self, texts, input_type):
+                type(self).calls += 1
+                raise VoyageError("voyage_rate_limited")
+
+        with tempfile.TemporaryDirectory() as directory:
+            sleeps = []
+            with self.assertRaisesRegex(VoyageError, "voyage_rate_limited"):
+                embed_document(
+                    RateLimitedClient(),
+                    chunks,
+                    Path(directory),
+                    "doc",
+                    "voyage-4",
+                    inter_batch_delay_seconds=0,
+                    max_transient_retries=3,
+                    rate_limit_retry_base_seconds=10,
+                    retry_max_seconds=30,
+                    sleep=sleeps.append,
+                )
+        self.assertEqual(RateLimitedClient.calls, 4)
+        self.assertEqual(sleeps, [10, 20, 30])
+
+    def test_observed_rate_limit_timing_paces_following_batches(self):
+        chunks = [make_chunk(index, index + 1, f"chunk {index}") for index in range(2)]
+
+        class RecoveringClient:
+            calls = 0
+
+            def embed(self, texts, input_type):
+                type(self).calls += 1
+                if type(self).calls == 1:
+                    raise VoyageError("voyage_rate_limited", retry_after_seconds=12)
+                return EmbeddingResponse([[1.0, 0.0]], "voyage-4", 1, 1.0)
+
+        with tempfile.TemporaryDirectory() as directory:
+            sleeps = []
+            embed_document(
+                RecoveringClient(),
+                chunks,
+                Path(directory),
+                "doc",
+                "voyage-4",
+                batch_size=1,
+                inter_batch_delay_seconds=0,
+                max_transient_retries=1,
+                adaptive_rate_limit_pacing=True,
+                sleep=sleeps.append,
+            )
+
+        self.assertEqual(RecoveringClient.calls, 3)
+        self.assertEqual(sleeps, [12, 12])
 
 if __name__ == "__main__":
     unittest.main()

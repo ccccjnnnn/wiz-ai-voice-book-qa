@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "overrides": [
+    {
+      "question_id": "q010",
+      "original_question": "What caused Alice to start shrinking while she was talking to the Mouse?",
+      "qa_question": "What caused Alice to keep shrinking after she noticed that she had put on one of the Rabbit's gloves?",
+      "reason": "The source says Alice was talking to herself and had not yet met the Mouse. The original wording contains a false premise even though its expected answer and evidence phrase correctly identify the Rabbit's fan.",
+      "retrieval_dataset_changed": false
+    }
+  ]
+}

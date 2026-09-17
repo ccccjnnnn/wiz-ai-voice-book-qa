@@ -31,6 +31,8 @@ class RetrievalItem(BaseModel):
     retrieval_method: str
     index_version: str
     method_metadata: dict = Field(default_factory=dict)
+    source_filename: str
+    estimated_tokens: int = Field(gt=0)
 
 
 class RetrievalResponse(BaseModel):
@@ -40,6 +42,8 @@ class RetrievalResponse(BaseModel):
     index_version: str
     query: str
     retrieval_latency_ms: float = Field(ge=0)
+    query_embedding_latency_ms: float = Field(ge=0)
+    local_retrieval_latency_ms: float = Field(ge=0)
     items: list[RetrievalItem]
 
 
@@ -66,15 +70,19 @@ class DenseRuntimeRetriever:
             raise ValueError("retrieval_document_not_loaded")
         if request.index_version != self.index_version:
             raise ValueError("retrieval_index_version_not_loaded")
-        started = time.perf_counter()
+        embedding_started = time.perf_counter()
         query_vector = self._embed_query(request.query)
+        embedding_latency_ms = (time.perf_counter() - embedding_started) * 1000
+        retrieval_started = time.perf_counter()
         hits = self._index.search(query_vector, request.top_k)
-        latency_ms = (time.perf_counter() - started) * 1000
+        local_latency_ms = (time.perf_counter() - retrieval_started) * 1000
         return RetrievalResponse(
             document_id=request.document_id,
             index_version=request.index_version,
             query=request.query,
-            retrieval_latency_ms=latency_ms,
+            retrieval_latency_ms=embedding_latency_ms + local_latency_ms,
+            query_embedding_latency_ms=embedding_latency_ms,
+            local_retrieval_latency_ms=local_latency_ms,
             items=[
                 RetrievalItem(
                     chunk_id=hit.chunk.chunk_id,
@@ -88,6 +96,8 @@ class DenseRuntimeRetriever:
                     retrieval_method="dense_exact_cosine",
                     index_version=request.index_version,
                     method_metadata={"embedding_model": "voyage-4"},
+                    source_filename=hit.chunk.source_filename,
+                    estimated_tokens=hit.chunk.token_count,
                 )
                 for rank, hit in enumerate(hits, start=1)
             ],

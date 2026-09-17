@@ -1,0 +1,12 @@
+{
+  "source_id": "phase4-alice-local-pdf",
+  "title": "Alice's Adventures in Wonderland",
+  "author": "Lewis Carroll",
+  "document_id": "a6c315f78fbb4c5cb9f16f08f28aed38",
+  "source_filename": "alice-in-wonderland.pdf",
+  "text_layer_pdf_sha256": "49c843b5e09a9f759781514b49b802e6981baec57bf8873c6404d1111448878e",
+  "stored_page_count": 92,
+  "empty_stored_pages": 0,
+  "representation": "Existing locally ingested Phase-2/3/4 text-layer PDF",
+  "dataset_lifecycle": "candidate"
+}

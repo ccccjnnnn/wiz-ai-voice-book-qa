@@ -1,0 +1,281 @@
+{
+  "dataset_id": "personal_finance_acceptance_draft",
+  "status": "draft",
+  "frozen": false,
+  "purpose": "Human-reviewable retrieval-only acceptance set for the Personal Finance demo book. It is separate from the frozen 98-case corpus.",
+  "source": {
+    "document_id": "74028ca792a24e18b60e89cee1f877aa",
+    "filename": "Personal Finance.pdf",
+    "page_count": 297,
+    "chunk_count": 700,
+    "index_version": "fixed-window-dense-v1",
+    "embedding_model": "voyage-4"
+  },
+  "scoring_notes": {
+    "retrieval_only": true,
+    "unsupported_cases_are_excluded_from_recall_mrr_and_full_evidence_metrics": true,
+    "full_evidence_coverage_requires_all_gold_chunk_ids": true,
+    "semantic_pairs": [
+      "risk-definition",
+      "liquidity-definition"
+    ]
+  },
+  "cases": [
+    {
+      "id": "pf-01-financial-risk-zh",
+      "question": "里面的金融风险是怎么定义的。",
+      "language": "zh",
+      "category": "insufficient-evidence",
+      "scored": false,
+      "expected_retrieval_behavior": "Surface the investing-risk discussion and, secondarily, the insurance passage about shifting financial risk; do not claim the book gives an exact definition of the term financial risk.",
+      "gold_pages": [],
+      "gold_chunk_ids": [],
+      "supporting_excerpts": [
+        {
+          "page": 190,
+          "chunk_id": "74028ca792a24e18b60e89cee1f877aa:chunk:00433",
+          "excerpt": "That's where insurance steps in, not as a shield against blame, but as a system for shifting financial risk."
+        },
+        {
+          "page": 243,
+          "chunk_id": "74028ca792a24e18b60e89cee1f877aa:chunk:00563",
+          "excerpt": "Risk is the range of possible outcomes that exists in the space between what you expect and what actually happens."
+        }
+      ],
+      "multiple_evidence_chunks_required": false,
+      "human_review_note": "The source uses financial risk but does not explicitly define that precise term. The nearby risk definition is explicitly about investing, so this is retained as an answerability/source-semantics probe rather than a scored retrieval target."
+    },
+    {
+      "id": "pf-02-risk-definition-en",
+      "question": "How does the book define risk?",
+      "language": "en",
+      "category": "direct-factual",
+      "semantic_pair_id": "risk-definition",
+      "expected_retrieval_behavior": "Retrieve the investing definition of risk.",
+      "gold_pages": [243],
+      "gold_chunk_ids": ["74028ca792a24e18b60e89cee1f877aa:chunk:00563"],
+      "supporting_excerpts": [
+        {
+          "page": 243,
+          "chunk_id": "74028ca792a24e18b60e89cee1f877aa:chunk:00563",
+          "excerpt": "Risk is the range of possible outcomes that exists in the space between what you expect and what actually happens."
+        }
+      ],
+      "multiple_evidence_chunks_required": false,
+      "human_review_note": "Use the explicit investing definition, not a generic insurance or glossary occurrence of risk."
+    },
+    {
+      "id": "pf-03-risk-definition-zh",
+      "question": "这本书如何定义投资风险？",
+      "language": "zh",
+      "category": "direct-factual",
+      "semantic_pair_id": "risk-definition",
+      "expected_retrieval_behavior": "Retrieve the same English investing-risk definition as pf-02.",
+      "gold_pages": [243],
+      "gold_chunk_ids": ["74028ca792a24e18b60e89cee1f877aa:chunk:00563"],
+      "supporting_excerpts": [
+        {
+          "page": 243,
+          "chunk_id": "74028ca792a24e18b60e89cee1f877aa:chunk:00563",
+          "excerpt": "Risk is the range of possible outcomes that exists in the space between what you expect and what actually happens."
+        }
+      ],
+      "multiple_evidence_chunks_required": false,
+      "human_review_note": "Mandarin-to-English-source semantic pair with pf-02."
+    },
+    {
+      "id": "pf-04-liquidity-definition-en",
+      "question": "What does liquidity mean in the book?",
+      "language": "en",
+      "category": "direct-factual",
+      "semantic_pair_id": "liquidity-definition",
+      "expected_retrieval_behavior": "Retrieve the narrative definition that connects liquidity with accessible money and choice.",
+      "gold_pages": [69, 70],
+      "gold_chunk_ids": ["74028ca792a24e18b60e89cee1f877aa:chunk:00153"],
+      "supporting_excerpts": [
+        {
+          "page": 69,
+          "chunk_id": "74028ca792a24e18b60e89cee1f877aa:chunk:00153",
+          "excerpt": "Liquidity - how easily money can be accessed and used."
+        }
+      ],
+      "multiple_evidence_chunks_required": false,
+      "human_review_note": "A later glossary definition is valid but is intentionally not the primary gold evidence."
+    },
+    {
+      "id": "pf-05-liquidity-definition-zh",
+      "question": "书中说的流动性是什么意思？",
+      "language": "zh",
+      "category": "paraphrase-vocabulary-mismatch",
+      "semantic_pair_id": "liquidity-definition",
+      "expected_retrieval_behavior": "Retrieve the same English liquidity explanation as pf-04 despite the Mandarin vocabulary.",
+      "gold_pages": [69, 70],
+      "gold_chunk_ids": ["74028ca792a24e18b60e89cee1f877aa:chunk:00153"],
+      "supporting_excerpts": [
+        {
+          "page": 69,
+          "chunk_id": "74028ca792a24e18b60e89cee1f877aa:chunk:00153",
+          "excerpt": "Liquidity - how easily money can be accessed and used."
+        }
+      ],
+      "multiple_evidence_chunks_required": false,
+      "human_review_note": "Mandarin-to-English-source semantic pair with pf-04."
+    },
+    {
+      "id": "pf-06-diversification-paraphrase-en",
+      "question": "What does spreading income and investments around accomplish?",
+      "language": "en",
+      "category": "paraphrase-vocabulary-mismatch",
+      "expected_retrieval_behavior": "Map the paraphrase to diversification as a way to retain alternative income sources and spread risk.",
+      "gold_pages": [44],
+      "gold_chunk_ids": ["74028ca792a24e18b60e89cee1f877aa:chunk:00095"],
+      "supporting_excerpts": [
+        {
+          "page": 44,
+          "chunk_id": "74028ca792a24e18b60e89cee1f877aa:chunk:00095",
+          "excerpt": "Diversification of income sources works similarly and makes sense for the same reasons. If sources of income are diverse, in number and kind, and one source of income ceases to be productive, then you still have others to rely on."
+        }
+      ],
+      "multiple_evidence_chunks_required": false,
+      "human_review_note": "The query avoids the book's preferred term diversification."
+    },
+    {
+      "id": "pf-07-income-diversification-multifact-en",
+      "question": "How can someone diversify income across labor and capital, and what risk does that hedge?",
+      "language": "en",
+      "category": "multi-fact-cross-section",
+      "expected_retrieval_behavior": "Retrieve both the labor-and-capital mechanism and the summary of what it hedges.",
+      "gold_pages": [44, 45],
+      "gold_chunk_ids": [
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00095",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00096"
+      ],
+      "supporting_excerpts": [
+        {
+          "page": 44,
+          "chunk_id": "74028ca792a24e18b60e89cee1f877aa:chunk:00095",
+          "excerpt": "A better way to diversify sources of income is to sell both labor and capital. Then you are trading in different markets, and are not totally exposed to risks in either one."
+        },
+        {
+          "page": 44,
+          "chunk_id": "74028ca792a24e18b60e89cee1f877aa:chunk:00096",
+          "excerpt": "Diversifying sources of income in both the labor market and the capital markets is the best hedge against risks in any one market."
+        }
+      ],
+      "multiple_evidence_chunks_required": true,
+      "human_review_note": "Both chunks are needed: one gives the mechanism and the other states the hedge explicitly."
+    },
+    {
+      "id": "pf-08-risk-tolerance-multifact-en",
+      "question": "What questions should an investor ask about risk tolerance, and what factors shape it?",
+      "language": "en",
+      "category": "multi-fact-cross-section",
+      "expected_retrieval_behavior": "Retrieve the self-assessment questions and the summary factors rather than only a generic risk-return passage.",
+      "gold_pages": [243, 244, 245],
+      "gold_chunk_ids": [
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00564",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00566"
+      ],
+      "supporting_excerpts": [
+        {
+          "page": 244,
+          "chunk_id": "74028ca792a24e18b60e89cee1f877aa:chunk:00564",
+          "excerpt": "How long can I go without this money? How would I feel if my investment were to drop 10 percent this year? Would I sell out of fear or stay in for the long run?"
+        },
+        {
+          "page": 244,
+          "chunk_id": "74028ca792a24e18b60e89cee1f877aa:chunk:00566",
+          "excerpt": "Risk is shaped by time horizon, emotional resilience, and financial flexibility."
+        }
+      ],
+      "multiple_evidence_chunks_required": true,
+      "human_review_note": "The question deliberately requires the diagnostic questions and the explanatory factors."
+    },
+    {
+      "id": "pf-09-term-vs-whole-life-en",
+      "question": "How does term life insurance differ from whole life insurance?",
+      "language": "en",
+      "category": "contrastive-distractor-sensitive",
+      "expected_retrieval_behavior": "Retrieve term-life duration and purpose plus whole-life permanence, cash value, cost, and the source's non-universal recommendation.",
+      "gold_pages": [202, 203],
+      "gold_chunk_ids": [
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00464",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00465",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00466"
+      ],
+      "supporting_excerpts": [
+        {
+          "page": 202,
+          "chunk_id": "74028ca792a24e18b60e89cee1f877aa:chunk:00464",
+          "excerpt": "Term insurance is designed to cover temporary financial risks."
+        },
+        {
+          "page": 202,
+          "chunk_id": "74028ca792a24e18b60e89cee1f877aa:chunk:00465",
+          "excerpt": "Whole life insurance is built to last a lifetime, as long as you keep paying the premiums... It never expires... [and] builds cash value over time."
+        },
+        {
+          "page": 203,
+          "chunk_id": "74028ca792a24e18b60e89cee1f877aa:chunk:00466",
+          "excerpt": "There's no single best option. Only the one that fits your goals, your timeline, and your budget."
+        }
+      ],
+      "multiple_evidence_chunks_required": true,
+      "human_review_note": "The gold set rejects a response that describes only one policy or asserts a universal best choice."
+    },
+    {
+      "id": "pf-10-right-investment-ambiguous-en",
+      "question": "How do I know what kind of investment is right for me?",
+      "language": "en",
+      "category": "ambiguous",
+      "expected_retrieval_behavior": "Retrieve the passage that frames the question as dependent on personal goals, risk, and time rather than a single prescribed investment.",
+      "gold_pages": [262],
+      "gold_chunk_ids": ["74028ca792a24e18b60e89cee1f877aa:chunk:00600"],
+      "supporting_excerpts": [
+        {
+          "page": 262,
+          "chunk_id": "74028ca792a24e18b60e89cee1f877aa:chunk:00600",
+          "excerpt": "It's a deceptively simple question, because behind it lie all the complexities of personal goals, emotional responses to risk, and the reality of time... The goal isn't to give you a script."
+        }
+      ],
+      "multiple_evidence_chunks_required": false,
+      "human_review_note": "This is answerable only as a decision framework; the source does not endorse one investment as right for everyone."
+    },
+    {
+      "id": "pf-11-cash-flow-matching-en",
+      "question": "What is cash flow matching?",
+      "language": "en",
+      "category": "english-uncommon-finance-terminology",
+      "expected_retrieval_behavior": "Retrieve the glossary definition of the uncommon bond-investing term.",
+      "gold_pages": [281],
+      "gold_chunk_ids": ["74028ca792a24e18b60e89cee1f877aa:chunk:00643"],
+      "supporting_excerpts": [
+        {
+          "page": 281,
+          "chunk_id": "74028ca792a24e18b60e89cee1f877aa:chunk:00643",
+          "excerpt": "Cash flow matching | A strategy of investing in bonds with maturities and face values that match anticipated cash flow amounts and timing."
+        }
+      ],
+      "multiple_evidence_chunks_required": false,
+      "human_review_note": "This probes an uncommon English technical term whose source evidence is a glossary entry."
+    },
+    {
+      "id": "pf-12-net-worth-definition-en",
+      "question": "What does net worth mean?",
+      "language": "en",
+      "category": "direct-factual",
+      "expected_retrieval_behavior": "Retrieve the explanatory definition tied to assets and debts.",
+      "gold_pages": [50, 51],
+      "gold_chunk_ids": ["74028ca792a24e18b60e89cee1f877aa:chunk:00110"],
+      "supporting_excerpts": [
+        {
+          "page": 50,
+          "chunk_id": "74028ca792a24e18b60e89cee1f877aa:chunk:00110",
+          "excerpt": "The difference between what you have and what you owe is your net worth."
+        }
+      ],
+      "multiple_evidence_chunks_required": false,
+      "human_review_note": "A glossary duplicate exists, but this narrative definition gives the intended personal-finance context."
+    }
+  ]
+}

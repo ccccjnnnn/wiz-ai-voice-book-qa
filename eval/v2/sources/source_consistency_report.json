@@ -1,0 +1,40 @@
+{
+  "purpose": "Offline representation-consistency validation; no retrieval, QA, or provider calls.",
+  "source_policy": {
+    "secret_garden_canonical_text": "semantic source of truth",
+    "secret_garden_generated_pdf": "parser coverage validation",
+    "raw_regex_hit_count_equality_required": false
+  },
+  "alice_in_wonderland": {
+    "semantic_source_of_truth": "locally ingested Alice text-layer PDF",
+    "pdf_sha256": "49c843b5e09a9f759781514b49b802e6981baec57bf8873c6404d1111448878e",
+    "stored_page_count": 92,
+    "reparsed_page_count": 92,
+    "stored_pages_equal_reparsed_normalized_pages": true,
+    "differing_pages": [],
+    "status": "pass"
+  },
+  "the_secret_garden": {
+    "semantic_source_of_truth": "Project Gutenberg eBook #113 canonical text",
+    "pdf_role": "parser coverage validation only",
+    "canonical_text_sha256": "6b0bb5fbd0c4e873d2d22028da9d753cf3977d5f70ac58221556b28060badbf5",
+    "generated_pdf_sha256": "499f246e4f1ecbe265d8c942f39d4c9825cd4d8e08dc8c1a7e8d2b6c49c9561e",
+    "pdf_page_count": 137,
+    "empty_pdf_pages": [],
+    "canonical_chapter_heading_count": 27,
+    "pdf_chapter_heading_count": 27,
+    "chapter_boundary_alignment": true,
+    "normalization_contract": "Shared typography/ligature mapping, then NFKD, casefold, ordered ASCII-alphanumeric tokens; layout punctuation is ignored",
+    "canonical_ordered_token_count": 83165,
+    "pdf_extracted_ordered_token_count": 83165,
+    "ordered_token_sequence_equal": true,
+    "missing_or_extra_token_spans": [],
+    "punctuation_or_layout_artifacts": {
+      "unsupported_middle_dot_glyph_count_after_repair": 0,
+      "interpretation": "Punctuation/layout differences do not constitute semantic loss when the normalized ordered token sequence is equal."
+    },
+    "content_loss_detected": false,
+    "status": "pass"
+  },
+  "overall_status": "pass"
+}

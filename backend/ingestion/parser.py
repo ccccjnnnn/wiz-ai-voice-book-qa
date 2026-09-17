@@ -1,3 +1,4 @@
+from collections.abc import Callable
 from pathlib import Path
 
 import pymupdf
@@ -18,7 +19,12 @@ def _has_meaningful_text(text: str) -> bool:
     return any(character.isalnum() for character in text)
 
 
-def extract_pages(pdf_path: Path, document_id: str, source_filename: str) -> list[Page]:
+def extract_pages(
+    pdf_path: Path,
+    document_id: str,
+    source_filename: str,
+    is_cancelled: Callable[[], bool] | None = None,
+) -> list[Page]:
     try:
         document = pymupdf.open(pdf_path)
     except (pymupdf.FileDataError, RuntimeError, ValueError, OSError):
@@ -36,6 +42,8 @@ def extract_pages(pdf_path: Path, document_id: str, source_filename: str) -> lis
         any_text = False
         any_images = False
         for index in range(document.page_count):
+            if is_cancelled and is_cancelled():
+                return []
             try:
                 pdf_page = document.load_page(index)
                 text = _clean_extracted_text(pdf_page.get_text("text", sort=True))
