@@ -148,7 +148,7 @@ test('Chinese voice transcript stays editable and autoplays Chinese TTS', async 
   await page.route('**/api/qa', async (route) => { qaPayload = route.request().postDataJSON(); await route.fulfill({ json: chineseAnswer }); });
   await page.route('**/api/voice/synthesize', (route) => { ttsCalls += 1; ttsPayload = route.request().postDataJSON(); return route.fulfill({ status: 200, contentType: 'audio/wav', body: wav }); });
   await mockProduct(page);
-  await page.getByText('中文', { exact: true }).click();
+  await expect(page.getByRole('radio', { name: '中文' })).toBeChecked();
   await page.getByRole('button', { name: 'Record question' }).click();
   await page.waitForTimeout(300);
   await page.getByRole('form', { name: 'Speak or type your question' }).getByRole('button', { name: 'Stop', exact: true }).click();

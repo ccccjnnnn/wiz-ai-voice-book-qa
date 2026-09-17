@@ -88,7 +88,7 @@ export function ProductApp() {
   const [inputSource, setInputSource] = useState<InputSource>('text');
   const [transcriptEdited, setTranscriptEdited] = useState(false);
   const [voiceError, setVoiceError] = useState('');
-  const [asrLanguage, setAsrLanguage] = useState<ASRLanguage>('auto');
+  const [asrLanguage, setAsrLanguage] = useState<ASRLanguage>('zh');
   const [voiceReadiness, setVoiceReadiness] = useState<VoiceReadiness | null>(null);
   const [detectedLanguage, setDetectedLanguage] = useState<string | null>(null);
   const [qaState, setQAState] = useState<'idle' | 'searching' | 'error'>('idle');

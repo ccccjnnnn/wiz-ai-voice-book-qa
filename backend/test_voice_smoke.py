@@ -18,15 +18,17 @@ class VoiceTests(unittest.TestCase):
         self.failure = None
         self.mime = "audio/wav"
         self.wav = b"RIFF\x24\x00\x00\x00WAVEfmt "
+        self.audio_url = "https://audio.example.aliyuncs.com/speech.wav"
 
         async def handler(request):
             self.calls.append(request)
             if self.failure:
                 raise self.failure("safe synthetic failure", request=request)
-            if request.url.host == "audio.example" and self.code == 200:
+            if (request.url.host and request.url.host.endswith(".aliyuncs.com")
+                    and not request.url.path.endswith("generation") and self.code == 200):
                 return httpx.Response(200, content=self.wav, headers={"content-type": self.mime})
             if request.url.path.endswith("generation") and self.code == 200:
-                return httpx.Response(200, json={"output": {"audio": {"url": "https://audio.example/speech.wav"}}})
+                return httpx.Response(200, json={"output": {"audio": {"url": self.audio_url}}})
             return httpx.Response(self.code, json=self.payload)
 
         async def fake_http():
@@ -100,6 +102,28 @@ class VoiceTests(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.headers["x-tts-language-type"], "Chinese")
         self.assertEqual(json.loads(self.calls[0].content)["parameters"]["language_type"], "Chinese")
+
+    def test_tts_upgrades_documented_alibaba_http_audio_url(self):
+        self.audio_url = "http://dashscope-result-sgp.oss-ap-southeast-1.aliyuncs.com/speech.wav?signature=synthetic"
+        response = self.tts(language_type="English")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(str(self.calls[1].url), self.audio_url.replace("http://", "https://", 1))
+
+    def test_tts_accepts_alibaba_https_audio_url(self):
+        self.audio_url = "https://dashscope-result-sgp.oss-ap-southeast-1.aliyuncs.com/speech.wav"
+        response = self.tts(language_type="English")
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(str(self.calls[1].url), self.audio_url)
+
+    def test_tts_rejects_untrusted_or_malformed_audio_url(self):
+        for url in ("http://audio.example/speech.wav", "not a valid URL"):
+            with self.subTest(url=url):
+                self.audio_url = url
+                response = self.tts(language_type="English")
+                self.assertEqual(response.status_code, 502)
+                self.assertEqual(response.json()["error"], "invalid_provider_audio")
+                self.assertEqual(len(self.calls), 1)
+                self.calls.clear()
 
     def test_playable_non_wav_provider_audio_is_preserved(self):
         self.wav = b"ID3\x04\x00\x00mp3-fixture"

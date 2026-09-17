@@ -6,6 +6,7 @@ import math
 from pathlib import Path
 from time import perf_counter
 from typing import Literal
+from urllib.parse import urlsplit
 
 import httpx
 from dotenv import dotenv_values
@@ -206,6 +207,24 @@ def _language_type(text: str) -> Literal["English", "Chinese"]:
     return "Chinese" if any("\u3400" <= character <= "\u9fff" for character in text) else "English"
 
 
+def _provider_audio_url(value: object) -> str:
+    if not isinstance(value, str):
+        raise ValueError
+    parsed = urlsplit(value)
+    host = (parsed.hostname or "").lower().rstrip(".")
+    if (
+        parsed.scheme not in {"http", "https"}
+        or not parsed.path
+        or parsed.username
+        or parsed.password
+        or parsed.port is not None
+        or parsed.fragment
+        or not (host == "aliyuncs.com" or host.endswith(".aliyuncs.com"))
+    ):
+        raise ValueError
+    return parsed._replace(scheme="https").geturl()
+
+
 async def qwen_tts(client, key: str, text: str, language_type: Literal["English", "Chinese"]):
     started = perf_counter()
     try:
@@ -229,9 +248,7 @@ async def qwen_tts(client, key: str, text: str, language_type: Literal["English"
                     429: "provider_rate_limit"}.get(response.status_code, "provider_error")
             raise VoiceError(code, 503 if response.status_code == 429 else 502,
                              upstream_status=response.status_code, latency_ms=latency)
-        audio_url = response.json()["output"]["audio"]["url"]
-        if not isinstance(audio_url, str) or not audio_url.startswith("https://"):
-            raise ValueError
+        audio_url = _provider_audio_url(response.json()["output"]["audio"]["url"])
         audio = await client.get(audio_url)
         if audio.status_code != 200:
             raise VoiceError("provider_error", 502, upstream_status=audio.status_code,
