@@ -99,6 +99,34 @@ audio { display: block; width: 100%; max-width: 620px; margin-top: 12px; }
 .reason-chips button.selected { background: #1f7169; color: white; border-color: #1f7169; }
 .thanks { color: #246743; font-weight: 700; }
 
+.conversation-main { padding-bottom: 0; }
+.conversation-main > section, .conversation-main > form { border-bottom: 0; }
+.book-summary { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 18px 44px !important; border-bottom: 1px solid #dce4e1 !important; }
+.book-summary h1 { margin: 3px 0 2px; font-size: 1.15rem; line-height: 1.25; }
+.book-summary-status { margin: 0; color: #47615c; font-size: .88rem; font-weight: 700; }
+.book-summary-actions { display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 9px; }
+.book-summary .document-id { max-width: 220px; text-align: right; }
+.conversation-timeline { display: grid; gap: 28px; padding: 32px 44px 180px !important; }
+.conversation-turn { display: grid; gap: 14px; }
+.message { max-width: 800px; }
+.message > span { display: block; margin-bottom: 7px; color: #48635e; font-size: .75rem; font-weight: 800; text-transform: uppercase; }
+.user-message { justify-self: end; width: min(680px, 88%); padding: 13px 16px; border: 1px solid #bcd2cd; border-radius: 6px; background: #edf7f4; }
+.user-message p { margin: 0; line-height: 1.5; white-space: pre-wrap; }
+.user-message small { display: block; margin-top: 8px; color: #61726d; }
+.assistant-message { width: 100%; padding: 2px 0; }
+.assistant-message .answer-loading { width: fit-content; margin: 0; padding: 12px 14px; }
+.turn-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.turn-actions > button:not(.command) { min-width: 38px; min-height: 38px; padding: 7px 10px; border: 1px solid #bac7c3; border-radius: 5px; background: white; color: #2a4945; cursor: pointer; }
+.turn-passages { margin-top: 16px; padding: 16px; border-left: 3px solid #6d9089; background: #f5f8f7; }
+.turn-passages h3 { margin-bottom: 7px; font-size: .98rem; }
+.turn-passages .quiet { margin-bottom: 14px; }
+.turn-passages .evidence-card { background: white; }
+.composer { position: sticky; bottom: 0; z-index: 2; padding: 16px 44px 18px !important; border-top: 1px solid #cbd8d4; background: #fff; box-shadow: 0 -8px 18px rgba(24, 49, 44, .08); }
+.composer .input-label-row { margin-top: 12px; }
+.composer-input { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 10px; }
+.composer textarea { width: 100%; resize: vertical; margin: 8px 0 0; padding: 12px; border: 1px solid #9bada8; border-radius: 5px; line-height: 1.45; }
+.composer .ask-actions { margin-top: 7px; }
+
 .developer-shell { min-height: 100vh; background: #eef1f0; }
 .developer-header { padding: 24px 30px; background: #222827; color: white; display: flex; justify-content: space-between; align-items: center; gap: 18px; }
 .developer-header h1 { margin: 5px 0; font-size: 1.48rem; }
@@ -155,6 +183,13 @@ audio { display: block; width: 100%; max-width: 620px; margin-top: 12px; }
   .book-status-actions { align-items: flex-start; flex-direction: column; }
   .status-label { white-space: normal; }
   .input-source { width: 100%; margin-left: 0; }
+  .book-summary { padding: 18px !important; align-items: flex-start; flex-direction: column; }
+  .book-summary-actions { justify-content: flex-start; }
+  .book-summary .document-id { max-width: 100%; text-align: left; }
+  .conversation-timeline { padding: 24px 18px 210px !important; gap: 22px; }
+  .user-message { width: 100%; }
+  .composer { padding: 14px 18px 16px !important; }
+  .composer-input { grid-template-columns: 1fr; }
   .developer-header { padding: 20px; align-items: flex-start; flex-direction: column; }
   .workflow, .filter-bar { padding-left: 18px; padding-right: 18px; }
   .inbox-layout { grid-template-columns: 1fr; }
