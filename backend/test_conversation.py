@@ -26,9 +26,14 @@ from retrieval.runtime import RetrievalItem, RetrievalResponse
 from retrieval.voyage import RerankResponse, RerankResult
 
 
-def context(question: str, answer: str) -> ConversationContextTurn:
+def context(
+    question: str, answer: str, resolved_query: str | None = None
+) -> ConversationContextTurn:
     return ConversationContextTurn(
-        question=question, assistant_response=answer, status="answered"
+        question=question,
+        assistant_response=answer,
+        status="answered",
+        resolved_query=resolved_query,
     )
 
 
@@ -134,21 +139,24 @@ class ConversationGateAndContractTests(unittest.TestCase):
         self.assertFalse(needs_conversation_resolution("What about compound interest?", []))
         self.assertTrue(needs_conversation_resolution("What about compound interest?", history))
         self.assertTrue(needs_conversation_resolution("What about the second one?", history))
+        self.assertTrue(needs_conversation_resolution("What is core in this chapter?", history))
         self.assertTrue(needs_conversation_resolution("那第二个呢？", history))
+        self.assertTrue(needs_conversation_resolution("这一章最重要的定义是什么？", history))
         self.assertTrue(needs_conversation_resolution("No, I meant after cancellation.", history))
         self.assertTrue(needs_conversation_resolution("不是，我问的是取消之后。", history))
 
     def test_request_history_is_optional_bounded_and_strict(self):
         request = QARequest(
-            document_id="doc", index_version="fixed-window-dense-v1", question="Question"
+            document_id="doc", index_version="fixed-window-dense-v1", question="Question",
+            conversation_history=[context(str(index), "answer") for index in range(4)],
         )
-        self.assertEqual(request.conversation_history, [])
+        self.assertEqual(len(request.conversation_history), 4)
         with self.assertRaises(ValidationError):
             QARequest(
                 document_id="doc",
                 index_version="fixed-window-dense-v1",
                 question="Question",
-                conversation_history=[context(str(index), "answer") for index in range(3)],
+                conversation_history=[context(str(index), "answer") for index in range(5)],
             )
 
     def test_qwen_resolver_uses_strict_single_request_contract(self):
@@ -162,8 +170,10 @@ class ConversationGateAndContractTests(unittest.TestCase):
             supplied = json.loads(body["messages"][1]["content"])
             self.assertEqual(set(supplied), {"current_question", "recent_turns"})
             self.assertEqual(set(supplied["recent_turns"][0]), {
-                "question", "assistant_response", "status"
+                "question", "assistant_response", "status", "resolved_query"
             })
+            self.assertEqual(supplied["recent_turns"][0]["resolved_query"], "Chapter 6")
+            self.assertIn("semantic anchor", body["messages"][0]["content"])
             resolution = {
                 "action": "rewrite",
                 "resolved_query": "What does the book say about compound interest?",
@@ -187,7 +197,9 @@ class ConversationGateAndContractTests(unittest.TestCase):
         try:
             resolution, latency = resolver.resolve(
                 "What about the second one?",
-                [context("What are the two types?", "Simple and compound interest.")],
+                [context(
+                    "What are the two types?", "Simple and compound interest.", "Chapter 6"
+                )],
             )
         finally:
             resolver.close()
@@ -320,6 +332,42 @@ class ConversationServiceTests(unittest.TestCase):
         self.assertEqual(retriever.calls[0].query, rewritten)
         self.assertEqual(qwen.calls[0][0], rewritten)
 
+    def test_chapter_anchor_survives_three_intervening_turns(self):
+        rewritten = "第六章最重要的定义是什么？"
+        resolver = FakeResolver(ConversationResolution(
+            action="rewrite",
+            resolved_query=rewritten,
+            clarification=None,
+            reason_code="deictic_reference",
+        ))
+        history = [
+            context("Which chapter covers credit?", "Chapter 6.", "Chapter 6: Credit"),
+            context("What is credit?", "Credit is borrowing capacity."),
+            context("Why does it matter?", "It affects financing choices."),
+            context("Give one example.", "A credit card is one example."),
+        ]
+        service, retriever, qwen, _, _ = self.service(resolver)
+        execution = service.answer(self.request("这一章最重要的定义是什么？", history))
+
+        self.assertEqual(len(resolver.calls[0][1]), 4)
+        self.assertEqual(resolver.calls[0][1][0].resolved_query, "Chapter 6: Credit")
+        self.assertEqual(retriever.calls[0].query, rewritten)
+        self.assertEqual(qwen.calls[0][0], rewritten)
+        self.assertEqual(execution.response.resolved_query, rewritten)
+
+    def test_english_chapter_follow_up_rewrites_with_explicit_chapter(self):
+        rewritten = "What is the core concept in Chapter 6?"
+        resolver = FakeResolver(ConversationResolution(
+            action="rewrite",
+            resolved_query=rewritten,
+            clarification=None,
+            reason_code="deictic_reference",
+        ))
+        history = [context("Where is credit discussed?", "Chapter 6.", "Chapter 6")]
+        service, retriever, _, _, _ = self.service(resolver)
+        service.answer(self.request("What is the core concept in this chapter?", history))
+        self.assertEqual(retriever.calls[0].query, rewritten)
+
     def test_correction_can_rewrite_against_prior_context(self):
         rewritten = "What happens after the insurance policy is cancelled?"
         resolver = FakeResolver(ConversationResolution(
@@ -340,9 +388,9 @@ class ConversationServiceTests(unittest.TestCase):
             clarification="你指的是前面回答中的哪一项？",
             reason_code="unresolved_reference",
         ))
-        history = [context("列出风险和回报的要点。", "风险有两项，回报也有两项。")]
+        history = [context("我们刚才看了哪些章节？", "讨论了几个不同章节。")]
         service, _, qwen, reranker, factory_calls = self.service(resolver)
-        execution = service.answer(self.request("那这个呢？", history))
+        execution = service.answer(self.request("这一章最重要的定义是什么？", history))
         trace = self.trace_store.get(execution.response.trace_id)
 
         self.assertEqual(execution.response.status, "ambiguous")

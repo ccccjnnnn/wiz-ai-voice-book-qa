@@ -49,6 +49,7 @@ type QAResult = {
   reason: string | null;
   citations: Citation[];
   trace_id: string;
+  resolved_query: string | null;
 };
 type TraceEvidence = { source_id: string; text: string | null; pages: number[]; retrieval_rank?: number };
 type FeedbackReason = {
@@ -524,8 +525,9 @@ export function ProductApp() {
         question: turn.question,
         assistant_response: assistantResponse,
         status: turn.result.status,
+        resolved_query: turn.result.resolved_query,
       }] : [];
-    }).slice(-2);
+    }).slice(-4);
     const requestId = ++composerRequest.current;
     const pending = emptyTurn(id, submittedQuestion, submittedTranscript, submittedSource, submittedEdited);
     liveTurnIds.current.add(id);
@@ -612,7 +614,7 @@ export function ProductApp() {
 
   return <div className="app-shell consumer-shell">
     <header className="topbar">
-      <a className="brand" href="/" aria-label="WIZ.AI Voice Book home"><span className="brand-mark">W</span><span className="brand-name">WIZ.AI</span><span className="brand-product">Voice Book</span></a>
+      <a className="brand" href="/" aria-label="WIZ.AI Voice Book home"><img className="brand-logo" src="/wiz-ai-logo.png" alt="WIZ.AI" /><span className="brand-product">Voice Book</span></a>
     </header>
     <div className="workspace-shell">
       <aside className="book-sidebar">
@@ -626,7 +628,6 @@ export function ProductApp() {
               {document?.stage === 'paused' && <button type="button" className="command" onClick={resumeIndex}>Resume indexing</button>}
               {document?.stage === 'rebuild_required' && <button type="button" className="command" onClick={rebuildIndex}>Rebuild index</button>}
             </div>
-            {document && <span className="document-id" title={document.document_id}>{document.document_id}</span>}
             {uploading && <p className="stage" role="status"><span className="pulse" /> Uploading</p>}
             {document && (document.stage === 'indexing' || document.stage === 'paused') && <div className="index-progress"><progress aria-label="Search index progress" max={document.total_chunks || 1} value={document.indexed_chunks} /><span>{document.indexed_chunks} / {document.total_chunks} passages · {Math.round(document.progress_percent)}%</span></div>}
             {bookError && <p className="notice error" role="alert">{bookError}</p>}
@@ -636,7 +637,7 @@ export function ProductApp() {
 
       <main className="product-main conversation-main">
         <section className="conversation-timeline" aria-label="Conversation">
-        {!turns.length && <div className="empty-state"><p>Ask a question to begin a grounded conversation about this book.</p><div className="starter-list"><button type="button" onClick={() => editQuestion('Summarize this chapter.')}>Summarize this chapter.</button><button type="button" onClick={() => editQuestion('What caused this event?')}>What caused this event?</button><button type="button" onClick={() => editQuestion('What does the book say about this topic?')}>What does the book say about this topic?</button></div></div>}
+        {!turns.length && <div className="empty-state"><p>Ask a question to begin a grounded conversation about this book.</p><div className="starter-list"><button type="button" onClick={() => editQuestion('How does compound interest work?')}>How does compound interest work?</button><button type="button" onClick={() => editQuestion('How does the book define risk?')}>How does the book define risk?</button><button type="button" onClick={() => editQuestion('What is liquidity?')}>What is liquidity?</button></div></div>}
         {turns.map((turn) => {
           const answer = responseText(turn.result);
           const answered = turn.result?.status === 'answered';
@@ -659,7 +660,7 @@ export function ProductApp() {
                   {((answered && turn.result.citations.length > 0) || (!answered && passages.length > 0)) && <button type="button" className="source-toggle" onClick={() => togglePassages(turn.id)} aria-expanded={turn.passagesExpanded}>{passagesLabel}<ChevronDown size={15} aria-hidden="true" /></button>}
                   <span className="action-divider" />
                   <button type="button" className="icon-button" title={turn.copied ? 'Copied' : 'Copy answer'} aria-label={turn.copied ? 'Copied' : 'Copy'} onClick={() => void copyAnswer(turn)} disabled={!answer}>{turn.copied ? <Check size={17} /> : <Clipboard size={17} />}</button>
-                  <button type="button" className="icon-button" title={turn.ttsState === 'synthesizing' ? 'Preparing voice' : turn.ttsState === 'ready' || turn.ttsState === 'playing' ? 'Play' : 'Listen'} aria-label={turn.ttsState === 'synthesizing' ? 'Preparing voice...' : turn.ttsState === 'ready' || turn.ttsState === 'playing' ? 'Play' : 'Listen'} onClick={() => void playAudio(turn)} disabled={!answer || turn.ttsState === 'synthesizing' || !ttsConfigured}><Volume2 size={18} /></button>
+                  <button type="button" className={`icon-button ${turn.ttsState === 'playing' ? 'active-audio' : ''}`} title={turn.ttsState === 'synthesizing' ? 'Preparing voice' : turn.ttsState === 'ready' || turn.ttsState === 'playing' ? 'Play' : 'Listen'} aria-label={turn.ttsState === 'synthesizing' ? 'Preparing voice...' : turn.ttsState === 'ready' || turn.ttsState === 'playing' ? 'Play' : 'Listen'} onClick={() => void playAudio(turn)} disabled={!answer || turn.ttsState === 'synthesizing' || !ttsConfigured}><Volume2 size={18} /></button>
                   <button type="button" className="icon-button" title="Stop playback" aria-label="Stop" onClick={() => stopAudio(turn.id)} disabled={turn.ttsState !== 'playing'}><Pause size={18} /></button>
                   <button type="button" className="icon-button" title="Replay from beginning" aria-label="Replay" onClick={() => void replayAudio(turn)} disabled={turn.ttsState !== 'ready' && turn.ttsState !== 'playing'}><RotateCcw size={17} /></button>
                   {turn.feedbackMode !== 'submitted' && <><span className="action-divider" /><button type="button" className="icon-button" title="Useful" aria-label="Useful" onClick={() => void submitFeedback(turn, true)} disabled={turn.feedbackMode === 'submitting'}><ThumbsUp size={17} /></button><button type="button" className="icon-button" title="Not useful" aria-label="Not useful" onClick={() => updateTurn(turn.id, (current) => ({ ...current, feedbackMode: 'negative' }))} disabled={turn.feedbackMode === 'submitting'}><ThumbsDown size={17} /></button></>}
@@ -700,7 +701,7 @@ export function ProductApp() {
         </div>
         <div className="input-label-row"><label className="sr-only" htmlFor="question">Question</label>{transcriptEdited && <span className="edited-badge">Edited</span>}{detectedLanguage && <span className="detected-language">Detected: {detectedLanguage}</span>}</div>
         <div className="composer-input"><textarea id="question" value={question} onChange={(event) => editQuestion(event.target.value)} disabled={voiceBusy} rows={2} placeholder={document?.ready_for_qa ? 'Ask this book...' : 'Choose a ready book first'} /><button className="send-button" title="Ask this book" aria-label="Ask this book" type="submit" disabled={!canAsk}>{qaState === 'searching' ? <span className="pulse" /> : <Send size={19} aria-hidden="true" />}</button></div>
-        <div className="ask-actions"><button className="text-button" type="button" onClick={clearComposer} disabled={!question}>Clear</button><span className="input-source">Input: {inputSource === 'voice' ? 'voice' : 'text'}</span></div>
+        {question && <div className="ask-actions"><button className="text-button" type="button" onClick={clearComposer}>Clear</button></div>}
         {voiceError && <p className="notice error" role="alert">{voiceError}</p>}
         {voiceReadiness && !asrConfigured && <p className="notice warning" role="status">Speech recognition is unavailable.</p>}
         </form>

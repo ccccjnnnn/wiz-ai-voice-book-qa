@@ -180,6 +180,42 @@ class QwenClientTests(unittest.TestCase):
         self.assertEqual(usage.total_tokens, 7)
         self.assertGreaterEqual(latency, 0)
 
+    def test_grounded_synthesis_can_return_qualified_answer(self):
+        qualified = {
+            "status": "answered",
+            "answer": (
+                "The book does not explicitly rank one concept as most important. "
+                "In my view, compound interest is central because later examples depend on it."
+            ),
+            "source_ids": ["S1"],
+            "clarification": None,
+            "reason": None,
+        }
+
+        def handler(request):
+            body = json.loads(request.content)
+            prompt = body["messages"][0]["content"]
+            self.assertIn("bounded interpretation", prompt)
+            self.assertIn("does not explicitly rank", prompt)
+            return httpx.Response(200, json={
+                "model": "qwen3.7-plus-2026-05-26",
+                "choices": [{
+                    "finish_reason": "stop",
+                    "message": {"content": json.dumps(qualified)},
+                }],
+            })
+
+        client = self.client(handler)
+        try:
+            answer, _, _ = client.generate(
+                "What is the most important concept in this chapter?", self.pack()
+            )
+        finally:
+            client.close()
+        self.assertEqual(answer.status, "answered")
+        self.assertEqual(answer.source_ids, ["S1"])
+        self.assertIn("does not explicitly rank", answer.answer)
+
     def test_malformed_json_and_timeout_mapping(self):
         malformed = self.client(lambda _request: httpx.Response(200, json={
             "model": "qwen3.7-plus-2026-05-26",

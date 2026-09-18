@@ -53,9 +53,13 @@ _ENGLISH_REFERENCE_CUES = re.compile(
     re.IGNORECASE,
 )
 _ENGLISH_CONTINUATION_CUES = re.compile(r"\b(?:what about|how about)\b", re.IGNORECASE)
+_ENGLISH_CHAPTER_CUES = re.compile(
+    r"\b(?:this chapter|that chapter|the previous chapter)\b", re.IGNORECASE
+)
 _CHINESE_CONTEXT_CUES = re.compile(
     r"(?:这个|那个|第一个|第二个|第三个|刚才|前面那个|"
-    r"不是[，,]?\s*(?:我是说|我问的是)|我的意思是|(?:这|那)(?:项|种|部分|方面|一个|第二个|第三个|呢))"
+    r"不是[，,]?\s*(?:我是说|我问的是)|我的意思是|"
+    r"这一章|这章|本章|该章|上一章|(?:这|那)(?:项|种|部分|方面|一个|第二个|第三个|呢))"
 )
 
 
@@ -67,6 +71,7 @@ def needs_conversation_resolution(
     question = current_question.strip()
     return bool(
         _ENGLISH_REFERENCE_CUES.search(question)
+        or _ENGLISH_CHAPTER_CUES.search(question)
         or _CHINESE_CONTEXT_CUES.search(question)
         or _ENGLISH_CONTINUATION_CUES.search(question)
     )
@@ -81,6 +86,9 @@ def safe_clarification(question: str) -> str:
 RESOLVER_SYSTEM_PROMPT = """Resolve conversational references in the current question.
 You may use only the supplied recent conversation turns to interpret the question.
 Never answer the user's book question and never add facts.
+When a prior turn includes resolved_query, treat it as the clearest available
+semantic anchor. Preserve established chapter or topic references explicitly in
+any rewritten standalone question.
 
 Choose standalone when the current question is already self-contained; leave
 resolved_query and clarification null. Choose rewrite only when the referent is

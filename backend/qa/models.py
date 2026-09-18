@@ -102,11 +102,12 @@ class ConversationContextTurn(BaseModel):
     question: str = Field(min_length=1, max_length=2000)
     assistant_response: str = Field(min_length=1, max_length=2000)
     status: SemanticStatus
+    resolved_query: str | None = Field(default=None, max_length=2000)
 
-    @field_validator("question", "assistant_response")
+    @field_validator("question", "assistant_response", "resolved_query")
     @classmethod
-    def reject_blank_text(cls, value: str) -> str:
-        if not value.strip():
+    def reject_blank_text(cls, value: str | None) -> str | None:
+        if value is not None and not value.strip():
             raise ValueError("value_must_not_be_blank")
         return value
 
@@ -121,7 +122,7 @@ class QARequest(BaseModel):
     original_transcript: str | None = Field(default=None, max_length=2000)
     transcript_edited: bool = False
     conversation_history: list[ConversationContextTurn] = Field(
-        default_factory=list, max_length=2
+        default_factory=list, max_length=4
     )
 
     @field_validator("document_id", "index_version", "question")
@@ -142,6 +143,7 @@ class QAResponse(BaseModel):
     citations: list[Citation]
     trace_id: str
     error: QAError | None
+    resolved_query: str | None = None
 
 
 class CandidateTrace(BaseModel):
@@ -193,7 +195,7 @@ class TurnTrace(BaseModel):
     conversation_resolution_used: bool = False
     conversation_action: Literal["standalone", "rewrite", "clarify"] = "standalone"
     resolved_query: str | None = None
-    history_turn_count: int = Field(default=0, ge=0, le=2)
+    history_turn_count: int = Field(default=0, ge=0, le=4)
     resolver_latency_ms: float = Field(default=0, ge=0)
     resolver_status: str = "bypassed"
     resolver_error_code: str | None = None

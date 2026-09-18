@@ -11,7 +11,7 @@ const readyBook = {
 const answer = {
   status: 'answered', answer: 'Alice follows the rabbit.', clarification: null, reason: null,
   citations: [{ source_id: 'S1', chunk_id: 'c1', source_filename: 'alice.pdf', pages: [3] }],
-  trace_id: traceId,
+  trace_id: traceId, resolved_query: null,
 };
 const trace = {
   packed_evidence: [
@@ -145,13 +145,15 @@ test('three sequential turns retain their questions, answers, and own sources', 
   }
 });
 
-test('QA requests include only the two most recent completed minimal context turns', async ({ page }) => {
+test('QA requests include only the four most recent completed minimal context turns', async ({ page }) => {
   const payloads: Record<string, unknown>[] = [];
   const responses = [
-    { ...answer, answer: 'Answer one.' },
+    { ...answer, answer: 'Answer one.', resolved_query: 'Chapter 6: Credit' },
     { ...answer, status: 'ambiguous', answer: '', clarification: 'Which item do you mean?', citations: [] },
     { ...answer, answer: 'Answer three.' },
     { ...answer, answer: 'Answer four.' },
+    { ...answer, answer: 'Answer five.' },
+    { ...answer, answer: 'Answer six.' },
   ];
   await page.route('**/api/qa/traces/**', (route) => route.fulfill({ json: trace }));
   await page.route('**/api/qa', (route) => {
@@ -160,18 +162,27 @@ test('QA requests include only the two most recent completed minimal context tur
   });
   await mockProduct(page);
 
-  for (const question of ['Question one', 'Question two', 'Question three', 'Question four']) {
+  for (const question of ['Question one', 'Question two', 'Question three', 'Question four', 'Question five', 'Question six']) {
     await askTyped(page, question);
     await expect(turnFor(page, question).locator('.answer-text')).toBeVisible();
   }
 
   expect(payloads[0].conversation_history).toEqual([]);
-  expect(payloads[3].conversation_history).toEqual([
-    { question: 'Question two', assistant_response: 'Which item do you mean?', status: 'ambiguous' },
-    { question: 'Question three', assistant_response: 'Answer three.', status: 'answered' },
+  expect(payloads[4].conversation_history).toEqual([
+    { question: 'Question one', assistant_response: 'Answer one.', status: 'answered', resolved_query: 'Chapter 6: Credit' },
+    { question: 'Question two', assistant_response: 'Which item do you mean?', status: 'ambiguous', resolved_query: null },
+    { question: 'Question three', assistant_response: 'Answer three.', status: 'answered', resolved_query: null },
+    { question: 'Question four', assistant_response: 'Answer four.', status: 'answered', resolved_query: null },
   ]);
-  const serialized = JSON.stringify(payloads[3].conversation_history);
-  expect(serialized).not.toContain('Question four');
+  expect(payloads[5].conversation_history).toEqual([
+    { question: 'Question two', assistant_response: 'Which item do you mean?', status: 'ambiguous', resolved_query: null },
+    { question: 'Question three', assistant_response: 'Answer three.', status: 'answered', resolved_query: null },
+    { question: 'Question four', assistant_response: 'Answer four.', status: 'answered', resolved_query: null },
+    { question: 'Question five', assistant_response: 'Answer five.', status: 'answered', resolved_query: null },
+  ]);
+  const serialized = JSON.stringify(payloads[5].conversation_history);
+  expect(serialized).not.toContain('Question one');
+  expect(serialized).not.toContain('Question six');
   expect(serialized).not.toMatch(/citation|evidence|audio|feedback|trace/i);
 });
 

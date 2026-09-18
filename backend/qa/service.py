@@ -341,6 +341,7 @@ class QAService:
                 citations=citations,
                 trace_id=trace.trace_id,
                 error=None,
+                resolved_query=trace.resolved_query,
             )
         except (QwenRuntimeError, VoyageError, ValueError) as exception:
             code = str(exception)
