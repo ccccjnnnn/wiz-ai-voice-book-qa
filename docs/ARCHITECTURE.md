@@ -1,126 +1,97 @@
 # Architecture
 
-## Goal
+## System Boundary
 
-The system is a voice-first assistant that answers questions from one uploaded PDF book. Its core contract is evidence before generation: a fluent answer without supporting book passages is a failure.
-
-The architecture is deliberately a React client and one FastAPI application. Provider APIs remain behind the backend, while local storage and indexes keep the submission easy to reproduce.
-
-## Full system diagram
+The product is a React/Vite browser client backed by one FastAPI application. It is designed for one active uploaded book and a single local application deployment. Provider credentials, PDF parsing, retrieval, grounding checks, and traces stay on the backend. The browser handles permissions, transcript editing, visible evidence, feedback controls, and audio playback.
 
 ```mermaid
 flowchart TD
-    U[Reader] -->|uploads PDF| FE[React / Vite browser app]
-    FE -->|streamed upload| API[FastAPI backend]
+    USER[Reader]
+    FE[React / Vite]
+    API[FastAPI]
+    STORE[(Local files + SQLite)]
+    PARSE[PyMuPDF parse / normalize]
+    CHUNK[Fixed-window chunks]
+    EMB[Voyage voyage-4 embeddings]
+    INDEX[Local exact-cosine index]
+    RES[Bounded conversation resolver]
+    DENSE[Dense Top 10]
+    RERANK[Voyage rerank-2.5]
+    PACK[Top 5 / 3,000-token evidence pack]
+    QWEN[Qwen structured answer]
+    VALIDATE[Citation + source-ID validation]
+    ASR[Deepgram Nova-3]
+    TTS[Qwen qwen3-tts-flash]
 
-    subgraph Ingestion
-        API --> FILE[File on local disk]
-        FILE --> PARSE[PyMuPDF page / block / span parser]
-        PARSE --> STRUCT[Page normalization]
-        STRUCT --> CHUNK[Versioned chunks; fixed-window winner]
-        CHUNK --> META[(SQLite metadata and ingestion state)]
-        CHUNK --> EMB[Voyage embeddings]
-        EMB --> DENSE[(Local vector matrix)]
-    end
-
-    U -->|speaks| MIC[Browser MediaRecorder]
-    MIC -->|actual recorded MIME| ASRAPI[Voice API]
-    ASRAPI --> ASR[Deepgram Nova-3]
-    ASR --> TRANSCRIPT[Visible, editable transcript]
-    TRANSCRIPT --> QUERY[Question API]
-
-    subgraph Retrieval_and_answer
-        QUERY --> DR[Dense candidates]
-        DR --> PACK[Bounded evidence packing]
-        META --> PACK
-        PACK --> LLM[Qwen grounded generation]
-        LLM --> VALIDATE[Strict schema and source-ID validation]
-    end
-
-    VALIDATE --> RESULT[Answer, status, citations, trace]
-    RESULT --> FE
-    RESULT --> TTSAPI[TTS API]
-    TTSAPI --> TTS[Deepgram Aura-2]
-    TTS -->|audio/mpeg| PLAY[Browser playback]
-    PLAY --> U
+    USER --> FE
+    FE -->|upload| API --> PARSE --> CHUNK --> EMB --> INDEX
+    PARSE --> STORE
+    CHUNK --> STORE
+    INDEX --> STORE
+    FE -->|text question| API
+    FE -->|recorded audio| API --> ASR --> FE
+    API --> RES --> DENSE --> RERANK --> PACK --> QWEN --> VALIDATE --> FE
+    INDEX --> DENSE
+    VALIDATE --> TTS --> FE
 ```
 
-Optional retrieval stages are experiment-gated. The final pipeline may be simpler than the candidate pipeline.
+## Ingestion
 
-## Ingestion flow
+The upload is streamed to disk and represented by durable processing state. PyMuPDF extracts page text and provenance, common whitespace and line-break artifacts are normalized, and the parser creates stable fixed-window chunks. Chunks are embedded in bounded batches with resumable checkpoints. A local matrix supports exact cosine similarity for one active document.
 
-```text
-upload
-  -> stream to disk
-  -> processing state
-  -> parse one page at a time
-  -> normalize common whitespace and line-break artifacts
-  -> create fixed-window chunks with stable IDs and page provenance
-  -> embed in bounded batches
-  -> build local indexes
-  -> atomically publish one ready index version
-```
+The index is published only after the required artifacts are complete. A failed or cancelled job does not expose a partial ready index. Empty or image-only PDFs return an explicit OCR-not-supported result rather than pretending that no evidence exists. The application does not impose a separate PDF byte-size limit; actual limits are local disk, parser cost, provider limits, and available processing time.
 
-An ingestion version is queryable only after all required artifacts are ready. Failure moves the document to `failed`; it never exposes a partial index. Image-only or effectively empty PDFs receive an explicit “OCR not currently supported” result.
+## Question and Retrieval Flow
 
-## Question flow
+1. The browser submits text or an edited ASR transcript.
+2. The bounded resolver runs only when history and deterministic follow-up cues justify it. It can return a standalone query or a clarification before retrieval.
+3. The backend retrieves dense `voyage-4` candidates using exact cosine similarity.
+4. The production candidate pool is explicit: `DENSE_CANDIDATE_K = 10`.
+5. Voyage `rerank-2.5` scores those candidates. A provider failure falls back to the dense order and is recorded in `TurnTrace`.
+6. The reranked top five are passed into the existing evidence pack under an estimated 3,000-token budget.
+7. Qwen receives only the user query, bounded evidence, and answer contract.
+8. Local validation checks status, required fields, and that every citation source ID exists in the supplied evidence.
+9. The response contains the answer state, citations, evidence, timing, and trace metadata.
 
-1. The browser requests microphone permission and records through `MediaRecorder`.
-2. The browser sends the recording with the MIME type reported by the recorder.
-3. Deepgram Nova-3 returns a transcript and ASR latency.
-4. The user can correct names, numbers, or other ASR errors before asking.
-5. Retrieval produces candidates independently of the LLM.
-6. Evidence is packed under a fixed token budget with stable source IDs.
-7. Qwen receives only the question, bounded evidence, and output contract.
-8. Strict schema parsing and a deterministic validator reject nonexistent source IDs.
-9. The UI displays the answer, page/chapter citations, supporting passages, and stage latencies.
-10. Aura-2 synthesizes the answer. A TTS failure leaves the text and citations usable.
+The reranker changes ranking only. It does not change chunking, embeddings, dense similarity, citation semantics, or the answer-generation prompt's grounding requirements.
 
-## Answer contract
+## Conversation Boundary
 
-The semantic statuses are:
+The conversation layer is bounded orchestration, not an autonomous agent. Up to four recent completed turns may be used for follow-up resolution, and previous resolved queries are included when available. This lets phrases such as “this chapter” inherit an explicit topic anchor while keeping the actual retrieval query standalone.
 
-- `answered`: supplied evidence supports the answer and at least one valid source is cited.
-- `insufficient_evidence`: the book evidence does not support a safe answer.
-- `clarification_needed`: the question has materially different interpretations.
-- `system_error`: the application or an external dependency failed; this is produced by deterministic application error handling rather than treated as a model answer.
+Conversation context excludes citations, evidence, audio, and feedback. Previous assistant answers are not book truth. If the chapter or topic cannot be established, the resolver returns clarification and retrieval is skipped; the UI does not show closest passages for a pre-retrieval clarification.
 
-PDF text is untrusted data. Instructions contained inside the document cannot override the answer-generation contract.
+## Grounding Contract
 
-## Provider choices
+The semantic states are:
 
-| Responsibility | Choice | Reason | Main tradeoff |
-|---|---|---|---|
-| ASR | Deepgram Nova-3 | Real browser audio formats and English speech path validated | External latency, quota, and availability |
-| TTS | Deepgram Aura-2, `aura-2-thalia-en` | Same voice provider as ASR; real MP3 playback validated | Non-streaming REST response adds perceived latency |
-| LLM | Qwen `qwen3.7-plus-2026-05-26` through Bailian Singapore | Existing access; strict JSON Schema and required answer states passed live tests | Regional account/model availability must remain valid |
-| Embeddings | Voyage `voyage-4` | Real document/query embeddings and retrieval metrics validated | External quota requires paced indexing and checkpoints |
-| Reranker | Disabled | Only one pure DEV ranking failure remained after experiments | Avoids provider latency, quota use, and another failure path |
-| PDF parser | PyMuPDF | Page, block, span, font, and position information | Heading and reading-order heuristics still require inspection |
-| Dense index | Local vector matrix with exact cosine | Simple, deterministic, adequate for one book | Does not target a multi-book production corpus |
-| Lexical index | Rejected after DEV experiment | BM25/RRF fixed q010 but created three regressions and did not fix q021 | Dense-only winner keeps the stronger quality/complexity trade-off |
-| Metadata | Local SQLite | Atomic ingestion state and simple provenance queries | Single-process scope is intentional |
+- `answered`: evidence supports the response and valid source IDs are cited.
+- `insufficient_evidence`: the supplied evidence is inadequate. It may show closest checked passages, but those are not supporting citations.
+- `clarification_needed`: the question requires a missing or unresolved reference.
+- system error: an application or provider failure prevented a valid grounded result.
 
-## Retrieval decision
+Qwen responses are parsed and schema-validated. If the provider returns a serialization-only defect, one bounded repair attempt may reuse the same evidence; it is recorded in the trace. Citation validation is never removed, and unsupported claims are not turned into answers by repair.
 
-The baseline was fixed-size chunking with dense retrieval. Experiments then added one change at a time:
+## Voice Boundary
 
-1. structure-aware chunking;
-2. local BM25 plus reciprocal-rank fusion;
-3. the reranker evidence gate; the provider experiment was skipped because only one pure ranking failure remained.
+ASR and TTS are independent capabilities. Deepgram Nova-3 handles browser recordings, with Auto, English, and Chinese language modes and optional active-book keyterms. Qwen `qwen3-tts-flash` with the Cherry voice handles synchronous browser-playable speech. The answer is rendered before TTS completes, and TTS failure leaves the answer and evidence intact.
 
-On the frozen 20-question DEV set, fixed-window dense had the strongest Recall@5 and MRR@5. Structure-aware chunking and BM25/RRF each fixed q010 but caused broader regressions. The final retriever is therefore fixed-window `voyage-4` exact cosine; BM25/RRF and reranking are disabled. The matching one-time 10-question TEST run achieved 100% Recall@5 and full evidence coverage@5. Full evidence and rejected alternatives are recorded in [the retrieval experiment log](RETRIEVAL_EXPERIMENTS.md).
+Playback semantics are intentionally small: Play resumes paused audio and starts ended audio from the beginning; Stop pauses without resetting `currentTime`; Replay resets `currentTime` to zero and plays the already-loaded audio without another synthesis request.
 
-## Reliability boundaries
+## Feedback and Internal Review
 
-- ASR failure stops the turn before retrieval.
-- Empty/no-speech transcription is not converted into a generated question.
-- Evidence below the calibrated threshold produces `insufficient_evidence`.
-- Invalid LLM JSON or citations are rejected by the backend.
-- TTS failure does not remove the answer or evidence.
-- Starting a new question cancels stale requests and stops old audio.
-- Each stage records latency so a bad case can be attributed to ASR, parsing, retrieval, ranking, packing, generation, or TTS.
+Consumer feedback is linked to a turn trace through `POST /api/feedback`. The internal developer page at `/developer/feedback` displays the question, answer state, citations, evidence, trace/debug metadata, review status, and reviewer note. It is a separate product surface with no authentication, RBAC, or user-account system.
 
-## Deliberate non-goals
+## Failure Boundaries
 
-No agents, GraphRAG, distributed workers, managed vector database, multi-user authentication, permanent memory, multi-book search, default OCR, Kubernetes, or full-duplex voice are planned for the take-home. They increase delivery risk without a measured need in the assignment.
+- ASR failure stops voice transcription; it does not disable typed QA or TTS.
+- Empty or unusable audio is not submitted as a question.
+- Retrieval and reranking failures are traced; reranking can fall back to dense results.
+- Inadequate evidence is a semantic `insufficient_evidence` result, not a provider error.
+- Invalid JSON or invalid source IDs are rejected.
+- TTS failure is isolated from answer and citation rendering.
+- A new question cancels stale work and stops old playback.
+
+## Design Decisions and Non-Goals
+
+The system does not use agents, GraphRAG, a managed vector database, OCR, multi-book search, permanent memory, Kubernetes, or full-duplex streaming voice. These would add operational or reasoning complexity without a demonstrated requirement in the measured take-home scope. Local files, SQLite, and exact cosine are deliberate choices for reproducibility, not multi-tenant scale claims.

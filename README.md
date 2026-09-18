@@ -1,68 +1,119 @@
 # WIZ.AI Voice Book QA
 
-A production-minded voice RAG assistant for PDF books. The finished application will let a reader upload a book, ask a question through the browser microphone, inspect and edit the transcript, receive an answer grounded in retrieved passages, review citations, and listen to the answer.
+WIZ.AI Voice Book QA is a voice-first, evidence-grounded assistant for one uploaded PDF book. A reader can ask by text or microphone, edit the transcript, inspect cited passages, and listen to the answer in the browser. The system is intentionally small: a React/Vite client, one FastAPI backend, local document/index storage, and explicit provider boundaries.
 
-The project favors a small, explainable system with explicit failures and measurable retrieval quality. It does not use agents, GraphRAG, microservices, or external vector-database infrastructure.
+## Demo Flow
 
-## Current status
+```text
+PDF upload -> parse and index -> text or voice question
+  -> bounded conversation resolution when needed
+  -> dense Top 10 -> Voyage rerank-2.5 -> Top 5 evidence
+  -> grounded Qwen answer -> citation validation
+  -> Qwen TTS -> browser playback
+```
 
-Completed milestones:
+The product has one active uploaded book at a time. Conversation context helps resolve short follow-ups, but the PDF remains the source of truth.
 
-- **Qwen structured output: PASS.** The live provider probe validates grounded answers, insufficient evidence, ambiguity, multi-source answers, strict JSON Schema output, source-ID validation, timeouts, API errors, model identity, latency, and token usage.
-- **Voice path: PASS.** Browser recording, editable transcription, Deepgram Nova-3 ASR, synchronous Qwen3-TTS-Flash playback, MIME detection, latency reporting, empty input, permission failure, and provider failure paths have been exercised.
-- **PDF ingestion vertical slice: PASS.** Streamed local upload, durable status, ordered PyMuPDF extraction, scanned/empty detection, retrieval-oriented normalization, validated baseline chunks, and page-level provenance are implemented and tested.
-- **Retrieval experiments: PASS.** A frozen 20 DEV / 10 TEST protocol compared fixed-window dense, structure-aware dense, and evidence-triggered BM25/RRF. The simpler fixed-window `voyage-4` exact-cosine retriever remains the dense base, with production `rerank-2.5` reranking the dense top 10 before bounded top-5 evidence packing.
-- **Grounded text QA: PASS.** Top-10 fixed dense retrieval now feeds deterministic ≤3,000-token evidence packing, strict Qwen generation, backend-owned citation pages, per-turn traces, and explicit answered/insufficient/ambiguous/error states. Final DEV was 20/20, the six-case reliability set was 6/6, and the frozen TEST run was 10/10 for status and citation-contract validity; one TEST answer was partially complete on human-review criteria.
-- **Evaluation V2: provisionally frozen at 98 cases.** The context-bearing benchmark covers a new Alice TEST and a zero-tuning *Secret Garden* holdout; provider execution remains zero for TEST/holdout. Start with [`eval/README.md`](eval/README.md).
-- **Feedback foundation: implemented offline.** `POST /api/feedback` stores lightweight TurnTrace-linked feedback locally; deterministic CLI triage can export regression candidates without modifying a frozen suite.
+## Key Features
 
-The frozen retrieval path is fixed-window dense exact cosine. Structure-aware chunking and BM25/RRF were measured and rejected after DEV regressions; reranking was not justified. See [retrieval experiment log](docs/RETRIEVAL_EXPERIMENTS.md).
+- Streamed PDF ingestion with PyMuPDF page provenance and resumable Voyage embedding batches.
+- Text input plus browser microphone recording through Deepgram Nova-3 ASR.
+- Fixed-window `voyage-4` dense retrieval with local exact cosine similarity.
+- Voyage `rerank-2.5` over the dense top 10, followed by a bounded top-5 evidence pack.
+- Qwen structured answer generation with local source-ID and citation validation.
+- Explicit `answered`, `insufficient_evidence`, `clarification_needed`, and system-error behavior.
+- Bounded conversational follow-ups with deterministic chapter/reference cues.
+- Qwen `qwen3-tts-flash` synchronous speech synthesis with English and Chinese support.
+- Per-turn evidence, trace, latency, and feedback workflow, including a separate `/developer/feedback` page.
+- Responsive consumer UI with editable transcripts, source expansion, feedback, and Play/Stop/Replay controls.
 
 ## Architecture
 
-```text
-PDF upload
-  -> streamed file storage
-  -> PyMuPDF page/block/span parsing
-  -> normalized fixed-window chunks with page provenance
-  -> Voyage embeddings
-  -> local exact-cosine dense index
-  -> measured retrieval output for evidence packing
+```mermaid
+flowchart LR
+    B[React / Vite browser]
+    API[FastAPI backend]
+    PDF[PyMuPDF parse + normalize]
+    IDX[Fixed-window chunks + local index]
+    ASR[Deepgram Nova-3]
+    RES[Bounded conversation resolver]
+    DENSE[Voyage voyage-4 dense Top 10]
+    RR[Voyage rerank-2.5]
+    EVID[Top 5 bounded evidence]
+    QA[Qwen grounded structured answer]
+    VAL[Source-ID + citation validation]
+    TTS[Qwen qwen3-tts-flash]
 
-Browser microphone
-  -> MediaRecorder (runtime MIME detection)
-  -> FastAPI
-  -> Deepgram Nova-3 ASR
-  -> editable transcript
-  -> retrieval and bounded evidence packing
-  -> Qwen strict structured answer with validated source IDs
-  -> Qwen3-TTS-Flash synchronous TTS
-  -> browser playback
+    B -->|upload| API --> PDF --> IDX
+    B -->|record| API --> ASR --> B
+    B -->|question| API --> RES --> DENSE --> RR --> EVID --> QA --> VAL --> B
+    IDX --> DENSE
+    VAL --> TTS --> B
 ```
 
-The backend owns provider credentials, validation, retrieval, citations, failure classification, and latency measurements. The browser owns microphone permission, recording state, transcript editing, visible evidence, playback, and user-facing recovery.
+The backend owns credentials, provider calls, parsing, retrieval, evidence packing, schema validation, and traces. The browser owns permissions, transcript editing, visible sources, and audio controls. A separate internal page preserves feedback and trace review without adding authentication or an admin account system.
 
-See [Architecture](docs/ARCHITECTURE.md), [grounded QA](docs/GROUNDED_QA.md), [engineering retrospective and interview guide](docs/ENGINEERING_RETROSPECTIVE.md), [AI-assisted workflow](docs/AI_WORKFLOW.md), and [project context](docs/PROJECT_CONTEXT.md) for details.
-The ingestion contract and limitations are documented in [PDF ingestion](docs/INGESTION.md).
+See [the deeper architecture](docs/ARCHITECTURE.md) for component boundaries and failure handling.
 
-## Prerequisites
+## Retrieval Strategy
+
+The retrieval choice was data-led. Fixed-window dense retrieval, structure-aware alternatives, and local BM25/RRF were compared on the development protocol. Structure-aware chunking and BM25/RRF fixed individual cases but caused broader regressions, so the simpler dense base remained the winner. A controlled reranker experiment then showed a useful ranking improvement without losing evidence coverage.
+
+The frozen production path is:
+
+```text
+voyage-4 dense candidates (K=10)
+  -> Voyage rerank-2.5
+  -> evidence cut (N=5)
+  -> existing bounded evidence pack
+```
+
+On the 11 answerable Personal Finance draft cases, dense Top 10 had Recall `1.0000`, MRR `0.7689`, and full evidence coverage `1.0000`. Reranking the same candidates and keeping five evidence chunks retained Recall `1.0000`, raised MRR to `0.8939`, and retained full evidence coverage `1.0000`. Candidate pools of 20 and 30 provided no additional Personal Finance coverage. On the Alice DEV regression set, reranked MRR improved from `0.8562` to `0.9417` with full evidence coverage preserved at N=5.
+
+These are retrieval metrics on the named datasets, not general answer accuracy. The reranker measurement covered 96 real requests with p50 latency of about 292 ms and p95 of about 491 ms; provider errors and retries were zero in that run.
+
+## Conversation Design
+
+This is a conversation-aware grounded RAG system with bounded orchestration, not an autonomous agent. Up to four recent completed turns may help resolve references such as “this chapter”; previous `resolved_query` values are included when available. The resolver produces a standalone query or asks for clarification, after which the normal retrieval and answer path runs.
+
+Previous assistant answers are context for resolving intent only. They are never treated as book truth. Unresolved references skip retrieval and show only the clarification request. There is no LangGraph, ReAct loop, or long-term conversation database: the action space is small, predictable, and easier to test with explicit stages.
+
+## Grounding and Failure Semantics
+
+- `answered` requires evidence-supported content and valid cited source IDs.
+- `insufficient_evidence` means the supplied book evidence is not enough for a safe answer; it does not invent citations. Closest passages, when shown, are explicitly not supporting evidence.
+- `clarification_needed` is used before retrieval when a reference cannot be resolved safely.
+- Provider and application failures remain system errors and are not converted into semantic answers.
+- Qwen output is parsed and validated locally. One bounded schema-repair attempt is available for serialization/schema-format failures, using the same evidence and recorded in the turn trace.
+- A reranker provider failure falls back to dense retrieval and is recorded; it does not fail the whole QA turn.
+- TTS failure leaves the answer, evidence, and citations visible.
+
+## Voice Pipeline
+
+Voice input uses browser `MediaRecorder` output and Deepgram Nova-3. The recording language can be Auto, English, or Chinese; the selected mode is passed to ASR, and active-book vocabulary can be supplied as keyterms when available. ASR and TTS readiness are independent.
+
+Voice output uses Qwen `qwen3-tts-flash`, voice `Cherry`, and synchronous Singapore Model Studio synthesis. The browser Play control resumes paused audio, Stop pauses without resetting the position, and Replay resets `currentTime` to zero and reuses the already-loaded audio. No provider credentials are exposed to the browser.
+
+## Setup
+
+Prerequisites:
 
 - Python 3.12
-- [`uv`](https://docs.astral.sh/uv/) or `pip`
+- `uv` or `pip`
 - Node.js 20 or newer
 - A modern browser with `MediaRecorder`
-- Alibaba Cloud Model Studio/Bailian access in the Singapore region
-- A Deepgram account with Nova-3 access
+- Provider access for Deepgram, Voyage, and Alibaba Cloud Model Studio/Bailian in the configured Singapore region
 
-## Configuration
-
-Copy the backend template and fill the values locally:
+From a fresh clone:
 
 ```sh
+uv venv backend/.venv
+uv pip install --python backend/.venv/bin/python -r backend/requirements.txt
+npm ci --prefix frontend
 cp backend/.env.example backend/.env
 ```
 
-Required variables:
+Fill the local environment file with values for the variable names in the template:
 
 ```dotenv
 DASHSCOPE_API_KEY=
@@ -72,119 +123,47 @@ DEEPGRAM_API_KEY=
 VOYAGE_API_KEY=
 ```
 
-The validated answer model is `qwen3.7-plus-2026-05-26`; voice playback uses `qwen3-tts-flash` with the Singapore native synchronous TTS endpoint. Use the Bailian Singapore OpenAI-compatible base URL assigned to the account for answer generation. Secrets remain in `backend/.env`, which is gitignored. Provider keys are never sent to the browser.
+The answer model is `qwen3.7-plus-2026-05-26`; TTS uses `qwen3-tts-flash`. Keep secrets only in the gitignored `backend/.env`.
 
-## Setup
-
-From the repository root:
-
-```sh
-uv venv backend/.venv
-uv pip install --python backend/.venv/bin/python -r backend/requirements.txt
-npm ci --prefix frontend
-```
-
-Equivalent installation with `pip` is also possible:
-
-```sh
-python -m venv backend/.venv
-backend/.venv/bin/pip install -r backend/requirements.txt
-```
-
-## Run the application
-
-Start the backend:
+Start the backend and frontend in separate terminals:
 
 ```sh
 backend/.venv/bin/uvicorn main:app --app-dir backend --host 127.0.0.1 --port 8000
-```
-
-In a second terminal, start Vite:
-
-```sh
 npm run dev --prefix frontend
 ```
 
-Open <http://127.0.0.1:5173>. Upload a PDF (or enter an existing ready document ID), record or type a question, edit the transcript, then ask the book. The page must be served by Vite; opening `frontend/index.html` through a `file://` URL will not run the React application.
+Open <http://127.0.0.1:5173>. Upload a text-based PDF, wait for `Ready`, then ask a question. Uploaded documents, SQLite metadata, checkpoints, and provider caches live under gitignored `backend/data/`. There is no application-level PDF file-size limit; practical limits depend on local disk, parsing, provider limits, and available time. Scanned/image-only PDFs are detected and reported because OCR is outside this submission.
 
-## Run the ingestion API only
+## Testing and Evaluation
 
-```sh
-backend/.venv/bin/uvicorn main:app --app-dir backend --host 127.0.0.1 --port 8000
-```
-
-Upload and inspect a document through the generated API documentation at <http://127.0.0.1:8000/docs>. Uploaded sources and SQLite metadata are written under the gitignored `backend/data/` directory.
-
-## Provider smoke tests
-
-Qwen deterministic contract checks, with no network call:
-
-```sh
-backend/.venv/bin/python backend/qwen_smoke.py --offline
-```
-
-Qwen live provider probe:
-
-```sh
-backend/.venv/bin/python backend/qwen_smoke.py
-```
-
-The live command makes four small model requests and consumes provider quota. Run it only when provider availability or the contract needs to be revalidated.
-
-Deepgram mocked backend tests:
-
-```sh
-cd backend
-.venv/bin/python -m unittest test_voice_smoke.py
-```
-
-The optional Deepgram live roundtrip probe requires the voice backend to be running and consumes quota:
-
-```sh
-backend/.venv/bin/python backend/voice_probe.py
-```
-
-## Frontend checks
+Deterministic checks:
 
 ```sh
 npm run check --prefix frontend
 npm run build --prefix frontend
+backend/.venv/bin/python -m unittest discover -s backend -p 'test_*.py'
 ```
 
-The current Playwright suite expects Vite to be running at `http://127.0.0.1:5173`:
+The clean-clone verification for this submission passed 108 backend tests, the frontend check, and the frontend production build. Routine provider tests are mocked. Narrow live smoke tests were used only to validate provider contracts, browser media formats, and latency; they consume quota and are not part of the ordinary test command.
 
-```sh
-npm test --prefix frontend
-```
+Evaluation artifacts are kept under [`eval/`](eval/README.md). They include retrieval experiments, Personal Finance reranker measurements, conversation acceptance data, and historical answer-quality checks. The 98-case evaluation corpus is frozen; final Alice TEST and Secret Garden holdout runs are not silently regenerated by setup or unit tests.
 
-Its provider calls are mocked. Physical microphone permission and audible playback require a manual browser check.
+Acceptance testing matters here. An Alice acceptance pass exposed a false-positive conversation cue, which led to a targeted resolver/context fix. The resulting Personal Finance conversation artifact reports 15 cases: rewrite success `7/7`, standalone bypass `4/4`, clarification `3/4`, and action classification `14/15`. Those figures describe that artifact, not a universal quality guarantee. See [Evaluation](docs/EVALUATION.md) for dataset boundaries and caveats.
 
-## Run the dense retrieval baseline
+## AI-Assisted Engineering Workflow
 
-Ingest the checksum-locked Alice test PDF, add `VOYAGE_API_KEY` to `backend/.env`, then run from `backend/` with the returned document ID:
+The human owner set scope, selected providers, curated evidence labels, reviewed diffs, interpreted metrics, supplied local credentials, and accepted tradeoffs. ChatGPT was used for architecture reasoning, experiment design, and review. Codex was used for focused implementation, tests, browser checks, repository cleanup, and documentation.
 
-```sh
-.venv/bin/python -m retrieval.evaluate \
-  --document-id <document-id> \
-  --dataset ../eval/alice_in_wonderland_v1.json \
-  --output ../eval/results/voyage4_dense_alice_v1.json
-```
+The operating rule was simple: AI suggestions became product behavior only after code inspection, a focused test, a measured experiment, or a human acceptance check. Concrete examples include rejecting structure-aware/BM25 complexity after broader retrieval regressions, keeping the system as bounded orchestration instead of adding an agent framework, fixing a conversation-gate cue after acceptance exposed it, and preserving insufficient evidence as a separate state from provider failure.
 
-The evaluator validates every labeled page and evidence phrase before calling Voyage. See [dense retrieval baseline](docs/RETRIEVAL_BASELINE.md) for metric definitions, cache behavior, and experiment boundaries.
+See [AI workflow](docs/AI_WORKFLOW.md) for the review loop and testing boundaries.
 
-## Design decisions
+## Limitations and Deliberate Non-Goals
 
-- **React, Vite, and TypeScript:** fast local iteration without SSR or SEO complexity.
-- **FastAPI:** typed Python API boundaries and direct access to PDF, retrieval, and evaluation tooling.
-- **PyMuPDF:** inspect text blocks, spans, pages, and structural cues. Image-only PDFs will be detected and reported; OCR is outside the initial scope.
-- **Local exact-cosine storage:** sufficient and reproducible for one book. A vector service would add operational cost without solving a measured problem.
-- **Evaluation-gated retrieval:** fixed-window dense beat structure-aware dense and BM25/RRF on the frozen DEV set, so the simpler exact-cosine path is final. The held-out TEST set was run only after that decision was recorded.
-- **Qwen through Bailian Singapore:** the existing account path is available, the chosen model passed strict structured-output validation, and its OpenAI-compatible API keeps integration small.
-- **Deepgram Nova-3 plus Qwen3-TTS-Flash:** ASR and TTS are independently configured; both real provider paths passed validation.
-- **Deterministic citation validation:** the backend rejects source IDs outside the evidence supplied to the model.
-- **Explicit answer states:** `answered`, `insufficient_evidence`, `clarification_needed`, and transport-level `system_error` prevent upstream failures from becoming hallucinated answers.
-- **No arbitrary small PDF limit:** upload and ingestion will be streamed and batched; tested practical limits will be reported rather than claiming infinite capacity.
-
-## Scope boundaries
-
-The initial submission will not include agents, GraphRAG, full-duplex streaming voice, multi-user authentication, permanent conversation memory, multiple simultaneous books, Kubernetes, or local large-model hosting. These do not address a demonstrated failure mode in this assignment.
+- Text-based PDFs are supported; scanned PDFs do not receive OCR.
+- The product indexes one active book rather than a multi-document knowledge base.
+- Conversation context is bounded short-term context, not long-term memory.
+- There is no autonomous agent, ReAct loop, or multi-user production layer.
+- There is no authentication, RBAC, multi-user account layer, or hosted production deployment.
+- Provider availability, quota, regional model access, and latency remain external dependencies.
+- Local storage and exact-cosine indexing are appropriate for this take-home scope, not a claim of multi-tenant scale.
