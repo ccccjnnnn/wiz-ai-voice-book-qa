@@ -1,3 +1,7 @@
+# ARCHIVAL / UNEXECUTED EXPERIMENT PLAN
+
+> This document is a historical candidate plan. It was not executed and is not part of the final reported evaluation metrics. See [Evaluation](EVALUATION.md) and the [frozen evaluation artifacts](../eval/README.md).
+
 # Evaluation V2 plan
 
 ## Status and purpose

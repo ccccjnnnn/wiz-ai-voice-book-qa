@@ -1,16 +1,16 @@
 # AI-Assisted Engineering Workflow
 
-This project used AI as an implementation and reasoning aid under human ownership. The product owner set the assignment scope, chose the acceptance bar, supplied provider access locally, curated evaluation evidence, reviewed diffs, and accepted or rejected tradeoffs. AI output was never treated as product truth by itself.
+This project used AI as an implementation and reasoning aid under my ownership as the candidate. I set the assignment scope, chose the acceptance bar, supplied provider access locally, curated evaluation evidence, reviewed diffs, and accepted or rejected tradeoffs. AI output was never treated as product truth by itself.
 
 ## Responsibilities
 
-**Human / candidate**
+**Candidate (my responsibilities)**
 
-- froze scope and decided which behavior was product-worthy;
-- selected providers based on account access, region, latency, and measured behavior;
-- reviewed architecture, source changes, tests, and evaluation labels;
-- performed or authorized real browser and provider acceptance checks;
-- kept secrets out of prompts, source control, logs, and browser payloads.
+- I froze scope and decided which behavior was product-worthy;
+- I selected providers based on account access, region, latency, and measured behavior;
+- I reviewed architecture, source changes, tests, and evaluation labels;
+- I performed or authorized real browser and provider acceptance checks;
+- I kept secrets out of prompts, source control, logs, and browser payloads.
 
 **ChatGPT**
 

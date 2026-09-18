@@ -59,6 +59,8 @@ See [the deeper architecture](docs/ARCHITECTURE.md) for component boundaries and
 
 The retrieval choice was data-led. Fixed-window dense retrieval, structure-aware alternatives, and local BM25/RRF were compared on the development protocol. Structure-aware chunking and BM25/RRF fixed individual cases but caused broader regressions, so the simpler dense base remained the winner. A controlled reranker experiment then showed a useful ranking improvement without losing evidence coverage.
 
+Naive fixed-size chunking was not assumed sufficient: structure-aware and lexical/fusion alternatives were evaluated, and the fixed-window dense base was retained only because the labeled evaluation favored it.
+
 The frozen production path is:
 
 ```text
@@ -152,7 +154,7 @@ Acceptance testing matters here. An Alice acceptance pass exposed a false-positi
 
 ## AI-Assisted Engineering Workflow
 
-The human owner set scope, selected providers, curated evidence labels, reviewed diffs, interpreted metrics, supplied local credentials, and accepted tradeoffs. ChatGPT was used for architecture reasoning, experiment design, and review. Codex was used for focused implementation, tests, browser checks, repository cleanup, and documentation.
+I, the candidate, set scope, selected providers, curated evidence labels, reviewed diffs, interpreted metrics, supplied local credentials, and accepted tradeoffs. ChatGPT was used for architecture reasoning, experiment design, and review. Codex was used for focused implementation, tests, browser checks, repository cleanup, and documentation.
 
 The operating rule was simple: AI suggestions became product behavior only after code inspection, a focused test, a measured experiment, or a human acceptance check. Concrete examples include rejecting structure-aware/BM25 complexity after broader retrieval regressions, keeping the system as bounded orchestration instead of adding an agent framework, fixing a conversation-gate cue after acceptance exposed it, and preserving insufficient evidence as a separate state from provider failure.
 
