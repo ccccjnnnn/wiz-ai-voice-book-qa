@@ -149,12 +149,9 @@ The operating rule was simple: AI suggestions became product behavior only after
 
 See [AI workflow](docs/AI_WORKFLOW.md) for the review loop and testing boundaries.
 
-## Limitations and Deliberate Non-Goals
+## Scope and Limitations
 
-- Text-based PDFs are supported; scanned PDFs do not receive OCR.
-- The product indexes one active book rather than a multi-document knowledge base.
-- Conversation context is bounded short-term context, not long-term memory.
-- There is no autonomous agent, ReAct loop, or multi-user production layer.
-- There is no authentication, RBAC, multi-user account layer, or hosted production deployment.
-- Provider availability, quota, regional model access, and latency remain external dependencies.
-- Local storage and exact-cosine indexing are appropriate for this take-home scope, not a claim of multi-tenant scale.
+- The app supports text-based PDFs; OCR for scanned/image-only PDFs is outside this take-home scope.
+- The system is designed around one active book at a time rather than a multi-document knowledge base.
+- Conversation context is intentionally bounded and used only to resolve follow-up intent; the uploaded PDF remains the source of truth.
+- Local storage and exact-cosine retrieval were chosen for reproducibility and the measured take-home workload, rather than multi-tenant production scale.
