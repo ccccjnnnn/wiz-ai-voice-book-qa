@@ -2,6 +2,12 @@
 
 WIZ.AI Voice Book QA is a voice-first, evidence-grounded assistant for one uploaded PDF book. A reader can ask by text or microphone, edit the transcript, inspect cited passages, and listen to the answer in the browser. The system is intentionally small: a React/Vite client, one FastAPI backend, local document/index storage, and explicit provider boundaries.
 
+<p align="center">
+  <img src="docs/assets/app-overview.png"
+       alt="WIZ.AI Voice Book QA interface"
+       width="900">
+</p>
+
 ## Demo Flow
 
 ```text
@@ -29,27 +35,10 @@ The product has one active uploaded book at a time. Conversation context helps r
 
 ## Architecture
 
-```mermaid
-flowchart LR
-    B[React / Vite browser]
-    API[FastAPI backend]
-    PDF[PyMuPDF parse + normalize]
-    IDX[Fixed-window chunks + local index]
-    ASR[Deepgram Nova-3]
-    RES[Bounded conversation resolver]
-    DENSE[Voyage voyage-4 dense Top 10]
-    RR[Voyage rerank-2.5]
-    EVID[Top 5 bounded evidence]
-    QA[Qwen grounded structured answer]
-    VAL[Source-ID + citation validation]
-    TTS[Qwen qwen3-tts-flash]
-
-    B -->|upload| API --> PDF --> IDX
-    B -->|record| API --> ASR --> B
-    B -->|question| API --> RES --> DENSE --> RR --> EVID --> QA --> VAL --> B
-    IDX --> DENSE
-    VAL --> TTS --> B
-```
+<p align="center">
+  <img src="docs/assets/architecture-overview.svg"
+       alt="WIZ.AI Voice Book QA architecture">
+</p>
 
 The backend owns credentials, provider calls, parsing, retrieval, evidence packing, schema validation, and traces. The browser owns permissions, transcript editing, visible sources, and audio controls. A separate internal page preserves feedback and trace review without adding authentication or an admin account system.
 
