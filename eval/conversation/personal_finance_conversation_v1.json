@@ -1,0 +1,233 @@
+{
+  "dataset_id": "personal-finance-conversation-v1",
+  "status": "closeout-evaluation",
+  "document_id": "74028ca792a24e18b60e89cee1f877aa",
+  "index_version": "fixed-window-dense-v1",
+  "purpose": "Targeted closeout evaluation for bounded conversation resolution. Conversation history interprets intent and is never treated as evidence.",
+  "cases": [
+    {
+      "id": "conv-01-standalone-en-with-history",
+      "category": "english_standalone_with_history",
+      "question": "What does liquidity mean in the book?",
+      "history": [
+        {
+          "question": "How does term life insurance differ from whole life insurance?",
+          "assistant_response": "Term life covers temporary risks, while whole life is permanent and builds cash value.",
+          "status": "answered"
+        }
+      ],
+      "expected_action": "standalone",
+      "expected_status": "answered",
+      "gold_chunk_ids": ["74028ca792a24e18b60e89cee1f877aa:chunk:00153"]
+    },
+    {
+      "id": "conv-02-standalone-zh-with-history",
+      "category": "chinese_standalone_with_history",
+      "question": "这本书如何定义投资风险？",
+      "history": [
+        {
+          "question": "书中如何解释流动性？",
+          "assistant_response": "流动性是资金能够多容易地被获取和使用。",
+          "status": "answered"
+        }
+      ],
+      "expected_action": "standalone",
+      "expected_status": "answered",
+      "gold_chunk_ids": ["74028ca792a24e18b60e89cee1f877aa:chunk:00563"]
+    },
+    {
+      "id": "conv-03-ordinal-en",
+      "category": "english_ordinal_follow_up",
+      "question": "What about the second one?",
+      "history": [
+        {
+          "question": "How does term life insurance differ from whole life insurance?",
+          "assistant_response": "First, term life covers temporary risks. Second, whole life is permanent and builds cash value.",
+          "status": "answered"
+        }
+      ],
+      "expected_action": "rewrite",
+      "expected_status": "answered",
+      "gold_chunk_ids": ["74028ca792a24e18b60e89cee1f877aa:chunk:00465"]
+    },
+    {
+      "id": "conv-04-ordinal-zh",
+      "category": "chinese_ordinal_follow_up",
+      "question": "那第二个呢？",
+      "history": [
+        {
+          "question": "收入的两种基本来源是什么？",
+          "assistant_response": "第一种是出售劳动，第二种是出售资本。",
+          "status": "answered"
+        }
+      ],
+      "expected_action": "rewrite",
+      "expected_status": "answered",
+      "gold_chunk_ids": ["74028ca792a24e18b60e89cee1f877aa:chunk:00072"]
+    },
+    {
+      "id": "conv-05-deictic-en",
+      "category": "english_pronoun_deictic_follow_up",
+      "question": "What about that one?",
+      "history": [
+        {
+          "question": "Is there a permanent form of life insurance?",
+          "assistant_response": "Yes. That one is whole life insurance. I can explain the book's details about that one.",
+          "status": "answered"
+        }
+      ],
+      "expected_action": "rewrite",
+      "expected_status": "answered",
+      "gold_chunk_ids": ["74028ca792a24e18b60e89cee1f877aa:chunk:00465"]
+    },
+    {
+      "id": "conv-06-deictic-zh",
+      "category": "chinese_pronoun_deictic_follow_up",
+      "question": "那这个呢？",
+      "history": [
+        {
+          "question": "有没有永久性人寿保险？",
+          "assistant_response": "有。那种是终身寿险，我可以继续说明书中对这种保险的介绍。",
+          "status": "answered"
+        }
+      ],
+      "expected_action": "rewrite",
+      "expected_status": "answered",
+      "gold_chunk_ids": ["74028ca792a24e18b60e89cee1f877aa:chunk:00465"]
+    },
+    {
+      "id": "conv-07-correction-en",
+      "category": "english_correction",
+      "question": "No, I meant after the policy is cancelled.",
+      "history": [
+        {
+          "question": "What value does a whole life policy provide when the policyholder dies?",
+          "assistant_response": "At death it provides a death benefit; cancellation involves a different policy value.",
+          "status": "answered"
+        }
+      ],
+      "expected_action": "rewrite",
+      "expected_status": "answered",
+      "gold_chunk_ids": ["74028ca792a24e18b60e89cee1f877aa:chunk:00644"]
+    },
+    {
+      "id": "conv-08-correction-zh",
+      "category": "chinese_correction",
+      "question": "不是，我问的是取消之后。",
+      "history": [
+        {
+          "question": "终身寿险在被保险人去世时提供什么价值？",
+          "assistant_response": "去世时提供身故保险金；取消保单时涉及另一种保单价值。",
+          "status": "answered"
+        }
+      ],
+      "expected_action": "rewrite",
+      "expected_status": "answered",
+      "gold_chunk_ids": ["74028ca792a24e18b60e89cee1f877aa:chunk:00644"]
+    },
+    {
+      "id": "conv-09-clear-comparison-rewrite",
+      "category": "clear_follow_up_rewrite",
+      "question": "How does that differ from simple interest?",
+      "history": [
+        {
+          "question": "What is compound interest?",
+          "assistant_response": "Compound interest pays interest on both principal and accumulated interest.",
+          "status": "answered"
+        }
+      ],
+      "expected_action": "rewrite",
+      "expected_status": "answered",
+      "gold_chunk_ids": ["74028ca792a24e18b60e89cee1f877aa:chunk:00169"]
+    },
+    {
+      "id": "conv-10-genuinely-ambiguous",
+      "category": "genuinely_ambiguous_follow_up",
+      "question": "What about it?",
+      "history": [
+        {
+          "question": "What is compound interest?",
+          "assistant_response": "Compound interest pays interest on both principal and accumulated interest.",
+          "status": "answered"
+        }
+      ],
+      "expected_action": "clarify",
+      "expected_status": "ambiguous",
+      "gold_chunk_ids": []
+    },
+    {
+      "id": "conv-11-reference-without-history",
+      "category": "contextual_query_without_history",
+      "question": "What about the second one?",
+      "history": [],
+      "expected_action": "clarify",
+      "expected_status": "ambiguous",
+      "gold_chunk_ids": []
+    },
+    {
+      "id": "conv-12-standalone-after-prior-turns",
+      "category": "standalone_after_several_turns",
+      "question": "What does net worth mean?",
+      "history": [
+        {
+          "question": "What is liquidity?",
+          "assistant_response": "Liquidity is how easily money can be accessed and used.",
+          "status": "answered"
+        },
+        {
+          "question": "What is cash flow matching?",
+          "assistant_response": "It is a bond strategy matching maturities and face values to expected cash flows.",
+          "status": "answered"
+        }
+      ],
+      "expected_action": "standalone",
+      "expected_status": "answered",
+      "gold_chunk_ids": ["74028ca792a24e18b60e89cee1f877aa:chunk:00110"]
+    },
+    {
+      "id": "conv-13-mandarin-english-source",
+      "category": "mandarin_to_english_source",
+      "question": "现金流匹配是什么？",
+      "history": [],
+      "expected_action": "standalone",
+      "expected_status": "answered",
+      "gold_chunk_ids": ["74028ca792a24e18b60e89cee1f877aa:chunk:00643"]
+    },
+    {
+      "id": "conv-14-resolver-schema-failure",
+      "category": "mocked_resolver_schema_failure",
+      "question": "What about the second one?",
+      "history": [
+        {
+          "question": "How does term life insurance differ from whole life insurance?",
+          "assistant_response": "Term is temporary; whole life is permanent.",
+          "status": "answered"
+        }
+      ],
+      "expected_action": "clarify",
+      "expected_status": "ambiguous",
+      "gold_chunk_ids": [],
+      "mock_resolver_error": "resolver_schema_invalid"
+    },
+    {
+      "id": "conv-15-multiple-referents",
+      "category": "multiple_possible_referents",
+      "question": "What about that one?",
+      "history": [
+        {
+          "question": "What does liquidity mean?",
+          "assistant_response": "Liquidity describes how easily money can be accessed and used.",
+          "status": "answered"
+        },
+        {
+          "question": "How do term and whole life insurance differ?",
+          "assistant_response": "Term is temporary; whole life is permanent and builds cash value.",
+          "status": "answered"
+        }
+      ],
+      "expected_action": "clarify",
+      "expected_status": "ambiguous",
+      "gold_chunk_ids": []
+    }
+  ]
+}

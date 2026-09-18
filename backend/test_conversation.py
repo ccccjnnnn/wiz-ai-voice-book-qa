@@ -124,12 +124,19 @@ class ConversationGateAndContractTests(unittest.TestCase):
     def test_gate_is_small_and_contextual(self):
         history = [context("What are the two types?", "Simple and compound interest.")]
         self.assertFalse(needs_conversation_resolution("What is compound interest?", []))
+        self.assertFalse(needs_conversation_resolution(
+            "Which song was interrupted, and what interrupted it?", []
+        ))
+        self.assertFalse(needs_conversation_resolution(
+            "Did the book say that the order was carried out?", []
+        ))
         self.assertFalse(needs_conversation_resolution("What is compound interest?", history))
         self.assertFalse(needs_conversation_resolution("What about compound interest?", []))
         self.assertTrue(needs_conversation_resolution("What about compound interest?", history))
         self.assertTrue(needs_conversation_resolution("What about the second one?", history))
         self.assertTrue(needs_conversation_resolution("那第二个呢？", history))
         self.assertTrue(needs_conversation_resolution("No, I meant after cancellation.", history))
+        self.assertTrue(needs_conversation_resolution("不是，我问的是取消之后。", history))
 
     def test_request_history_is_optional_bounded_and_strict(self):
         request = QARequest(
@@ -363,18 +370,19 @@ class ConversationServiceTests(unittest.TestCase):
         self.assertEqual(trace.resolver_error_code, "resolver_timeout")
         self.assertEqual(trace.resolver_latency_ms, 12.0)
 
-    def test_contextual_query_without_history_clarifies_without_resolver(self):
+    def test_contextual_query_without_history_runs_as_standalone(self):
         resolver = FakeResolver(error=AssertionError("resolver must not be called"))
-        service, _, qwen, reranker, factory_calls = self.service(resolver)
+        service, retriever, qwen, reranker, factory_calls = self.service(resolver)
         execution = service.answer(self.request("What about the second one?"))
         trace = self.trace_store.get(execution.response.trace_id)
 
-        self.assertEqual(execution.response.status, "ambiguous")
+        self.assertEqual(execution.response.status, "answered")
         self.assertEqual(resolver.calls, [])
-        self.assertEqual(factory_calls, [])
-        self.assertEqual(reranker.calls, [])
-        self.assertEqual(qwen.calls, [])
-        self.assertEqual(trace.resolver_status, "skipped_no_history")
+        self.assertEqual(factory_calls, [("doc", "fixed-window-dense-v1")])
+        self.assertEqual(retriever.calls[0].query, "What about the second one?")
+        self.assertEqual(reranker.calls[0][0], "What about the second one?")
+        self.assertEqual(qwen.calls[0][0], "What about the second one?")
+        self.assertEqual(trace.resolver_status, "bypassed")
         self.assertFalse(trace.conversation_resolution_used)
 
 

@@ -1,4 +1,8 @@
 import { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
+import {
+  BookOpen, Check, ChevronDown, Clipboard, FileUp, Mic, Pause,
+  RotateCcw, Send, Square, ThumbsDown, ThumbsUp, Volume2,
+} from 'lucide-react';
 
 const INDEX_VERSION = 'fixed-window-dense-v1';
 const VOICE_ERRORS: Record<string, string> = {
@@ -120,6 +124,7 @@ export function ProductApp() {
   const [detectedLanguage, setDetectedLanguage] = useState<string | null>(null);
   const [qaState, setQAState] = useState<'idle' | 'searching'>('idle');
   const [turns, setTurns] = useState<ConversationTurn[]>([]);
+  const [bookControlsOpen, setBookControlsOpen] = useState(false);
 
   const recorder = useRef<MediaRecorder | null>(null);
   const stream = useRef<MediaStream | null>(null);
@@ -605,25 +610,32 @@ export function ProductApp() {
   const voiceStatus = { idle: '', requesting: 'Requesting microphone access', recording: 'Recording', transcribing: 'Transcribing' }[voiceState];
   const bookStatus = document?.stage === 'uploaded' ? 'Uploaded' : document?.stage === 'parsing' ? 'Parsing' : document?.stage === 'indexing' ? 'Building search index' : document?.stage === 'paused' ? 'Indexing paused because the embedding service is temporarily unavailable.' : document?.ready_for_qa ? 'Ready' : document?.stage === 'rebuild_required' ? 'Search index needs rebuilding' : document?.status === 'failed' ? 'Error' : '';
 
-  return <div className="app-shell">
+  return <div className="app-shell consumer-shell">
     <header className="topbar">
-      <a className="brand" href="/">WIZ.AI <span>Voice Book</span></a>
+      <a className="brand" href="/" aria-label="WIZ.AI Voice Book home"><span className="brand-mark">W</span><span className="brand-name">WIZ.AI</span><span className="brand-product">Voice Book</span></a>
     </header>
-    <main className="product-main conversation-main">
-      <section className="book-summary" aria-label="Current book">
-        <div><span className="step">Current book</span><h1>{document?.source_filename || 'Choose a PDF to ask'}</h1><p className="book-summary-status">{bookStatus}{document?.ready_for_qa && ` · ${document.page_count} pages`}</p></div>
-        <div className="book-summary-actions">
-          <label className="command">Upload PDF<input type="file" accept="application/pdf" onChange={uploadDocument} disabled={uploading} /></label>
-          {document && <span className="document-id">{document.document_id}</span>}
-          {document?.stage === 'paused' && <button type="button" className="command" onClick={resumeIndex}>Resume indexing</button>}
-          {document?.stage === 'rebuild_required' && <button type="button" className="command" onClick={rebuildIndex}>Rebuild index</button>}
+    <div className="workspace-shell">
+      <aside className="book-sidebar">
+        <div className={`document-drawer ${bookControlsOpen ? 'open' : ''}`}>
+          <button className="document-drawer-toggle" type="button" aria-expanded={bookControlsOpen} onClick={() => setBookControlsOpen((open) => !open)}><BookOpen size={18} aria-hidden="true" /><span>Book controls</span><ChevronDown size={16} aria-hidden="true" /></button>
+          <section className="book-summary" aria-label="Current book">
+            <div className="book-heading"><span className="book-icon"><BookOpen size={20} aria-hidden="true" /></span><div><span className="step">Current book</span><h1>{document?.source_filename || 'Choose a PDF to ask'}</h1></div></div>
+            <div className={`book-readiness ${document?.ready_for_qa ? 'ready' : ''}`}><span className="status-dot" />{bookStatus || 'No book selected'}{document?.ready_for_qa && ` · ${document.page_count} pages`}</div>
+            <div className="book-summary-actions">
+              <label className="command upload-command" title="Upload or replace PDF"><FileUp size={16} aria-hidden="true" /><span>Upload PDF</span><input type="file" accept="application/pdf" onChange={uploadDocument} disabled={uploading} /></label>
+              {document?.stage === 'paused' && <button type="button" className="command" onClick={resumeIndex}>Resume indexing</button>}
+              {document?.stage === 'rebuild_required' && <button type="button" className="command" onClick={rebuildIndex}>Rebuild index</button>}
+            </div>
+            {document && <span className="document-id" title={document.document_id}>{document.document_id}</span>}
+            {uploading && <p className="stage" role="status"><span className="pulse" /> Uploading</p>}
+            {document && (document.stage === 'indexing' || document.stage === 'paused') && <div className="index-progress"><progress aria-label="Search index progress" max={document.total_chunks || 1} value={document.indexed_chunks} /><span>{document.indexed_chunks} / {document.total_chunks} passages · {Math.round(document.progress_percent)}%</span></div>}
+            {bookError && <p className="notice error" role="alert">{bookError}</p>}
+          </section>
         </div>
-        {uploading && <p className="stage" role="status"><span className="pulse" /> Uploading</p>}
-        {document && (document.stage === 'indexing' || document.stage === 'paused') && <div className="index-progress"><progress aria-label="Search index progress" max={document.total_chunks || 1} value={document.indexed_chunks} /><span>{document.indexed_chunks} / {document.total_chunks} passages · {Math.round(document.progress_percent)}%</span></div>}
-        {bookError && <p className="notice error" role="alert">{bookError}</p>}
-      </section>
+      </aside>
 
-      <section className="conversation-timeline" aria-label="Conversation">
+      <main className="product-main conversation-main">
+        <section className="conversation-timeline" aria-label="Conversation">
         {!turns.length && <div className="empty-state"><p>Ask a question to begin a grounded conversation about this book.</p><div className="starter-list"><button type="button" onClick={() => editQuestion('Summarize this chapter.')}>Summarize this chapter.</button><button type="button" onClick={() => editQuestion('What caused this event?')}>What caused this event?</button><button type="button" onClick={() => editQuestion('What does the book say about this topic?')}>What does the book say about this topic?</button></div></div>}
         {turns.map((turn) => {
           const answer = responseText(turn.result);
@@ -644,12 +656,13 @@ export function ProductApp() {
                 {turn.result.reason && <p className="answer-reason">{turn.result.reason}</p>}
                 {answered && turn.result.citations.length > 0 && <div className="citation-links" aria-label="Answer citations">{turn.result.citations.map((citation, index) => <button type="button" key={citation.source_id} onClick={() => focusEvidence(turn, citation.source_id)} aria-label={`Open citation ${index + 1}, ${pagesLabel(citation.pages)}`}>[{index + 1}]</button>)}</div>}
                 <div className="turn-actions">
-                  {((answered && turn.result.citations.length > 0) || (!answered && passages.length > 0)) && <button type="button" className="command" onClick={() => togglePassages(turn.id)}>{passagesLabel}</button>}
-                  <button type="button" className="command" onClick={() => void copyAnswer(turn)} disabled={!answer}>{turn.copied ? 'Copied' : 'Copy'}</button>
-                  <button type="button" className="command" onClick={() => void playAudio(turn)} disabled={!answer || turn.ttsState === 'synthesizing' || !ttsConfigured}>{turn.ttsState === 'synthesizing' ? 'Preparing voice...' : turn.ttsState === 'ready' || turn.ttsState === 'playing' ? 'Play' : 'Listen'}</button>
-                  <button type="button" className="command" onClick={() => stopAudio(turn.id)} disabled={turn.ttsState !== 'playing'}>Stop</button>
-                  <button type="button" className="command" onClick={() => void replayAudio(turn)} disabled={turn.ttsState !== 'ready' && turn.ttsState !== 'playing'}>Replay</button>
-                  {turn.feedbackMode !== 'submitted' && <><button type="button" aria-label="Useful" onClick={() => void submitFeedback(turn, true)} disabled={turn.feedbackMode === 'submitting'}>Yes</button><button type="button" aria-label="Not useful" onClick={() => updateTurn(turn.id, (current) => ({ ...current, feedbackMode: 'negative' }))} disabled={turn.feedbackMode === 'submitting'}>No</button></>}
+                  {((answered && turn.result.citations.length > 0) || (!answered && passages.length > 0)) && <button type="button" className="source-toggle" onClick={() => togglePassages(turn.id)} aria-expanded={turn.passagesExpanded}>{passagesLabel}<ChevronDown size={15} aria-hidden="true" /></button>}
+                  <span className="action-divider" />
+                  <button type="button" className="icon-button" title={turn.copied ? 'Copied' : 'Copy answer'} aria-label={turn.copied ? 'Copied' : 'Copy'} onClick={() => void copyAnswer(turn)} disabled={!answer}>{turn.copied ? <Check size={17} /> : <Clipboard size={17} />}</button>
+                  <button type="button" className="icon-button" title={turn.ttsState === 'synthesizing' ? 'Preparing voice' : turn.ttsState === 'ready' || turn.ttsState === 'playing' ? 'Play' : 'Listen'} aria-label={turn.ttsState === 'synthesizing' ? 'Preparing voice...' : turn.ttsState === 'ready' || turn.ttsState === 'playing' ? 'Play' : 'Listen'} onClick={() => void playAudio(turn)} disabled={!answer || turn.ttsState === 'synthesizing' || !ttsConfigured}><Volume2 size={18} /></button>
+                  <button type="button" className="icon-button" title="Stop playback" aria-label="Stop" onClick={() => stopAudio(turn.id)} disabled={turn.ttsState !== 'playing'}><Pause size={18} /></button>
+                  <button type="button" className="icon-button" title="Replay from beginning" aria-label="Replay" onClick={() => void replayAudio(turn)} disabled={turn.ttsState !== 'ready' && turn.ttsState !== 'playing'}><RotateCcw size={17} /></button>
+                  {turn.feedbackMode !== 'submitted' && <><span className="action-divider" /><button type="button" className="icon-button" title="Useful" aria-label="Useful" onClick={() => void submitFeedback(turn, true)} disabled={turn.feedbackMode === 'submitting'}><ThumbsUp size={17} /></button><button type="button" className="icon-button" title="Not useful" aria-label="Not useful" onClick={() => updateTurn(turn.id, (current) => ({ ...current, feedbackMode: 'negative' }))} disabled={turn.feedbackMode === 'submitting'}><ThumbsDown size={17} /></button></>}
                 </div>
                 {turn.ttsError && <p className="notice warning" role="alert">{turn.ttsError} The answer and passages remain available.</p>}
                 {voiceReadiness && !ttsConfigured && <p className="notice warning" role="status">Voice playback is unavailable.</p>}
@@ -676,21 +689,22 @@ export function ProductApp() {
             </div>
           </article>;
         })}
-      </section>
+        </section>
 
-      <form className="composer" aria-label="Speak or type your question" onSubmit={ask}>
+        <form className="composer" aria-label="Speak or type your question" onSubmit={ask}>
         <div className="record-controls">
-          <button type="button" className={`record-button ${voiceState === 'recording' ? 'active' : ''}`} onClick={startRecording} disabled={voiceBusy || !document?.ready_for_qa || !asrConfigured} aria-label="Record question">{voiceState === 'recording' ? 'Recording' : 'Record question'}</button>
-          <button type="button" className="command" onClick={stopRecording} disabled={voiceState !== 'recording'}>Stop</button>
+          <button type="button" className={`record-button ${voiceState === 'recording' ? 'active' : ''}`} title="Record question" onClick={startRecording} disabled={voiceBusy || !document?.ready_for_qa || !asrConfigured} aria-label="Record question"><Mic size={17} aria-hidden="true" /><span>{voiceState === 'recording' ? 'Recording' : 'Record'}</span></button>
+          <button type="button" className="icon-button recording-stop" title="Stop recording" aria-label="Stop" onClick={stopRecording} disabled={voiceState !== 'recording'}><Square size={15} aria-hidden="true" /></button>
           <fieldset className="language-selector" aria-label="Speech language">{([['auto', 'Auto'], ['en', 'English'], ['zh', '中文']] as const).map(([value, label]) => <label key={value}><input type="radio" name="asr-language" value={value} checked={asrLanguage === value} onChange={() => setAsrLanguage(value)} />{label}</label>)}</fieldset>
           {voiceStatus && <span className="stage" role="status"><span className="pulse" /> {voiceStatus}</span>}
         </div>
-        <div className="input-label-row"><label htmlFor="question">Question</label>{transcriptEdited && <span className="edited-badge">Edited</span>}{detectedLanguage && <span className="detected-language">Detected: {detectedLanguage}</span>}</div>
-        <div className="composer-input"><textarea id="question" value={question} onChange={(event) => editQuestion(event.target.value)} disabled={voiceBusy} rows={3} placeholder={document?.ready_for_qa ? 'Ask this book...' : 'Choose a ready book first'} /><button className="command primary" type="submit" disabled={!canAsk}>{qaState === 'searching' ? 'Searching...' : 'Ask this book'}</button></div>
+        <div className="input-label-row"><label className="sr-only" htmlFor="question">Question</label>{transcriptEdited && <span className="edited-badge">Edited</span>}{detectedLanguage && <span className="detected-language">Detected: {detectedLanguage}</span>}</div>
+        <div className="composer-input"><textarea id="question" value={question} onChange={(event) => editQuestion(event.target.value)} disabled={voiceBusy} rows={2} placeholder={document?.ready_for_qa ? 'Ask this book...' : 'Choose a ready book first'} /><button className="send-button" title="Ask this book" aria-label="Ask this book" type="submit" disabled={!canAsk}>{qaState === 'searching' ? <span className="pulse" /> : <Send size={19} aria-hidden="true" />}</button></div>
         <div className="ask-actions"><button className="text-button" type="button" onClick={clearComposer} disabled={!question}>Clear</button><span className="input-source">Input: {inputSource === 'voice' ? 'voice' : 'text'}</span></div>
         {voiceError && <p className="notice error" role="alert">{voiceError}</p>}
         {voiceReadiness && !asrConfigured && <p className="notice warning" role="status">Speech recognition is unavailable.</p>}
-      </form>
-    </main>
+        </form>
+      </main>
+    </div>
   </div>;
 }

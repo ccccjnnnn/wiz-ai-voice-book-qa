@@ -55,18 +55,20 @@ _ENGLISH_REFERENCE_CUES = re.compile(
 _ENGLISH_CONTINUATION_CUES = re.compile(r"\b(?:what about|how about)\b", re.IGNORECASE)
 _CHINESE_CONTEXT_CUES = re.compile(
     r"(?:这个|那个|第一个|第二个|第三个|刚才|前面那个|"
-    r"不是[，,]?\s*我是说|我的意思是|(?:这|那)(?:项|种|部分|方面|一个|第二个|第三个|呢))"
+    r"不是[，,]?\s*(?:我是说|我问的是)|我的意思是|(?:这|那)(?:项|种|部分|方面|一个|第二个|第三个|呢))"
 )
 
 
 def needs_conversation_resolution(
     current_question: str, recent_turns: list[ConversationContextTurn]
 ) -> bool:
+    if not recent_turns:
+        return False
     question = current_question.strip()
     return bool(
         _ENGLISH_REFERENCE_CUES.search(question)
         or _CHINESE_CONTEXT_CUES.search(question)
-        or (recent_turns and _ENGLISH_CONTINUATION_CUES.search(question))
+        or _ENGLISH_CONTINUATION_CUES.search(question)
     )
 
 

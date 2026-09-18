@@ -27,6 +27,8 @@ async function mockProduct(page: Page) {
   await page.route('**/api/documents/book-1', (route) => route.fulfill({ json: readyBook }));
   await page.route('**/api/voice/readiness', (route) => route.fulfill({ json: { asr_configured: true, tts_configured: true } }));
   await page.goto('/');
+  const bookControls = page.getByRole('button', { name: 'Book controls' });
+  if (await bookControls.isVisible()) await bookControls.click();
   await expect(page.getByText('alice.pdf', { exact: true })).toBeVisible();
 }
 

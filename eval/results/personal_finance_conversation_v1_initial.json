@@ -1,0 +1,710 @@
+{
+  "generated_at": "2026-09-18T08:09:40.562703+00:00",
+  "dataset_id": "personal-finance-conversation-v1",
+  "document_id": "74028ca792a24e18b60e89cee1f877aa",
+  "architecture": {
+    "history_limit": 2,
+    "history_is_evidence": false,
+    "resolver_actions": [
+      "standalone",
+      "rewrite",
+      "clarify"
+    ],
+    "agent_or_retry_loop": false
+  },
+  "case_count": 15,
+  "summary": {
+    "action_classification_accuracy": 0.9333333333333333,
+    "action_correct_count": 14,
+    "status_correct_count": 13,
+    "rewrite_success_count": 6,
+    "rewrite_case_count": 7,
+    "clarification_correct_count": 4,
+    "clarification_case_count": 4,
+    "unnecessary_resolver_call_count": 0,
+    "standalone_bypass_count": 4,
+    "standalone_case_count": 4,
+    "retrieval_success_after_rewrite_count": 5,
+    "retrieval_success_after_rewrite_applicable": 7,
+    "resolver_latency_ms": {
+      "samples": 8,
+      "mean": 2788.182,
+      "p50": 2780.515,
+      "p95": 3611.485
+    }
+  },
+  "results": [
+    {
+      "case_id": "conv-01-standalone-en-with-history",
+      "category": "english_standalone_with_history",
+      "current_utterance": "What does liquidity mean in the book?",
+      "history": [
+        {
+          "question": "How does term life insurance differ from whole life insurance?",
+          "assistant_response": "Term life covers temporary risks, while whole life is permanent and builds cash value.",
+          "status": "answered"
+        }
+      ],
+      "expected_action": "standalone",
+      "actual_action": "standalone",
+      "resolved_query": null,
+      "resolver_status": "bypassed",
+      "resolver_error_code": null,
+      "resolver_called": false,
+      "resolver_latency_ms": 0.0,
+      "retrieval_called": true,
+      "gold_chunk_ids": [
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00153"
+      ],
+      "correct_evidence_retrieved": true,
+      "correct_evidence_packed": true,
+      "retrieved_chunk_ids": [
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00153",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00157",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00598",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00155",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00156",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00154",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00666",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00597",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00299",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00306"
+      ],
+      "packed_chunk_ids": [
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00157",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00666",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00153",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00155",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00597"
+      ],
+      "expected_status": "answered",
+      "final_answer_status": "answered",
+      "citation_count": 3,
+      "trace_id": "5140c93795664004b4c53ebe64c12de8",
+      "action_correct": true,
+      "status_correct": true
+    },
+    {
+      "case_id": "conv-02-standalone-zh-with-history",
+      "category": "chinese_standalone_with_history",
+      "current_utterance": "这本书如何定义投资风险？",
+      "history": [
+        {
+          "question": "书中如何解释流动性？",
+          "assistant_response": "流动性是资金能够多容易地被获取和使用。",
+          "status": "answered"
+        }
+      ],
+      "expected_action": "standalone",
+      "actual_action": "standalone",
+      "resolved_query": null,
+      "resolver_status": "bypassed",
+      "resolver_error_code": null,
+      "resolver_called": false,
+      "resolver_latency_ms": 0.0,
+      "retrieval_called": true,
+      "gold_chunk_ids": [
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00563"
+      ],
+      "correct_evidence_retrieved": true,
+      "correct_evidence_packed": true,
+      "retrieved_chunk_ids": [
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00600",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00563",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00565",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00566",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00562",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00564",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00582",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00430",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00662",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00601"
+      ],
+      "packed_chunk_ids": [
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00563",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00565",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00562",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00564",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00600"
+      ],
+      "expected_status": "answered",
+      "final_answer_status": "answered",
+      "citation_count": 1,
+      "trace_id": "12686115cad2492e9543317bad343bc7",
+      "action_correct": true,
+      "status_correct": true
+    },
+    {
+      "case_id": "conv-03-ordinal-en",
+      "category": "english_ordinal_follow_up",
+      "current_utterance": "What about the second one?",
+      "history": [
+        {
+          "question": "How does term life insurance differ from whole life insurance?",
+          "assistant_response": "First, term life covers temporary risks. Second, whole life is permanent and builds cash value.",
+          "status": "answered"
+        }
+      ],
+      "expected_action": "rewrite",
+      "actual_action": "rewrite",
+      "resolved_query": "How does whole life insurance differ from term life insurance?",
+      "resolver_status": "resolved",
+      "resolver_error_code": null,
+      "resolver_called": true,
+      "resolver_latency_ms": 3684.643,
+      "retrieval_called": true,
+      "gold_chunk_ids": [
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00465"
+      ],
+      "correct_evidence_retrieved": true,
+      "correct_evidence_packed": true,
+      "retrieved_chunk_ids": [
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00465",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00466",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00470",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00463",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00467",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00464",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00458",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00469",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00462",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00468"
+      ],
+      "packed_chunk_ids": [
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00465",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00466",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00470",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00463",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00467"
+      ],
+      "expected_status": "answered",
+      "final_answer_status": "answered",
+      "citation_count": 3,
+      "trace_id": "2279cc13eb224c41a1010a318e07e8a2",
+      "action_correct": true,
+      "status_correct": true
+    },
+    {
+      "case_id": "conv-04-ordinal-zh",
+      "category": "chinese_ordinal_follow_up",
+      "current_utterance": "那第二个呢？",
+      "history": [
+        {
+          "question": "收入的两种基本来源是什么？",
+          "assistant_response": "第一种是出售劳动，第二种是出售资本。",
+          "status": "answered"
+        }
+      ],
+      "expected_action": "rewrite",
+      "actual_action": "rewrite",
+      "resolved_query": "收入的第二种基本来源是什么？",
+      "resolver_status": "resolved",
+      "resolver_error_code": null,
+      "resolver_called": true,
+      "resolver_latency_ms": 3228.008,
+      "retrieval_called": true,
+      "gold_chunk_ids": [
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00072"
+      ],
+      "correct_evidence_retrieved": true,
+      "correct_evidence_packed": true,
+      "retrieved_chunk_ids": [
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00071",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00072",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00257",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00251",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00095",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00076",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00262",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00073",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00248",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00227"
+      ],
+      "packed_chunk_ids": [
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00071",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00073",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00257",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00072",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00248"
+      ],
+      "expected_status": "answered",
+      "final_answer_status": "answered",
+      "citation_count": 1,
+      "trace_id": "5528213c6e8149c48049fc8c062a170a",
+      "action_correct": true,
+      "status_correct": true
+    },
+    {
+      "case_id": "conv-05-deictic-en",
+      "category": "english_pronoun_deictic_follow_up",
+      "current_utterance": "What about that one?",
+      "history": [
+        {
+          "question": "Is there a permanent form of life insurance?",
+          "assistant_response": "Yes. That one is whole life insurance. I can explain the book's details about that one.",
+          "status": "answered"
+        }
+      ],
+      "expected_action": "rewrite",
+      "actual_action": "rewrite",
+      "resolved_query": "What are the book's details about whole life insurance?",
+      "resolver_status": "resolved",
+      "resolver_error_code": null,
+      "resolver_called": true,
+      "resolver_latency_ms": 1887.855,
+      "retrieval_called": true,
+      "gold_chunk_ids": [
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00465"
+      ],
+      "correct_evidence_retrieved": true,
+      "correct_evidence_packed": true,
+      "retrieved_chunk_ids": [
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00465",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00466",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00470",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00458",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00635",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00468",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00636",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00469",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00693",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00467"
+      ],
+      "packed_chunk_ids": [
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00465",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00466",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00470",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00467",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00469"
+      ],
+      "expected_status": "answered",
+      "final_answer_status": "answered",
+      "citation_count": 3,
+      "trace_id": "30f7b8c3b33447449cc0056d7b597fe5",
+      "action_correct": true,
+      "status_correct": true
+    },
+    {
+      "case_id": "conv-06-deictic-zh",
+      "category": "chinese_pronoun_deictic_follow_up",
+      "current_utterance": "那这个呢？",
+      "history": [
+        {
+          "question": "有没有永久性人寿保险？",
+          "assistant_response": "有。那种是终身寿险，我可以继续说明书中对这种保险的介绍。",
+          "status": "answered"
+        }
+      ],
+      "expected_action": "rewrite",
+      "actual_action": "rewrite",
+      "resolved_query": "有没有永久性人寿保险？",
+      "resolver_status": "resolved",
+      "resolver_error_code": null,
+      "resolver_called": true,
+      "resolver_latency_ms": 3475.619,
+      "retrieval_called": true,
+      "gold_chunk_ids": [
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00465"
+      ],
+      "correct_evidence_retrieved": true,
+      "correct_evidence_packed": true,
+      "retrieved_chunk_ids": [
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00465",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00469",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00463",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00466",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00467",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00470",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00468",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00464",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00462",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00673"
+      ],
+      "packed_chunk_ids": [
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00465",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00470",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00466",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00467",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00469"
+      ],
+      "expected_status": "answered",
+      "final_answer_status": "answered",
+      "citation_count": 1,
+      "trace_id": "1caef4226762442faeb0426619d394b3",
+      "action_correct": true,
+      "status_correct": true
+    },
+    {
+      "case_id": "conv-07-correction-en",
+      "category": "english_correction",
+      "current_utterance": "No, I meant after the policy is cancelled.",
+      "history": [
+        {
+          "question": "What does a whole life policy pay after the policyholder dies?",
+          "assistant_response": "It pays the policy's death benefit to the beneficiaries.",
+          "status": "answered"
+        }
+      ],
+      "expected_action": "rewrite",
+      "actual_action": "rewrite",
+      "resolved_query": "What does a whole life policy pay after the policy is cancelled?",
+      "resolver_status": "resolved",
+      "resolver_error_code": null,
+      "resolver_called": true,
+      "resolver_latency_ms": 1929.659,
+      "retrieval_called": true,
+      "gold_chunk_ids": [
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00644"
+      ],
+      "correct_evidence_retrieved": false,
+      "correct_evidence_packed": false,
+      "retrieved_chunk_ids": [
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00466",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00465",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00468",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00467",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00463",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00462",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00470",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00464",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00469",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00636"
+      ],
+      "packed_chunk_ids": [
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00465",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00466",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00467",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00463",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00468"
+      ],
+      "expected_status": "answered",
+      "final_answer_status": "insufficient_evidence",
+      "citation_count": 0,
+      "trace_id": "277ea53b6f5c43e4ad65d96986b1cf30",
+      "action_correct": true,
+      "status_correct": false
+    },
+    {
+      "case_id": "conv-08-correction-zh",
+      "category": "chinese_correction",
+      "current_utterance": "不是，我问的是取消之后。",
+      "history": [
+        {
+          "question": "终身寿险在被保险人去世后支付什么？",
+          "assistant_response": "它向受益人支付保单的身故保险金。",
+          "status": "answered"
+        }
+      ],
+      "expected_action": "rewrite",
+      "actual_action": "standalone",
+      "resolved_query": null,
+      "resolver_status": "bypassed",
+      "resolver_error_code": null,
+      "resolver_called": false,
+      "resolver_latency_ms": 0.0,
+      "retrieval_called": true,
+      "gold_chunk_ids": [
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00644"
+      ],
+      "correct_evidence_retrieved": false,
+      "correct_evidence_packed": false,
+      "retrieved_chunk_ids": [
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00349",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00334",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00346",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00466",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00079",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00564",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00059",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00362",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00468",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00058"
+      ],
+      "packed_chunk_ids": [
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00334",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00468",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00466",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00349",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00362"
+      ],
+      "expected_status": "answered",
+      "final_answer_status": "error",
+      "citation_count": 0,
+      "trace_id": "7d4407f154e048c4b890432d15d71a22",
+      "action_correct": false,
+      "status_correct": false
+    },
+    {
+      "case_id": "conv-09-clear-comparison-rewrite",
+      "category": "clear_follow_up_rewrite",
+      "current_utterance": "How does that differ from simple interest?",
+      "history": [
+        {
+          "question": "What is compound interest?",
+          "assistant_response": "Compound interest pays interest on both principal and accumulated interest.",
+          "status": "answered"
+        }
+      ],
+      "expected_action": "rewrite",
+      "actual_action": "rewrite",
+      "resolved_query": "How does compound interest differ from simple interest?",
+      "resolver_status": "resolved",
+      "resolver_error_code": null,
+      "resolver_called": true,
+      "resolver_latency_ms": 2538.644,
+      "retrieval_called": true,
+      "gold_chunk_ids": [
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00169"
+      ],
+      "correct_evidence_retrieved": true,
+      "correct_evidence_packed": true,
+      "retrieved_chunk_ids": [
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00166",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00168",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00169",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00167",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00162",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00165",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00163",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00586",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00309",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00151"
+      ],
+      "packed_chunk_ids": [
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00169",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00167",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00168",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00166",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00165"
+      ],
+      "expected_status": "answered",
+      "final_answer_status": "answered",
+      "citation_count": 2,
+      "trace_id": "7e0a2de8e9ba4558a741f2ea413c1054",
+      "action_correct": true,
+      "status_correct": true
+    },
+    {
+      "case_id": "conv-10-genuinely-ambiguous",
+      "category": "genuinely_ambiguous_follow_up",
+      "current_utterance": "What about it?",
+      "history": [
+        {
+          "question": "What is compound interest?",
+          "assistant_response": "Compound interest pays interest on both principal and accumulated interest.",
+          "status": "answered"
+        }
+      ],
+      "expected_action": "clarify",
+      "actual_action": "clarify",
+      "resolved_query": null,
+      "resolver_status": "resolved",
+      "resolver_error_code": null,
+      "resolver_called": true,
+      "resolver_latency_ms": 2775.853,
+      "retrieval_called": false,
+      "gold_chunk_ids": [],
+      "correct_evidence_retrieved": null,
+      "correct_evidence_packed": null,
+      "retrieved_chunk_ids": [],
+      "packed_chunk_ids": [],
+      "expected_status": "ambiguous",
+      "final_answer_status": "ambiguous",
+      "citation_count": 0,
+      "trace_id": "5267dcd44e1e4a94a88ac34c7ef3f22a",
+      "action_correct": true,
+      "status_correct": true
+    },
+    {
+      "case_id": "conv-11-reference-without-history",
+      "category": "contextual_query_without_history",
+      "current_utterance": "What about the second one?",
+      "history": [],
+      "expected_action": "clarify",
+      "actual_action": "clarify",
+      "resolved_query": null,
+      "resolver_status": "skipped_no_history",
+      "resolver_error_code": null,
+      "resolver_called": false,
+      "resolver_latency_ms": 0.0,
+      "retrieval_called": false,
+      "gold_chunk_ids": [],
+      "correct_evidence_retrieved": null,
+      "correct_evidence_packed": null,
+      "retrieved_chunk_ids": [],
+      "packed_chunk_ids": [],
+      "expected_status": "ambiguous",
+      "final_answer_status": "ambiguous",
+      "citation_count": 0,
+      "trace_id": "0f85e5d493504f379303fb27ae0697dd",
+      "action_correct": true,
+      "status_correct": true
+    },
+    {
+      "case_id": "conv-12-standalone-after-prior-turns",
+      "category": "standalone_after_several_turns",
+      "current_utterance": "What does net worth mean?",
+      "history": [
+        {
+          "question": "What is liquidity?",
+          "assistant_response": "Liquidity is how easily money can be accessed and used.",
+          "status": "answered"
+        },
+        {
+          "question": "What is cash flow matching?",
+          "assistant_response": "It is a bond strategy matching maturities and face values to expected cash flows.",
+          "status": "answered"
+        }
+      ],
+      "expected_action": "standalone",
+      "actual_action": "standalone",
+      "resolved_query": null,
+      "resolver_status": "bypassed",
+      "resolver_error_code": null,
+      "resolver_called": false,
+      "resolver_latency_ms": 0.0,
+      "retrieval_called": true,
+      "gold_chunk_ids": [
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00110"
+      ],
+      "correct_evidence_retrieved": true,
+      "correct_evidence_packed": true,
+      "retrieved_chunk_ids": [
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00110",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00111",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00671",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00125",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00670",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00114",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00116",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00118",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00083",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00131"
+      ],
+      "packed_chunk_ids": [
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00110",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00671",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00116",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00670",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00111"
+      ],
+      "expected_status": "answered",
+      "final_answer_status": "answered",
+      "citation_count": 2,
+      "trace_id": "f3679935d19c4853bbe37a1c3c25c6b4",
+      "action_correct": true,
+      "status_correct": true
+    },
+    {
+      "case_id": "conv-13-mandarin-english-source",
+      "category": "mandarin_to_english_source",
+      "current_utterance": "现金流匹配是什么？",
+      "history": [],
+      "expected_action": "standalone",
+      "actual_action": "standalone",
+      "resolved_query": null,
+      "resolver_status": "bypassed",
+      "resolver_error_code": null,
+      "resolver_called": false,
+      "resolver_latency_ms": 0.0,
+      "retrieval_called": true,
+      "gold_chunk_ids": [
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00643"
+      ],
+      "correct_evidence_retrieved": true,
+      "correct_evidence_packed": true,
+      "retrieved_chunk_ids": [
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00643",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00644",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00155",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00211",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00126",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00645",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00221",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00668",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00299",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00105"
+      ],
+      "packed_chunk_ids": [
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00643",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00105",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00211",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00155",
+        "74028ca792a24e18b60e89cee1f877aa:chunk:00221"
+      ],
+      "expected_status": "answered",
+      "final_answer_status": "answered",
+      "citation_count": 1,
+      "trace_id": "1c91bb729d044345b93b88d32369ffe5",
+      "action_correct": true,
+      "status_correct": true
+    },
+    {
+      "case_id": "conv-14-resolver-schema-failure",
+      "category": "mocked_resolver_schema_failure",
+      "current_utterance": "What about the second one?",
+      "history": [
+        {
+          "question": "How does term life insurance differ from whole life insurance?",
+          "assistant_response": "Term is temporary; whole life is permanent.",
+          "status": "answered"
+        }
+      ],
+      "expected_action": "clarify",
+      "actual_action": "clarify",
+      "resolved_query": null,
+      "resolver_status": "failed",
+      "resolver_error_code": "resolver_schema_invalid",
+      "resolver_called": true,
+      "resolver_latency_ms": 1.0,
+      "retrieval_called": false,
+      "gold_chunk_ids": [],
+      "correct_evidence_retrieved": null,
+      "correct_evidence_packed": null,
+      "retrieved_chunk_ids": [],
+      "packed_chunk_ids": [],
+      "expected_status": "ambiguous",
+      "final_answer_status": "ambiguous",
+      "citation_count": 0,
+      "trace_id": "89e81ceafed847f6b8eb0595d6108307",
+      "action_correct": true,
+      "status_correct": true
+    },
+    {
+      "case_id": "conv-15-multiple-referents",
+      "category": "multiple_possible_referents",
+      "current_utterance": "What about that one?",
+      "history": [
+        {
+          "question": "What does liquidity mean?",
+          "assistant_response": "Liquidity describes how easily money can be accessed and used.",
+          "status": "answered"
+        },
+        {
+          "question": "How do term and whole life insurance differ?",
+          "assistant_response": "Term is temporary; whole life is permanent and builds cash value.",
+          "status": "answered"
+        }
+      ],
+      "expected_action": "clarify",
+      "actual_action": "clarify",
+      "resolved_query": null,
+      "resolver_status": "resolved",
+      "resolver_error_code": null,
+      "resolver_called": true,
+      "resolver_latency_ms": 2785.176,
+      "retrieval_called": false,
+      "gold_chunk_ids": [],
+      "correct_evidence_retrieved": null,
+      "correct_evidence_packed": null,
+      "retrieved_chunk_ids": [],
+      "packed_chunk_ids": [],
+      "expected_status": "ambiguous",
+      "final_answer_status": "ambiguous",
+      "citation_count": 0,
+      "trace_id": "60bdb5cfde7947958d89d913393ab722",
+      "action_correct": true,
+      "status_correct": true
+    }
+  ]
+}
