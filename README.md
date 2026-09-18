@@ -98,8 +98,27 @@ Prerequisites:
 From a fresh clone:
 
 ```sh
+git clone https://github.com/ccccjnnnn/wiz-ai-voice-book-qa.git
+cd wiz-ai-voice-book-qa
+```
+
+Install the backend dependencies with `uv`:
+
+```sh
 uv venv backend/.venv
 uv pip install --python backend/.venv/bin/python -r backend/requirements.txt
+```
+
+Or use `pip`:
+
+```sh
+python3 -m venv backend/.venv
+backend/.venv/bin/python -m pip install -r backend/requirements.txt
+```
+
+Then install the frontend dependencies and create the local environment file:
+
+```sh
 npm ci --prefix frontend
 cp backend/.env.example backend/.env
 ```
@@ -108,13 +127,15 @@ Fill the local environment file with values for the variable names in the templa
 
 ```dotenv
 DASHSCOPE_API_KEY=
-DASHSCOPE_BASE_URL=
-QWEN_MODEL=
+DASHSCOPE_BASE_URL=https://dashscope-intl.aliyuncs.com/compatible-mode/v1
+QWEN_MODEL=qwen3.7-plus-2026-05-26
 DEEPGRAM_API_KEY=
 VOYAGE_API_KEY=
 ```
 
 The answer model is `qwen3.7-plus-2026-05-26`; TTS uses `qwen3-tts-flash`. Keep secrets only in the gitignored `backend/.env`.
+
+Live ASR, embedding, reranking, LLM, and TTS calls require your own provider credentials. API keys are intentionally not included in this repository.
 
 Start the backend and frontend in separate terminals:
 
