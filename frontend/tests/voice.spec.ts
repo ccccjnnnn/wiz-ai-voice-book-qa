@@ -143,6 +143,63 @@ test('three sequential turns retain their questions, answers, and own sources', 
   }
 });
 
+test('QA requests include only the two most recent completed minimal context turns', async ({ page }) => {
+  const payloads: Record<string, unknown>[] = [];
+  const responses = [
+    { ...answer, answer: 'Answer one.' },
+    { ...answer, status: 'ambiguous', answer: '', clarification: 'Which item do you mean?', citations: [] },
+    { ...answer, answer: 'Answer three.' },
+    { ...answer, answer: 'Answer four.' },
+  ];
+  await page.route('**/api/qa/traces/**', (route) => route.fulfill({ json: trace }));
+  await page.route('**/api/qa', (route) => {
+    payloads.push(route.request().postDataJSON());
+    return route.fulfill({ json: responses[payloads.length - 1] });
+  });
+  await mockProduct(page);
+
+  for (const question of ['Question one', 'Question two', 'Question three', 'Question four']) {
+    await askTyped(page, question);
+    await expect(turnFor(page, question).locator('.answer-text')).toBeVisible();
+  }
+
+  expect(payloads[0].conversation_history).toEqual([]);
+  expect(payloads[3].conversation_history).toEqual([
+    { question: 'Question two', assistant_response: 'Which item do you mean?', status: 'ambiguous' },
+    { question: 'Question three', assistant_response: 'Answer three.', status: 'answered' },
+  ]);
+  const serialized = JSON.stringify(payloads[3].conversation_history);
+  expect(serialized).not.toContain('Question four');
+  expect(serialized).not.toMatch(/citation|evidence|audio|feedback|trace/i);
+});
+
+test('pre-retrieval clarification has no passages and voice clarification still autoplays', async ({ page }) => {
+  await installSilentMicrophone(page);
+  let ttsCalls = 0;
+  const clarification = '你指的是前面回答中的哪一项？';
+  await page.route('**/api/voice/transcribe**', (route) => route.fulfill({ json: {
+    status: 'transcribed', transcript: '那第二个呢', detected_language: 'zh',
+  } }));
+  await page.route('**/api/qa/traces/**', (route) => route.fulfill({ json: { packed_evidence: [] } }));
+  await page.route('**/api/qa', (route) => route.fulfill({ json: {
+    ...answer, status: 'ambiguous', answer: '', clarification, citations: [],
+  } }));
+  await page.route('**/api/voice/synthesize', (route) => {
+    ttsCalls += 1;
+    return route.fulfill({ status: 200, contentType: 'audio/wav', body: wav });
+  });
+  await mockProduct(page);
+  await page.getByRole('button', { name: 'Record question' }).click();
+  await page.waitForTimeout(300);
+  await page.getByRole('form', { name: 'Speak or type your question' }).getByRole('button', { name: 'Stop', exact: true }).click();
+  await page.getByRole('button', { name: 'Ask this book' }).click();
+
+  const turn = turnFor(page, '那第二个呢');
+  await expect(turn.getByText(clarification)).toBeVisible();
+  await expect(turn.getByText(/Closest passages/)).toHaveCount(0);
+  await expect.poll(() => ttsCalls).toBe(1);
+});
+
 test('a failed new turn leaves an earlier answer visible', async ({ page }) => {
   let calls = 0;
   await page.route('**/api/qa/traces/**', (route) => route.fulfill({ json: trace }));

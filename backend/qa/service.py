@@ -15,6 +15,12 @@ from retrieval.voyage import (
     VoyageRerankClient,
 )
 
+from .conversation import (
+    ConversationResolverError,
+    QwenConversationResolver,
+    needs_conversation_resolution,
+    safe_clarification,
+)
 from .evidence import DEFAULT_EVIDENCE_TOKEN_BUDGET, pack_evidence
 from .index import FROZEN_INDEX_VERSION, load_frozen_retriever
 from .models import (
@@ -53,6 +59,7 @@ class QAService:
         evidence_token_budget: int = DEFAULT_EVIDENCE_TOKEN_BUDGET,
         sensitive_values: tuple[str, ...] = (),
         reranker: VoyageRerankClient | None = None,
+        conversation_resolver: QwenConversationResolver | None = None,
     ):
         self._retriever_factory = retriever_factory
         self._qwen = qwen
@@ -62,13 +69,18 @@ class QAService:
         self.evidence_token_budget = evidence_token_budget
         self._sensitive_values = tuple(value for value in sensitive_values if value)
         self._reranker = reranker
+        self._conversation_resolver = conversation_resolver
 
     def close(self) -> None:
         try:
             self._qwen.close()
         finally:
-            if self._cleanup:
-                self._cleanup()
+            try:
+                if self._conversation_resolver:
+                    self._conversation_resolver.close()
+            finally:
+                if self._cleanup:
+                    self._cleanup()
 
     def _safe_trace_text(self, value: str) -> str:
         for secret in self._sensitive_values:
@@ -177,14 +189,38 @@ class QAService:
         )
         return QAError(domain=domain, code=code, message=message), status
 
+    def _clarification_execution(
+        self, trace: TurnTrace, clarification: str
+    ) -> QAExecution:
+        trace.conversation_action = "clarify"
+        trace.retrieval_skipped = True
+        trace.answer_status = "ambiguous"
+        trace.clarification = self._safe_trace_text(clarification)
+        return QAExecution(
+            response=QAResponse(
+                status="ambiguous",
+                answer="",
+                clarification=clarification,
+                reason=None,
+                citations=[],
+                trace_id=trace.trace_id,
+                error=None,
+            ),
+            http_status=200,
+        )
+
     def answer(self, request: QARequest) -> QAExecution:
         total_started = time.perf_counter()
+        original_query = request.question.strip()
+        history = list(request.conversation_history)
         trace = TurnTrace(
             trace_id=uuid.uuid4().hex,
             timestamp=datetime.now(timezone.utc),
             document_id=request.document_id,
             index_version=request.index_version,
-            query=self._safe_trace_text(request.question.strip()),
+            query=self._safe_trace_text(original_query),
+            original_query=self._safe_trace_text(original_query),
+            history_turn_count=len(history),
             input_source=request.input_source,
             asr_transcript=(
                 self._safe_trace_text(request.original_transcript.strip())
@@ -202,18 +238,60 @@ class QAService:
         )
         http_status = 200
         try:
+            retrieval_query = original_query
+            if needs_conversation_resolution(original_query, history):
+                if not history:
+                    trace.resolver_status = "skipped_no_history"
+                    return self._clarification_execution(
+                        trace, safe_clarification(original_query)
+                    )
+                if self._conversation_resolver is None:
+                    trace.resolver_status = "unavailable"
+                    trace.resolver_error_code = "resolver_not_configured"
+                    return self._clarification_execution(
+                        trace, safe_clarification(original_query)
+                    )
+                trace.conversation_resolution_used = True
+                try:
+                    resolution, resolver_ms = self._conversation_resolver.resolve(
+                        original_query, history
+                    )
+                except ConversationResolverError as exception:
+                    trace.resolver_latency_ms = exception.latency_ms
+                    trace.resolver_status = "failed"
+                    trace.resolver_error_code = exception.code
+                    return self._clarification_execution(
+                        trace, safe_clarification(original_query)
+                    )
+                except Exception:
+                    trace.resolver_status = "failed"
+                    trace.resolver_error_code = "resolver_unexpected_error"
+                    return self._clarification_execution(
+                        trace, safe_clarification(original_query)
+                    )
+                trace.resolver_latency_ms = resolver_ms
+                trace.resolver_status = "resolved"
+                trace.conversation_action = resolution.action
+                if resolution.action == "clarify":
+                    return self._clarification_execution(
+                        trace, resolution.clarification.strip()
+                    )
+                if resolution.action == "rewrite":
+                    retrieval_query = resolution.resolved_query.strip()
+                    trace.resolved_query = self._safe_trace_text(retrieval_query)
+
             retriever = self._retriever_factory(request.document_id, request.index_version)
             retrieval = retriever.retrieve(
                 RetrievalRequest(
                     document_id=request.document_id,
                     index_version=request.index_version,
-                    query=request.question.strip(),
+                    query=retrieval_query,
                     top_k=self.candidate_depth,
                 )
             )
             trace.latencies.query_embedding_ms = retrieval.query_embedding_latency_ms
             trace.latencies.local_retrieval_ms = retrieval.local_retrieval_latency_ms
-            retrieval = self._rerank(request.question.strip(), retrieval, trace)
+            retrieval = self._rerank(retrieval_query, retrieval, trace)
             pack, packing_ms = pack_evidence(retrieval, self.evidence_token_budget)
             trace.latencies.evidence_packing_ms = packing_ms
             trace.candidate_count = pack.candidate_count
@@ -230,7 +308,7 @@ class QAService:
                 )
                 for source in pack.sources
             ]
-            model_answer, usage, qwen_ms = self._qwen.generate(request.question.strip(), pack)
+            model_answer, usage, qwen_ms = self._qwen.generate(retrieval_query, pack)
             trace.latencies.qwen_generation_ms = qwen_ms
             trace.qwen_schema_repair_attempted = getattr(self._qwen, "last_schema_repair_attempted", False)
             trace.qwen_usage = usage
@@ -309,7 +387,14 @@ def build_default_qa_service(data_dir: Path, store: IngestionStore) -> QAService
             settings.dashscope_base_url,
             settings.qwen_model,
         )
+        conversation_resolver = QwenConversationResolver(
+            settings.dashscope_api_key,
+            settings.dashscope_base_url,
+            settings.qwen_model,
+        )
     except Exception:
+        if "qwen" in locals():
+            qwen.close()
         voyage.close()
         reranker.close()
         raise
@@ -327,4 +412,5 @@ def build_default_qa_service(data_dir: Path, store: IngestionStore) -> QAService
         cleanup=cleanup,
         sensitive_values=(settings.dashscope_api_key, settings.voyage_api_key),
         reranker=reranker,
+        conversation_resolver=conversation_resolver,
     )

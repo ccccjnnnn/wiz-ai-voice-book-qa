@@ -513,6 +513,14 @@ export function ProductApp() {
     const submittedTranscript = originalTranscript;
     const submittedSource = inputSource;
     const submittedEdited = transcriptEdited;
+    const conversationHistory = turns.flatMap((turn) => {
+      const assistantResponse = responseText(turn.result);
+      return turn.result && assistantResponse ? [{
+        question: turn.question,
+        assistant_response: assistantResponse,
+        status: turn.result.status,
+      }] : [];
+    }).slice(-2);
     const requestId = ++composerRequest.current;
     const pending = emptyTurn(id, submittedQuestion, submittedTranscript, submittedSource, submittedEdited);
     liveTurnIds.current.add(id);
@@ -530,6 +538,7 @@ export function ProductApp() {
           input_source: submittedSource,
           original_transcript: submittedTranscript,
           transcript_edited: submittedEdited,
+          conversation_history: conversationHistory,
         }),
       });
       const body = await response.json().catch(() => ({}));

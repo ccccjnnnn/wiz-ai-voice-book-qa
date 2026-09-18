@@ -96,6 +96,21 @@ class QAError(BaseModel):
     provider_code: str | None = None
 
 
+class ConversationContextTurn(BaseModel):
+    model_config = ConfigDict(strict=True, extra="forbid")
+
+    question: str = Field(min_length=1, max_length=2000)
+    assistant_response: str = Field(min_length=1, max_length=2000)
+    status: SemanticStatus
+
+    @field_validator("question", "assistant_response")
+    @classmethod
+    def reject_blank_text(cls, value: str) -> str:
+        if not value.strip():
+            raise ValueError("value_must_not_be_blank")
+        return value
+
+
 class QARequest(BaseModel):
     model_config = ConfigDict(strict=True, extra="forbid")
 
@@ -105,6 +120,9 @@ class QARequest(BaseModel):
     input_source: InputSource = "text"
     original_transcript: str | None = Field(default=None, max_length=2000)
     transcript_edited: bool = False
+    conversation_history: list[ConversationContextTurn] = Field(
+        default_factory=list, max_length=2
+    )
 
     @field_validator("document_id", "index_version", "question")
     @classmethod
@@ -171,6 +189,15 @@ class TurnTrace(BaseModel):
     document_id: str
     index_version: str
     query: str
+    original_query: str | None = None
+    conversation_resolution_used: bool = False
+    conversation_action: Literal["standalone", "rewrite", "clarify"] = "standalone"
+    resolved_query: str | None = None
+    history_turn_count: int = Field(default=0, ge=0, le=2)
+    resolver_latency_ms: float = Field(default=0, ge=0)
+    resolver_status: str = "bypassed"
+    resolver_error_code: str | None = None
+    retrieval_skipped: bool = False
     input_source: InputSource | None = None
     asr_transcript: str | None = None
     edited_transcript: str | None = None
