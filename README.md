@@ -164,9 +164,9 @@ Acceptance testing matters here. An Alice acceptance pass exposed a false-positi
 
 ## AI-Assisted Engineering Workflow
 
-I, the candidate, set scope, selected providers, curated evidence labels, reviewed diffs, interpreted metrics, supplied local credentials, and accepted tradeoffs. ChatGPT was used for architecture reasoning, experiment design, and review. Codex was used for focused implementation, tests, browser checks, repository cleanup, and documentation.
+This was a candidate-led, AI-assisted project. I originated the product direction and many of the interaction ideas, defined scope and non-goals, and made the final architecture, provider, and product tradeoff decisions. I designed or approved experiments and acceptance criteria, interpreted retrieval and product results, reviewed changes, personally tested the live application, and decided when behavior was ready to freeze. ChatGPT helped me refine ideas, compare alternatives, expose weak assumptions, and review proposed experiments. Codex implemented scoped changes after I defined the intended behavior, added focused tests, and ran build, browser, regression, repository, and documentation checks.
 
-The operating rule was simple: AI suggestions became product behavior only after code inspection, a focused test, a measured experiment, or a human acceptance check. Concrete examples include rejecting structure-aware/BM25 complexity after broader retrieval regressions, keeping the system as bounded orchestration instead of adding an agent framework, fixing a conversation-gate cue after acceptance exposed it, and preserving insufficient evidence as a separate state from provider failure.
+The working loop was concrete: I identified a problem or idea, reasoned through it with ChatGPT, chose the scope and intended behavior, and directed Codex to implement the smallest change. Automated checks verified the implementation; I then used the product and either requested a targeted correction or accepted the result. That process led to bounded conversational follow-up while keeping the PDF as the source of truth, rejection of unsupported retrieval and agent complexity, reranking only after measured improvement, and a focused chapter-context fix after manual use exposed the gap.
 
 See [AI workflow](docs/AI_WORKFLOW.md) for the review loop and testing boundaries.
 
