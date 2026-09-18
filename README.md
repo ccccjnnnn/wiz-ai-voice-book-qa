@@ -9,9 +9,9 @@ The project favors a small, explainable system with explicit failures and measur
 Completed milestones:
 
 - **Qwen structured output: PASS.** The live provider probe validates grounded answers, insufficient evidence, ambiguity, multi-source answers, strict JSON Schema output, source-ID validation, timeouts, API errors, model identity, latency, and token usage.
-- **Deepgram voice path: PASS.** Browser recording, editable transcription, Nova-3 ASR, Aura-2 TTS, browser playback, MIME detection, latency reporting, empty input, permission failure, and provider failure paths have been exercised.
+- **Voice path: PASS.** Browser recording, editable transcription, Deepgram Nova-3 ASR, synchronous Qwen3-TTS-Flash playback, MIME detection, latency reporting, empty input, permission failure, and provider failure paths have been exercised.
 - **PDF ingestion vertical slice: PASS.** Streamed local upload, durable status, ordered PyMuPDF extraction, scanned/empty detection, retrieval-oriented normalization, validated baseline chunks, and page-level provenance are implemented and tested.
-- **Retrieval experiments: PASS.** A frozen 20 DEV / 10 TEST protocol compared fixed-window dense, structure-aware dense, and evidence-triggered BM25/RRF. The simpler fixed-window `voyage-4` exact-cosine retriever won on DEV and achieved 100% Recall@5 and full evidence coverage@5 on the one-time TEST run. Reranking remains disabled because DEV evidence did not justify its runtime cost.
+- **Retrieval experiments: PASS.** A frozen 20 DEV / 10 TEST protocol compared fixed-window dense, structure-aware dense, and evidence-triggered BM25/RRF. The simpler fixed-window `voyage-4` exact-cosine retriever remains the dense base, with production `rerank-2.5` reranking the dense top 10 before bounded top-5 evidence packing.
 - **Grounded text QA: PASS.** Top-10 fixed dense retrieval now feeds deterministic ≤3,000-token evidence packing, strict Qwen generation, backend-owned citation pages, per-turn traces, and explicit answered/insufficient/ambiguous/error states. Final DEV was 20/20, the six-case reliability set was 6/6, and the frozen TEST run was 10/10 for status and citation-contract validity; one TEST answer was partially complete on human-review criteria.
 - **Evaluation V2: provisionally frozen at 98 cases.** The context-bearing benchmark covers a new Alice TEST and a zero-tuning *Secret Garden* holdout; provider execution remains zero for TEST/holdout. Start with [`eval/README.md`](eval/README.md).
 - **Feedback foundation: implemented offline.** `POST /api/feedback` stores lightweight TurnTrace-linked feedback locally; deterministic CLI triage can export regression candidates without modifying a frozen suite.
@@ -36,7 +36,7 @@ Browser microphone
   -> editable transcript
   -> retrieval and bounded evidence packing
   -> Qwen strict structured answer with validated source IDs
-  -> Deepgram Aura-2 TTS
+  -> Qwen3-TTS-Flash synchronous TTS
   -> browser playback
 ```
 
@@ -52,7 +52,7 @@ The ingestion contract and limitations are documented in [PDF ingestion](docs/IN
 - Node.js 20 or newer
 - A modern browser with `MediaRecorder`
 - Alibaba Cloud Model Studio/Bailian access in the Singapore region
-- A Deepgram account with Nova-3 and Aura-2 access
+- A Deepgram account with Nova-3 access
 
 ## Configuration
 
@@ -72,7 +72,7 @@ DEEPGRAM_API_KEY=
 VOYAGE_API_KEY=
 ```
 
-The validated Qwen model is `qwen3.7-plus-2026-05-26`. Use the Bailian Singapore OpenAI-compatible base URL assigned to the account. Secrets remain in `backend/.env`, which is gitignored. Provider keys are never sent to the browser.
+The validated answer model is `qwen3.7-plus-2026-05-26`; voice playback uses `qwen3-tts-flash` with the Singapore native synchronous TTS endpoint. Use the Bailian Singapore OpenAI-compatible base URL assigned to the account for answer generation. Secrets remain in `backend/.env`, which is gitignored. Provider keys are never sent to the browser.
 
 ## Setup
 
@@ -180,7 +180,7 @@ The evaluator validates every labeled page and evidence phrase before calling Vo
 - **Local exact-cosine storage:** sufficient and reproducible for one book. A vector service would add operational cost without solving a measured problem.
 - **Evaluation-gated retrieval:** fixed-window dense beat structure-aware dense and BM25/RRF on the frozen DEV set, so the simpler exact-cosine path is final. The held-out TEST set was run only after that decision was recorded.
 - **Qwen through Bailian Singapore:** the existing account path is available, the chosen model passed strict structured-output validation, and its OpenAI-compatible API keeps integration small.
-- **Deepgram Nova-3 and Aura-2:** one provider covers ASR and TTS, both models passed the real voice validation path.
+- **Deepgram Nova-3 plus Qwen3-TTS-Flash:** ASR and TTS are independently configured; both real provider paths passed validation.
 - **Deterministic citation validation:** the backend rejects source IDs outside the evidence supplied to the model.
 - **Explicit answer states:** `answered`, `insufficient_evidence`, `clarification_needed`, and transport-level `system_error` prevent upstream failures from becoming hallucinated answers.
 - **No arbitrary small PDF limit:** upload and ingestion will be streamed and batched; tested practical limits will be reported rather than claiming infinite capacity.
